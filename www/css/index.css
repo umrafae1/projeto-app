@@ -172,3 +172,18 @@ input[type='text']{
 .icon{
     font-size: 60px;
 }
+
+#testeChat{
+    background-color: #c510ad;
+    color: white;
+    width: 100%;
+    height: 66px;
+    display: flex;
+    align-content: center;
+}
+#testeChat img{
+    height: 50px;
+    border-radius: 50px;
+    padding: 10px;
+
+}

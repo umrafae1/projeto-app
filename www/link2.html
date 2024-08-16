@@ -33,6 +33,12 @@
                 <div class="top-nav">
                     <h1 class="tittle-logo">Chat</h1>
                   </div>
+                  <div class="chatInt">
+                    <button id="testeChat">
+                        <img src="img/user.jpg" alt="">
+                        <h1>testeChat</h1>
+                    </button>
+                </div>
 
                 <!-- Scrollable page content -->
                 <div class="page-content">
@@ -47,7 +53,11 @@
 	<script type="text/javascript" src="lib/jquery-3.7.0.min.js"></script>	
     <!-- Roteamento do app-->
     <script type="text/javascript" src="js/routes.js"></script>
-    <script src="cordova.js"></script>
+    <script>
+        document.querySelector("#testeChat").addEventListener('click', function() {
+            window.location.href = 'chat.html';
+        });
+    </script>
 </body>
 
 </html>
