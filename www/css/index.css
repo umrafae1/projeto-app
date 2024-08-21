@@ -2,7 +2,7 @@
     --branco: #FFFF;
     --gelo: #f1f1f1;
     --cinza: #acabab;
-    --verde: #c510ad;
+    --roxo: #c510ad;
     --preto: #2a2a2a;
 
 }
@@ -34,7 +34,7 @@ body{
     height: 80px;  
     line-height: 25px; 
 	font-weight:bold;
-    color: var(--verde);    
+    color: var(--roxo);    
 }
 
 .toolbar-inner .link:not(.active){
@@ -61,7 +61,7 @@ body{
 }
 
 .tittle-logo span {
-    color: var(--verde);
+    color: var(--roxo);
 }
 
 form{
@@ -120,23 +120,23 @@ input[type='text']{
 .foto-1{
     background:#e72ecf;
     max-width: 100%;
-    height: 200px;
+    height: 170px;
     border-radius: 10px;
     
 }
 .foto-2{
     background:#31012b;
-    height: 200px;
+    height: 170px;
     border-radius: 10px;
 }
 .foto-3{
     background:#e72ecf;
-    height: 200px;
+    height: 170px;
     border-radius: 10px;
 }
 .foto-4{
     background:#fa70e7;
-    height: 200px;
+    height: 170px;
     border-radius: 10px;
 }
 
@@ -145,6 +145,24 @@ input[type='text']{
     margin-right: 2%;
 }
 
+.botoes{
+    width: 100%;
+    height: 130px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+
+}
+
+.botoes2{
+    width: 100%;
+    height: 150px;
+    display: flex;
+    justify-content: center;
+
+
+}
 
 .botoes button{
     width: 100px;
@@ -154,11 +172,12 @@ input[type='text']{
     background: var(--cinza);
     color: white;
     font-size: 10px;
-    margin: 10px;
+    margin: 30px;
     border-radius: 13px;
     transition: 0.3s;
-    margin-left: 12%;
-    margin-top: 5%;
+    
+    
+    
 
 }
 
@@ -169,6 +188,170 @@ input[type='text']{
 
 }
 
+.botoes2 button{
+    width: 100px;
+    height: 100px;
+    border: none;
+    outline: none;
+    background: var(--cinza);
+    color: white;
+    font-size: 10px;
+    margin: 30px;
+    border-radius: 13px;
+    transition: 0.3s;
+    
+    
+
+}
+
+.botoes2 button:hover{
+    background: var(--preto);
+    color: var(--cinza);
+    
+
+}
+
 .icon{
     font-size: 60px;
+}
+
+.body-chat{
+    max-width: 100%;
+    height: 100%;
+}
+
+.user1{
+    width: 100%;
+    height: 80px;
+    background: var(--gelo);
+    display: flex;
+    align-items: center;
+    border: 50px;
+    
+}
+
+.body-chat button:hover{
+    background: var(--roxo);
+}
+
+.icone-user{
+    width: 50px;
+    height: 50px;
+    border: none;
+    outline: none;
+    background: var(--gelo);
+    color: var(--roxo);
+    font-size: 10px;
+    margin: 10px;
+    border-radius: 130px;
+    transition: 0.3s;
+    margin-left: 3%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid var(--cinza);
+}
+
+.user-icon{
+    font-size: 30px;
+
+}
+
+.nome{
+    margin-left: 2%;
+    color: var(--preto);
+}
+
+.foto{
+    width: 100%;
+    height: 200px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+
+}
+.foto_perfil{
+    width: 170px;
+    height: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+}
+
+.imagem_perfil{
+    width: 100px;
+    height: 100px;
+    background: var(--cinza);
+    border-radius: 50px;
+
+}
+.dados{
+    width: 220px;
+    height: 150px;
+    background: #acabab;
+    display: flex;
+    flex-direction: column;
+    border-radius: 10px;
+    margin-right: 13px;
+}
+
+.dados h2{
+    margin-left: 10px;
+    font-size: 16px;
+}
+.dados h7{
+    margin-left: 10px;
+}
+
+.informacao{
+    width: 100%;
+    height: 290px;
+    display: flex;
+    flex-direction: column;
+    
+
+}
+
+.informacao h4{
+    font-size: 18px;
+    color:var(--preto);
+    margin: 13px;
+
+}
+
+
+.pessoal{
+    width: 100%;
+    height: 200px;
+    background: #b3afaf;
+    border-radius: 10px;
+    
+}
+
+.apresentacao{
+    width: 100%;
+    height: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+}
+
+.apresentacao button{
+    width: 70px;
+    height: 70px;
+    border: none;
+    outline: none;
+    background: var(--roxo);
+    color: white;
+    font-size: 17px;
+    border-radius: 10px;
+    transition: 0.3s;
+}
+
+.apresentacao button:hover{
+    background: var(--preto);
+    color: var(--roxo);
 }
