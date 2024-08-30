@@ -64,6 +64,43 @@ body{
     color: var(--roxo);
 }
 
+
+.btn-notif{
+    width: 40px;
+    height: 40px;
+    background: var(--branco);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 5%;
+    border-radius: 50px;
+    border: 1px solid var(--gelo);
+    font-size: 20px;
+    color: var(--preto);
+
+}
+
+.btn-notif::before{
+    content: attr(data-count);
+    background: var(--roxo);
+    width: 17px;
+    height: 17px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    color: var(--branco);
+    position: absolute;
+    top: 7px;
+    right: 0px;
+    margin-right: 5%;
+}
+
+.btn-notif[data-count="0"]::before{
+    display: none;
+}
+
 form{
     padding-top: 10px;
     background: var(--branco);
@@ -71,7 +108,9 @@ form{
     position: relative;
 }
 
-input[type='text']{
+
+
+form input[type='text']{
     width: 90%;
     height: 45px;
     border-radius: 10px;
@@ -79,6 +118,48 @@ input[type='text']{
     padding: 10px 20px;
     background-color: var(--gelo);
 }
+
+.page-content_login input[type='text']{
+    width: 80%;
+    height: 45px;
+    border-radius: 10px;
+    padding: 10px 20px;
+    background-color: var(--gelo);
+}
+
+.page-content_login input[type='password']{
+    width: 80%;
+    height: 45px;
+    border-radius: 10px;
+    padding: 10px 20px;
+    background-color: var(--gelo);
+}
+
+.page-content_login input[type='submit']{
+    width: 100px;
+    height: 50px;
+    border: none;
+    outline: none;
+    background: var(--roxo);
+    color: white;
+    font-size: 15px;
+    border-radius: 13px;
+    transition: 0.3s;
+}
+.page-content_login input[type='submit']:hover{
+    background: var(--preto);
+    color: white;
+    
+}
+
+.links{
+    width: 70%;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
 
 ::placeholder{
     color: #b3afaf;
@@ -94,6 +175,26 @@ input[type='text']{
 
 .page-content{
     background: var(--branco);
+}
+
+.page-content_config{
+    width: 100%;
+    height: 100%;
+    background: var(--branco);
+    
+}
+
+.page-content_login{
+    width: 100%;
+    height: 100%;
+    background: var(--branco);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 20px;
+    
+    
 }
 
 .swiper {
@@ -354,4 +455,20 @@ input[type='text']{
 .apresentacao button:hover{
     background: var(--preto);
     color: var(--roxo);
+}
+
+
+.opc{
+    width: 100%;
+    height: 80px;
+    background: var(--gelo);
+    display: flex;
+    align-items: center;
+    border: 50px;
+    gap:10px;
+    
+}
+
+.body-opc button:hover{
+    background: var(--cinza);
 }
