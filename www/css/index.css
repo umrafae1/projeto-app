@@ -162,6 +162,7 @@ form input[type='text']{
 }
 
 
+
 ::placeholder{
     color: #b3afaf;
 }
@@ -459,6 +460,7 @@ form input[type='text']{
 }
 
 
+
 .opc{
     width: 100%;
     height: 80px;
@@ -706,3 +708,4 @@ form input[type='text']{
     font-weight: 700;
     color: cadetblue;
 }
+
