@@ -30,34 +30,39 @@
         <!-- Your main view, should have "view-main" class -->
         <div class="view view-main">
             <!-- Initial Page, "data-name" contains page name -->
-            <div data-name="link2" class="page">
+            <div data-name="chat" class="page">
 
-                <div class="top-nav">
-                    <h1 class="tittle-logo">Chats Abertos</h1>
+                <div class="top-nav__chat">
+
+                    <a href="/link2/" class="btn-volta-chat" >
+                        <i class="ri-arrow-left-s-line"></i>
+                    </a>
+                        
+        
+                    <div class="foto_chat"></div>
+
+                    <h3 class="nome_chat" >Barnabé</h10>
+
                 </div>
 
                 <!-- Scrollable page content -->
                 <div class="page-content">
 
-                    <div class="body-chat">
-
-                        <a href="/chat/">
-                            <button class="user1">
-                                <div class="icone-user"> 
-                                    <i class="user-icon ri-user-line">  
-                                </i></div>
-                                <h3 class="nome">Barnabé</h1>
-                            </button>
-
-                        </a>
-
-
-            
-
-                    </div>
                     
+
+                        <section class="container__chat">
+                            <section class="chat__messages">
+    
+                            </section>
                     
-                    
+                                <form class="chat__form">
+                                    <input type="text" class="chat__input" placeholder="Digite uma mensagem" required />
+                                    <button type="submit" class="chat__button">
+                                        <i class="icone ri-send-plane-2-fill"></i>
+                                    </button>
+                                </form>
+                        </section>
+        
                 </div>
             </div>
         </div>

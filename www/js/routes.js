@@ -24,13 +24,14 @@ var app = new Framework7({
 	  on: {
 		pageBeforeIn: function (event, page) {
 		// fazer algo antes da página ser exibida
+        $("#menuPrincipal").show("fast");
 		},
 		pageAfterIn: function (event, page) {
 		// fazer algo depois da página ser exibida
 		},
 		pageInit: function (event, page) {
       // fazer algo quando a página for inicializada
-      $.getScript('www/js/index.js');
+      app.views.main.router.navigate('/login/')
     
       var swiper = new Swiper(".mySwiper", {
         slidesPerView: 1,
@@ -54,6 +55,7 @@ var app = new Framework7({
 	  on: {
 		pageBeforeIn: function (event, page) {
 		// fazer algo antes da página ser exibida
+		$("#menuPrincipal").show("fast");
 		},
 		pageAfterIn: function (event, page) {
 		// fazer algo depois da página ser exibida
@@ -73,6 +75,107 @@ var app = new Framework7({
 	  on: {
 		pageBeforeIn: function (event, page) {
 		// fazer algo antes da página ser exibida
+		$("#menuPrincipal").show("fast");
+		},
+		pageAfterIn: function (event, page) {
+		// fazer algo depois da página ser exibida
+		},
+		pageInit: function (event, page) {
+		// fazer algo quando a página for inicializada
+		},
+		pageBeforeRemove: function (event, page) {
+		// fazer algo antes da página ser removida do DOM
+		},
+	  }
+    },
+    {
+      path: '/login/',
+      url: 'login.html',
+      animate: false,
+	  on: {
+		pageBeforeIn: function (event, page) {
+		// fazer algo antes da página ser exibida
+    $("#menuPrincipal").hide("fast");
+		},
+		pageAfterIn: function (event, page) {
+		// fazer algo depois da página ser exibida
+  
+		},
+		pageInit: function (event, page) {
+		// fazer algo quando a página for inicializada
+    
+		},
+		pageBeforeRemove: function (event, page) {
+		// fazer algo antes da página ser removida do DOM
+		},
+	  }
+    },
+    {
+      path: '/config/',
+      url: 'config.html',
+      animate: false,
+	  on: {
+		pageBeforeIn: function (event, page) {
+		// fazer algo antes da página ser exibida
+		},
+		pageAfterIn: function (event, page) {
+		// fazer algo depois da página ser exibida
+		},
+		pageInit: function (event, page) {
+		// fazer algo quando a página for inicializada
+		},
+		pageBeforeRemove: function (event, page) {
+		// fazer algo antes da página ser removida do DOM
+		},
+	  }
+    },
+    {
+      path: '/opcoes/',
+      url: 'opcoes.html',
+      animate: false,
+	  on: {
+		pageBeforeIn: function (event, page) {
+		// fazer algo antes da página ser exibida
+		},
+		pageAfterIn: function (event, page) {
+		// fazer algo depois da página ser exibida
+		},
+		pageInit: function (event, page) {
+		// fazer algo quando a página for inicializada
+		},
+		pageBeforeRemove: function (event, page) {
+		// fazer algo antes da página ser removida do DOM
+		},
+	  }
+    },
+    {
+      path: '/lista_user/',
+      url: 'lista_user.html',
+      animate: false,
+	  on: {
+		pageBeforeIn: function (event, page) {
+		// fazer algo antes da página ser exibida
+		},
+		pageAfterIn: function (event, page) {
+		// fazer algo depois da página ser exibida
+		},
+		pageInit: function (event, page) {
+		// fazer algo quando a página for inicializada
+		},
+		pageBeforeRemove: function (event, page) {
+		// fazer algo antes da página ser removida do DOM
+		},
+	  }
+    },
+    {
+      path: '/chat/',
+      url: 'chat.html',
+      animate: false,
+	  on: {
+		pageBeforeIn: function (event, page) {
+		// fazer algo antes da página ser exibida
+        $("#menuPrincipal").hide("fast");
+		$.getScript('www/js/index.js');
 		},
 		pageAfterIn: function (event, page) {
 		// fazer algo depois da página ser exibida
@@ -126,16 +229,20 @@ function onDeviceReady() {
 
 }
 
-const btn1 = document.querySelector('#bts1')
-const btn2 = document.querySelector('#bts2')
-const btn3 = document.querySelector('#bts3')
-const btn4 = document.querySelector('#bts4')
-
-btn1.addEventListener('click', alerta)
-btn2.addEventListener('click', alerta)
-btn3.addEventListener('click', alerta)
-btn4.addEventListener('click', alerta)
-
 function alerta(){
     app.dialog.alert('Função Indísponivel')
+}
+
+
+function logar(){
+
+  var login = document.getElementById('login').value;
+  var senha = document.getElementById('senha').value;
+
+  if(login == "admin" && senha == "admin"){
+    app.views.main.router.navigate('/index/');
+  }else{
+      app.dialog.alert('Usuario ou senha incorretos');
+  }
+
 }

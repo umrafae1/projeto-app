@@ -28,7 +28,7 @@
       <!-- Your main view, should have "view-main" class -->
       <div class="view view-main">
         <!-- TAB BAR-->
-        <div id="menuPrincipal" class="toolbar toolbar-bottom">
+        <div class="toolbar toolbar-bottom">
           <div class="toolbar-inner display-flex">
             <a href="/index/" class="tab-link link active">
               <i class="ri-home-5-line"></i>
@@ -46,87 +46,29 @@
         </div>
 
         <!-- Initial Page, "data-name" contains page name -->
-        <div data-name="index" class="page color-theme-blue">
-          <!--Nome da empresa + logo-->
-
-          <div class="top-nav">
-            <h1 class="tittle-logo"><span>Corp</span>Info</h1>
-            <a href="#" class="btn-notif" data-count="0">
-              <i class="ri-notification-line"></i>
-            </a>
-          </div>
-
-          <form class="form1">
-            <input placeholder="Buscar" type="text" />
-            <i class="icone-busca ri-search-2-line"></i>
-          </form>
-
+        <div data-name="login" class="page color-theme-blue">
           <!-- Scrollable page content -->
-          <div class="page-content">
-            <div class="block no-margin-top">
-              <!-- Swiper -->
-              <div class="swiper mySwiper">
-                <div class="swiper-wrapper">
+          <div class="page-content_login">
+            
 
-                  <div class="foto-1 swiper-slide">
-                    
-                  </div>
+            <h1>CorpInfo</h1>
 
-                  <div class="foto-2 swiper-slide">
-                    
-                  </div>
+            <input type="text" placeholder="Login" id="login">
+            <input type="password" placeholder="Senha" id="senha">
+            <input type="submit" value="Login" onclick="logar(); return false">
 
-                  <div class="foto-3 swiper-slide">
-                    
-                  </div>
+            <div class="links">
 
-                  <div class="foto-4 swiper-slide">
-                    
-                  </div>
-
-                </div>
-                <div class="swiper-pagination"></div>
-              </div>
-
-              <h2>Opções</h2>
-
-              <div class="botoes">
-
-                <button id="bts1">
-                    <i id="bts" class="icon ri-megaphone-line"></i> <br>
-                </button>
-
-                <button id="bts2">
-                    <i class="icon ri-calendar-2-line"></i>
-                </button>
-
-              </div>
-
-              <div class="botoes2">
-
-                <a href="/config/">
-                  <button id="bts4">
-                    <i class="icon ri-settings-3-line"></i>
-                  </button>
-                </a>
-
-                <a href="/opcoes/">
-                  <button id="bts3">
-                    <i class="icon ri-menu-add-fill"></i>
-                  </button>
-                </a>
-
-                
-                
-                
-              </div>
-
+              <a href="#">Esqueceu a senha?</a> 
+              <a href="#"> Cadastrar</a>
 
             </div>
+
           </div>
         </div>
       </div>
     </div>
+
     <!-- Path to Framework7 Library Bundle JS-->
     <script type="text/javascript" src="lib/framework7-bundle.min.js"></script>
     <!-- jQuery -->
