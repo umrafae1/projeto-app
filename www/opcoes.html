@@ -14,9 +14,11 @@
     <!-- Path to Framework7 Library Bundle CSS -->
     <link rel="stylesheet" href="lib/framework7-bundle.min.css">
     <!-- CSS PERSONALIZADO PARA MENU-->
-    <link rel="stylesheet" href="css/personalizado.css">
+    <link rel="stylesheet" href="css/index.css">
     <!--Ícones Material Design-->
     <link rel="stylesheet" href="css/materialdesignicons.min.css">
+
+    <link rel="stylesheet" href="css/remix-icons/remixicon.css" />
 
 
 </head>
@@ -28,64 +30,44 @@
         <!-- Your main view, should have "view-main" class -->
         <div class="view view-main">
             <!-- Initial Page, "data-name" contains page name -->
-            <div data-name="link3" class="page">
+            <div data-name="opcoes" class="page">
 
-                <!-- Top Navbar -->
                 <div class="top-nav">
-                    <h1 class="tittle-logo">Meu Perfil</h1>
-
-                    <a href="#" class="a-editar">
-                        <button class="btn-editar">
-                            <i class="ri-edit-box-line"></i>  
-                        </button>
-                    </a>
-
+                    <h1 class="tittle-logo">Opções</h1>
 
                 </div>
 
                 <!-- Scrollable page content -->
                 <div class="page-content">
-                    <div class="foto"> <!--Div para a foto de perfil e o dados ficarem um do lado do outro-->
 
-                        <div class="foto_perfil">
-                            
-                            <div class="imagem_perfil">
+                    <div class="body-opc">
 
-                            </div>
-                            
+                        <a href="#">
+                            <button class="opc"> 
+                                <i class="icon ri-megaphone-line"></i>
+                                <h3 class="nome">Adicionar Avisos</h1>
+                            </button>
+                        </a>
 
-                        </div>
+                        <a href="#">
+                            <button class="opc">
+                                <i class="icon ri-calendar-2-line"></i>
+                                <h3 class="nome">Adicionar a Agenda</h1>
+                            </button>
+                        </a>
                         
-                        <div class="dados">
-                            
-                            <h2>Dados pessoais</h2>
-
-                                
-                            <h7>Nome: </h7>   
-                            <h7>Data de nascimendo:</h7>
-                            <h7>Sexo: </h7>
-                            <h7>Email:</h7>
-                        
-                        
-                        </div>
+                        <a href="/lista_user/">
+                            <button class="opc"> 
+                                <i class="icon ri-id-card-line"></i>
+                                <h3 class="nome">Lista de Usuários</h1>
+                            </button>
+                        </a>
 
 
+                
                     </div>
                     
                     
-                    <div class="informacao">
-
-                        <h4> informações profissionais<h4>
-
-                        <div class="pessoal">
-
-                        </div>
-
-                    </div>
-
-                    
-
-
                     
                 </div>
             </div>
