@@ -161,7 +161,6 @@ form input[type='text']{
     justify-content: space-between;
 }
 
-
 ::placeholder{
     color: #b3afaf;
 }
@@ -618,6 +617,158 @@ form input[type='text']{
     width: 40px;
     height: 40px;
     background: var(--preto);
+    color: var(--roxo);
+}
+
+
+
+.opc{
+    width: 100%;
+    height: 80px;
+    background: var(--gelo);
+    display: flex;
+    align-items: center;
+    border: 50px;
+    gap:10px;
+    
+}
+
+.body-opc button:hover{
+    background: var(--cinza);
+}
+/*Botão de Volta*/
+
+.btn-volta{
+    width: 40px;
+    height: 40px;
+    background: var(--branco);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 5%;
+    border-radius: 50px;
+    border: 1px solid var(--gelo);
+    font-size: 20px;
+    color: var(--preto);
+
+}
+
+
+/*Lista de Usuário*/
+
+
+
+.botoes_lu{
+    width: 100%;
+    height: 80%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    
+}
+
+
+.botoes_lu button{
+    font-size: 20px;
+}
+
+.btn-volta{
+    width: 40px;
+    height: 40px;
+    background: var(--branco);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 5%;
+    border-radius: 50px;
+    border: 1px solid var(--gelo);
+    font-size: 20px;
+    color: var(--preto);
+
+}
+
+.btn_lu{
+    width: 80%;
+    height: 40px;
+    background: #2a2a2a;
+    color: #f1f1f1;
+    font-weight: bold;
+    border: none;
+    margin: 15px 5;
+    border-radius: 10px;
+    cursor: pointer;
+    margin-top: 20px;
+
+}
+
+.btn_lua{
+    width: 80%;
+    height: 40px;
+    background: var(--roxo);
+    color: #f1f1f1;
+    font-weight: bold;
+    border: none;
+    margin: 15px 5;
+    border-radius: 10px;
+    cursor: pointer;
+    margin-top: 50px;
+
+}
+
+
+#bt{
+    
+    height: px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    font: 20px;
+    font-weight: bold;
+    cursor: pointer;
+    color: #f1f1f1;
+    
+    
+}
+
+/*Chat*/
+
+.top-nav__chat{
+    width: 100%;
+    height: 80px;
+    background: var(--azul);
+    display: flex;
+    align-items: center;
+    
+    
+}
+
+.btn-volta-chat{
+    width: 40px;
+    height: 40px;
+    background: var(--branco);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 5%;
+    border-radius: 50px;
+    border: 1px solid var(--preto);
+    font-size: 20px;
+    color: var(--preto);
+    margin-left: 20px;
+
+}
+
+.nome_chat{
+    font-size: 20px;
+    
+}
+
+.foto_chat{
+    width: 40px;
+    height: 40px;
+    background: var(--preto);
     border-radius: 50px;
     border: none;
     font-size: 20px;
@@ -718,6 +869,7 @@ form input[type='text']{
     font-weight: 700;
     color: cadetblue;
 }
+
 
 /*Agenda*/
 
