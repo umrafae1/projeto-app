@@ -161,8 +161,6 @@ form input[type='text']{
     justify-content: space-between;
 }
 
-
-
 ::placeholder{
     color: #b3afaf;
 }
@@ -318,6 +316,8 @@ form input[type='text']{
     font-size: 60px;
 }
 
+/*Chats Abertos*/
+
 .body-chat{
     max-width: 100%;
     height: 100%;
@@ -364,6 +364,28 @@ form input[type='text']{
     margin-left: 2%;
     color: var(--preto);
 }
+
+/*Perfil Usuário*/
+
+.a-editar{
+    margin-right: 5%;
+}
+
+.btn-editar{
+    width: 40px;
+    height: 40px;
+    background: var(--azul);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+    border: 1px solid var(--gelo);
+    font-size: 20px;
+    color: var(--branco);
+
+}
+
+
 
 .foto{
     width: 100%;
@@ -442,19 +464,158 @@ form input[type='text']{
     
 }
 
-.apresentacao button{
-    width: 70px;
-    height: 70px;
-    border: none;
-    outline: none;
-    background: var(--roxo);
-    color: white;
-    font-size: 17px;
-    border-radius: 10px;
-    transition: 0.3s;
+
+
+/*Opções Adm*/
+
+
+.opc{
+    width: 100%;
+    height: 80px;
+    background: var(--gelo);
+    display: flex;
+    align-items: center;
+    border: 50px;
+    gap:10px;
+    
 }
 
-.apresentacao button:hover{
+.body-opc button:hover{
+    background: var(--cinza);
+}
+/*Botão de Volta*/
+
+.btn-volta{
+    width: 40px;
+    height: 40px;
+    background: var(--branco);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 5%;
+    border-radius: 50px;
+    border: 1px solid var(--gelo);
+    font-size: 20px;
+    color: var(--preto);
+
+}
+
+
+/*Lista de Usuário*/
+
+
+
+.botoes_lu{
+    width: 100%;
+    height: 80%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    
+}
+
+
+.botoes_lu button{
+    font-size: 20px;
+}
+
+.btn-volta{
+    width: 40px;
+    height: 40px;
+    background: var(--branco);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 5%;
+    border-radius: 50px;
+    border: 1px solid var(--gelo);
+    font-size: 20px;
+    color: var(--preto);
+
+}
+
+.btn_lu{
+    width: 80%;
+    height: 40px;
+    background: #2a2a2a;
+    color: #f1f1f1;
+    font-weight: bold;
+    border: none;
+    margin: 15px 5;
+    border-radius: 10px;
+    cursor: pointer;
+    margin-top: 20px;
+
+}
+
+.btn_lua{
+    width: 80%;
+    height: 40px;
+    background: var(--roxo);
+    color: #f1f1f1;
+    font-weight: bold;
+    border: none;
+    margin: 15px 5;
+    border-radius: 10px;
+    cursor: pointer;
+    margin-top: 50px;
+
+}
+
+
+#bt{
+    
+    height: px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    font: 20px;
+    font-weight: bold;
+    cursor: pointer;
+    color: #f1f1f1;
+    
+    
+}
+
+/*Chat*/
+
+.top-nav__chat{
+    width: 100%;
+    height: 80px;
+    background: var(--azul);
+    display: flex;
+    align-items: center;
+    
+    
+}
+
+.btn-volta-chat{
+    width: 40px;
+    height: 40px;
+    background: var(--branco);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 5%;
+    border-radius: 50px;
+    border: 1px solid var(--preto);
+    font-size: 20px;
+    color: var(--preto);
+    margin-left: 20px;
+
+}
+
+.nome_chat{
+    font-size: 20px;
+    color: var(--branco);
+    
+}
+
+.foto_chat{
+    width: 40px;
+    height: 40px;
     background: var(--preto);
     color: var(--roxo);
 }
@@ -709,3 +870,103 @@ form input[type='text']{
     color: cadetblue;
 }
 
+
+/*Agenda*/
+
+.corpo {
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 20px;
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.cabecalho {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+h2 {
+    color: #333;
+}
+
+h3 {
+    font-size: 24px;
+    color: var(--azul);
+}
+
+.cabecalho button {
+    width: 50px;
+    height: 50px;
+    background: var(--azul);
+    border: none;
+    border-radius: 5px;
+    color: #fff;
+    padding: 10px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.cabecalho button:hover {
+    background: #0b4458;
+}
+
+.dias {
+    list-style: none;
+    padding: 0;
+}
+
+.dia {
+    display: flex;
+    align-items: center;
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    margin-bottom: 10px;
+    padding: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.data {
+    flex: 0 0 100px;
+    font-size: 18px;
+    font-weight: bold;
+    color: #333;
+}
+
+.descricao {
+    flex: 1;
+    font-size: 14px;
+    color: #666;
+    margin-right: 10px;
+}
+
+.botao-expandir {
+    background: var(--azul);
+    border: none;
+    border-radius: 5px;
+    color: #fff;
+    padding: 5px 10px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.botao-expandir:hover {
+    background: #0056b3;
+}
+
+.expanded {
+    display: none;
+    background: #f0f0f0;
+    border-top: 1px solid #ddd;
+    padding: 10px;
+    margin-top: 5px;
+    border-radius: 0 0 8px 8px;
+}
+
+.expanded.show {
+    display: block;
+}
