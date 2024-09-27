@@ -20,9 +20,6 @@
     <link rel="stylesheet" href="css/materialdesignicons.min.css" />
     <!--Ícones Remix Icon-->
     <link rel="stylesheet" href="css/remix-icons/remixicon.css" />
-    <script src="server.js">
-      servidor()
-    </script>
   </head>
 
   <body>
@@ -49,31 +46,67 @@
         </div>
 
         <!-- Initial Page, "data-name" contains page name -->
-        <div data-name="login" class="page color-theme-blue">
-          <!-- Scrollable page content -->
-          <div class="page-content_login">
+        <div data-name="add" class="page color-theme-blue">
+          <!--Nome da empresa + logo-->
+
+          <div class="top-nave">
+            <h1 class="tittle-logo"><a href="/opcoes/"><i class="ri-arrow-left-s-line"></i></a>Adicionar Agenda</h1>
+          </div>
+
+          <div class="info">
+
+            <div class="agente">
+              <h3>Agente:</h3>
+              <input type="text" name="Agente" id="">
+            </div>
             
+            <div class="horario_inicio">
+              <h3>Horario Inicio:</h3>
+              <input type="text" name="HorarioInicio" id="">
+            </div>
 
-            <h1>CorpInfo</h1>
+            <div class="horario_final">
+              <h3>Horario Fim:</h3>
+              <input type="text" name="HorarioFim">
+            </div>
 
-            <input type="text" placeholder="Login" id="login">
-            <input type="password" placeholder="Senha" id="senha">
-            
+            <div class="local">
+              <h3>Local:</h3>
+              <input type="text" name="Local">
+            </div>
 
-            <div class="links">
+            <div class="sd">
+              <h3>Selecionar Destinatario:</h3>
+            </div>
 
-              <a href="#">Esqueceu a senha?</a> 
-              <a href="#" id="cadastrar">Cadastrar</a>
+            <div class="porCD">
+
+              <div class="cadastro">
+                <h4>Por Cadastro:</h4>
+                <input type="checkbox">
+              </div>
+
+              <div class="departamento">
+                <h4>Por Departamento:</h4>
+                <input type="checkbox">
+              </div>
 
             </div>
 
-            <input type="submit" value="Login" onclick="logar(); return false">
+            <div class="tx">
+              <input type="text" name="" id="">
+            </div>
 
+            <button>
+              <h4>Postar</h4>
+            </button>
+            
           </div>
+
+          
         </div>
       </div>
     </div>
-    <script src="server.js"></script>
     <!-- Path to Framework7 Library Bundle JS-->
     <script type="text/javascript" src="lib/framework7-bundle.min.js"></script>
     <!-- jQuery -->
