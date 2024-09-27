@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <!-- Meta tags essenciais -->
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, viewport-fit=cover"
+    />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="theme-color" content="#2196f3" />
+    <!-- Título do app -->
+    <title>CorpInfo</title>
+    <!-- Framework7 CSS -->
+    <link rel="stylesheet" href="lib/framework7-bundle.min.css" />
+    <!-- CSS personalizado -->
+    <link rel="stylesheet" href="css/index.css" />
+    <!-- Ícones Material Design -->
+    <link rel="stylesheet" href="css/materialdesignicons.min.css" />
+    <!-- Ícones Remix Icon -->
+    <link rel="stylesheet" href="css/remix-icons/remixicon.css" />
+  </head>
+
+  <body>
+    <!-- App root element -->
+    <div id="app">
+      <!-- Main view -->
+      <div class="view view-main">
+        <!-- Tab bar -->
+        <div class="toolbar toolbar-bottom">
+          <div class="toolbar-inner display-flex">
+            <a href="/index/" class="tab-link link active">
+              <i class="ri-home-5-line"></i>
+              <span>Início</span>
+            </a>
+            <a href="/link2/" class="tab-link link">
+              <i class="ri-chat-1-line"></i>
+              <span>Chat</span>
+            </a>
+            <a href="/link3/" class="tab-link link">
+              <i class="ri-user-line"></i>
+              <span>Perfil</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- Página principal -->
+        <div data-name="agendaadm" class="page color-theme-blue">
+          <!-- Cabeçalho -->
+          <div class="top-navee">
+            <h1 class="tittle-logo">Adicionar Agenda</h1>
+          </div>
+
+          <!-- Calendário -->
+          <main class="Agenda">
+            <!-- Mês: Janeiro -->
+            <div class="month">
+              <div class="icons">
+                <i class="ri-equal-line"></i>
+                Janeiro
+                <i class="ri-search-line"></i>
+                <i class="ri-calendar-2-line"></i>
+                <i class="ri-more-2-line"></i>
+                <i class="ri-arrow-down-s-line" onclick="toggleCalendar(this)" style="cursor: pointer;"></i>
+              </div>
+
+              <div class="calendar">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Dom</th>
+                            <th>Seg</th>
+                            <th>Ter</th>
+                            <th>Qua</th>
+                            <th>Qui</th>
+                            <th>Sex</th>
+                            <th>Sáb</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><a href="/add/" class="mes-ant">31</a></td>
+                            <td><a href="/add/">1</a></td>
+                            <td><a href="/add/">2</a></td>
+                            <td><a href="/add/">3</a></td>
+                            <td><a href="/add/">4</a></td>
+                            <td><a href="/add/">5</a></td>
+                            <td><a href="/add/">6</a></td>
+                        </tr>
+                        <tr>
+                            <td><a href="/add/">7</a></td>
+                            <td><a href="/add/">8</a></td>
+                            <td><a href="/add/">9</a></td>
+                            <td><a href="/add/">10</a></td>
+                            <td><a href="/add/">11</a></td>
+                            <td><a href="/add/">12</a></td>
+                            <td><a href="/add/">13</a></td>
+                        </tr>
+                        <tr>
+                            <td><a href="/add/">14</a></td>
+                            <td><a href="/add/">15</a></td>
+                            <td><a href="/add/">16</a></td>
+                            <td><a href="/add/">17</a></td>
+                            <td><a href="/add/">18</a></td>
+                            <td><a href="/add/">19</a></td>
+                            <td><a href="/add/">20</a></td>
+                        </tr>
+                        <tr>
+                            <td><a href="/add/">21</a></td>
+                            <td><a href="/add/">22</a></td>
+                            <td><a href="/add/">23</a></td>
+                            <td><a href="/add/">24</a></td>
+                            <td><a href="/add/">25</a></td>
+                            <td><a href="/add/">26</a></td>
+                            <td><a href="/add/">27</a></td>
+                        </tr>
+                        <tr>
+                            <td><a href="/add/">28</a></td>
+                            <td><a href="/add/">29</a></td>
+                            <td><a href="/add/">30</a></td>
+                            <td><a href="/add/">31</a></td>
+                            <td><a href="/add/" class="mes-ant">1</a></td>
+                            <td><a href="/add/" class="mes-ant">2</a></td>
+                            <td><a href="/add/" class="mes-ant">3</a></td>
+                        </tr>
+                    </tbody>
+                </table>
+              </div>
+
+              
+            </div>
+
+            <div class="month">
+              <div class="icons">
+                <i class="ri-equal-line"></i>
+                Fevereiro
+                <i class="ri-search-line"></i>
+                <i class="ri-calendar-2-line"></i>
+                <i class="ri-more-2-line"></i>
+                <i class="ri-arrow-down-s-line" onclick="toggleCalendar(this)" style="cursor: pointer;"></i>
+              </div>
+
+              <div class="calendar">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Dom</th>
+                            <th>Seg</th>
+                            <th>Ter</th>
+                            <th>Qua</th>
+                            <th>Qui</th>
+                            <th>Sex</th>
+                            <th>Sáb</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><a href="/add/" class="mes-ant">31</a></td>
+                            <td><a href="/add/">1</a></td>
+                            <td><a href="/add/">2</a></td>
+                            <td><a href="/add/">3</a></td>
+                            <td><a href="/add/">4</a></td>
+                            <td><a href="/add/">5</a></td>
+                            <td><a href="/add/">6</a></td>
+                        </tr>
+                        <tr>
+                            <td><a href="/add/">7</a></td>
+                            <td><a href="/add/">8</a></td>
+                            <td><a href="/add/">9</a></td>
+                            <td><a href="/add/">10</a></td>
+                            <td><a href="/add/">11</a></td>
+                            <td><a href="/add/">12</a></td>
+                            <td><a href="/add/">13</a></td>
+                        </tr>
+                        <tr>
+                            <td><a href="/add/">14</a></td>
+                            <td><a href="/add/">15</a></td>
+                            <td><a href="/add/">16</a></td>
+                            <td><a href="/add/">17</a></td>
+                            <td><a href="/add/">18</a></td>
+                            <td><a href="/add/">19</a></td>
+                            <td><a href="/add/">20</a></td>
+                        </tr>
+                        <tr>
+                            <td><a href="/add/">21</a></td>
+                            <td><a href="/add/">22</a></td>
+                            <td><a href="/add/">23</a></td>
+                            <td><a href="/add/">24</a></td>
+                            <td><a href="/add/">25</a></td>
+                            <td><a href="/add/">26</a></td>
+                            <td><a href="/add/">27</a></td>
+                        </tr>
+                        <tr>
+                            <td><a href="/add/">28</a></td>
+                            <td><a href="/add/">29</a></td>
+                            <td><a href="/add/">30</a></td>
+                            <td><a href="/add/">31</a></td>
+                            <td><a href="/add/" class="mes-ant">1</a></td>
+                            <td><a href="/add/" class="mes-ant">2</a></td>
+                            <td><a href="/add/" class="mes-ant">3</a></td>
+                        </tr>
+                    </tbody>
+                </table>
+              </div>
+
+              
+            </div>
+
+            <!-- Mês: Março -->
+            <div class="month">
+              <div class="icons">
+                <i class="ri-equal-line"></i>
+                Março
+                <i class="ri-search-line"></i>
+                <i class="ri-calendar-2-line"></i>
+                <i class="ri-more-2-line"></i>
+                <i class="ri-arrow-down-s-line"></i>
+              </div>
+            </div>
+
+            <!-- Mês: Abril -->
+            <div class="month">
+              <div class="icons">
+                <i class="ri-equal-line"></i>
+                Abril
+                <i class="ri-search-line"></i>
+                <i class="ri-calendar-2-line"></i>
+                <i class="ri-more-2-line"></i>
+                <i class="ri-arrow-down-s-line"></i>
+              </div>
+            </div>
+
+            <div class="month">
+              <div class="icons">
+                <i class="ri-equal-line"></i>
+                Maio
+                <i class="ri-search-line"></i>
+                <i class="ri-calendar-2-line"></i>
+                <i class="ri-more-2-line"></i>
+                <i class="ri-arrow-down-s-line"></i>
+              </div>
+            </div>
+
+            <div class="month">
+              <div class="icons">
+                <i class="ri-equal-line"></i>
+                Junho
+                <i class="ri-search-line"></i>
+                <i class="ri-calendar-2-line"></i>
+                <i class="ri-more-2-line"></i>
+                <i class="ri-arrow-down-s-line"></i>
+              </div>
+            </div>
+
+            <div class="month">
+              <div class="icons">
+                <i class="ri-equal-line"></i>
+                Julho
+                <i class="ri-search-line"></i>
+                <i class="ri-calendar-2-line"></i>
+                <i class="ri-more-2-line"></i>
+                <i class="ri-arrow-down-s-line"></i>
+              </div>
+            </div>
+
+            <div class="month">
+              <div class="icons">
+                <i class="ri-equal-line"></i>
+                Agosto
+                <i class="ri-search-line"></i>
+                <i class="ri-calendar-2-line"></i>
+                <i class="ri-more-2-line"></i>
+                <i class="ri-arrow-down-s-line"></i>
+              </div>
+            </div>
+
+            <div class="month">
+              <div class="icons">
+                <i class="ri-equal-line"></i>
+                Setembro
+                <i class="ri-search-line"></i>
+                <i class="ri-calendar-2-line"></i>
+                <i class="ri-more-2-line"></i>
+                <i class="ri-arrow-down-s-line"></i>
+              </div>
+            </div>
+
+            <div class="month">
+              <div class="icons">
+                <i class="ri-equal-line"></i>
+                Outubro
+                <i class="ri-search-line"></i>
+                <i class="ri-calendar-2-line"></i>
+                <i class="ri-more-2-line"></i>
+                <i class="ri-arrow-down-s-line"></i>
+              </div>
+            </div>
+
+            <div class="month">
+              <div class="icons">
+                <i class="ri-equal-line"></i>
+                Novembro
+                <i class="ri-search-line"></i>
+                <i class="ri-calendar-2-line"></i>
+                <i class="ri-more-2-line"></i>
+                <i class="ri-arrow-down-s-line"></i>
+              </div>
+            </div>      
+
+            <div class="month">
+              <div class="icons">
+                <i class="ri-equal-line"></i>
+                Dezembro
+                <i class="ri-search-line"></i>
+                <i class="ri-calendar-2-line"></i>
+                <i class="ri-more-2-line"></i>
+                <i class="ri-arrow-down-s-line"></i>
+              </div>
+            </div>            
+
+
+          </main>
+        </div>
+      </div>
+    </div>
+
+    <!-- Scripts -->
+    <script type="text/javascript" src="lib/framework7-bundle.min.js"></script>
+    <script type="text/javascript" src="lib/jquery-3.7.0.min.js"></script>
+    <script type="text/javascript" src="js/routes.js"></script>
+    <script src="js/index.js"></script>
+  </body>
+</html>
