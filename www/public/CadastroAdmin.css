@@ -1,0 +1,35 @@
+/* @import url('https://fonts.googleapis.com/css2?family=Archivo+Black&family=Bebas+Neue&display=swap'); */
+
+input{
+    border-radius: 20px;
+    width: 321px;
+    height: 47px;
+}
+
+body{
+    font-family: "Bebas Neue",sans-serif;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #ffffff;    
+}
+.Central form{
+    align-items: center;
+    border-radius: 20px;
+    width: 400px;
+    background-color: #960f81;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    gap: 10px;
+}
+
+#Finalizar{
+    padding: 5px;
+    width: 150px;
+}
+
+.label{
+    
+    text-align: left;
+}
