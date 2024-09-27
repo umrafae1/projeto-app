@@ -30,37 +30,44 @@
         <!-- Your main view, should have "view-main" class -->
         <div class="view view-main">
             <!-- Initial Page, "data-name" contains page name -->
-            <div data-name="link2" class="page">
+            <div data-name="agenda" class="page">
 
                 <div class="top-nav">
-                    <h1 class="tittle-logo">Chats Abertos</h1>
+                    <h1 class="tittle-logo">Agenda</h1>
+
+                    <a href="/index/" class="btn-volta" >
+                        <i class="ri-arrow-left-s-line"></i>
+                    </a>
+                        
+                    
+
                 </div>
 
                 <!-- Scrollable page content -->
                 <div class="page-content">
 
-                    <div class="body-chat">
-
-                        <a href="/chat/">
-                            <button class="user1">
-                                <div class="icone-user"> 
-                                    <i class="user-icon ri-user-line">  
-                                </i></div>
-                              
-                                <h2 class="nome">Barnabé</h2>
-                                <h3 class="nome">Barnabé</h1>
-
+                    <div class="corpo">
+                
+                        <div class="cabecalho">
+                
+                            <button id="anterior">
+                                <i class="ri-arrow-left-wide-line"></i>
                             </button>
-
-                        </a>
-
-
-            
-
+                
+                            <h3 id="nomeMes">Mês Atual</h3>
+                
+                            <button id="proximo">
+                                <i class="ri-arrow-right-wide-line"></i>
+                            </button>
+                
+                        </div>
+                        
+                        <ul class="dias" id="listaDias">
+                        </ul>
+                
                     </div>
-                    
-                    
-                    
+
+                       
                 </div>
             </div>
         </div>
