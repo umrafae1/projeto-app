@@ -66,7 +66,7 @@ document.querySelector('#proximo').addEventListener('click', function() {
 
 atualizarMes();
 criarDias();
-=======
+
 // Elementos de login
 const login = document.querySelector(".login");
 const loginForm = login.querySelector(".login__form");
@@ -223,4 +223,3 @@ const sendMessage = (event) => {
 // Eventos
 loginForm.addEventListener("submit", handleLogin);
 chatForm.addEventListener("submit", sendMessage);
-

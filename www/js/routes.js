@@ -27,21 +27,14 @@ var app = new Framework7({
 
         $("#menuPrincipal").show("fast");
 
-
-    $("#menuPrincipal").show("fast");
-
-
 		},
 		pageAfterIn: function (event, page) {
 		// fazer algo depois da página ser exibida
 		},
 		pageInit: function (event, page) {
       // fazer algo quando a página for inicializada
-      app.views.main.router.navigate('/login/')
-
-
-
-      $.getScript('www/js/index.js')
+        //app.views.main.router.navigate('/login/')
+        $.getScript('www/js/index.js')
 
 
     
@@ -148,6 +141,7 @@ var app = new Framework7({
 	  on: {
 		pageBeforeIn: function (event, page) {
 		// fazer algo antes da página ser exibida
+		$("#menuPrincipal").show("fast");
 		},
 		pageAfterIn: function (event, page) {
 		// fazer algo depois da página ser exibida
@@ -187,7 +181,6 @@ var app = new Framework7({
 		pageBeforeIn: function (event, page) {
 		// fazer algo antes da página ser exibida
         $("#menuPrincipal").hide("fast");
-		$.getScript('www/js/index.js');
 		},
 		pageAfterIn: function (event, page) {
 		// fazer algo depois da página ser exibida
@@ -207,7 +200,7 @@ var app = new Framework7({
 	  on: {
 		pageBeforeIn: function (event, page) {
 		// fazer algo antes da página ser exibida
-    $("#menuPrincipal").hide("fast");
+        $("#menuPrincipal").hide("fast");
 		},
 		pageAfterIn: function (event, page) {
 		// fazer algo depois da página ser exibida
@@ -250,6 +243,7 @@ var app = new Framework7({
 		pageBeforeIn: function (event, page) {
 		// fazer algo antes da página ser exibida
         $("#menuPrincipal").hide("fast");
+		$.getScript('js/server.js')
 		},
 		pageAfterIn: function (event, page) {
 		// fazer algo depois da página ser exibida
@@ -329,7 +323,6 @@ var app = new Framework7({
 		pageBeforeIn: function (event, page) {
 		// fazer algo antes da página ser exibida
         $("#menuPrincipal").hide("fast");
-		$.getScript('www/js/index.js');
 		},
 		pageAfterIn: function (event, page) {
 		// fazer algo depois da página ser exibida
@@ -350,7 +343,27 @@ var app = new Framework7({
 		  pageBeforeIn: function (event, page) {
 		  // fazer algo antes da página ser exibida
 		  $("#menuPrincipal").hide("fast");
-		  $.getScript('www/js/index.js');
+		  $.getScript('js/index.js');
+		  },
+		  pageAfterIn: function (event, page) {
+		  // fazer algo depois da página ser exibida
+		  },
+		  pageInit: function (event, page) {
+		  // fazer algo quando a página for inicializada
+		  },
+		  pageBeforeRemove: function (event, page) {
+		  // fazer algo antes da página ser removida do DOM
+		  },
+		}
+	  },
+	  {
+		path: '/add_agenda/',
+		url: 'add_agenda.html',
+		animate: false,
+		on: {
+		  pageBeforeIn: function (event, page) {
+		  // fazer algo antes da página ser exibida
+		  $("#menuPrincipal").hide("fast");
 		  },
 		  pageAfterIn: function (event, page) {
 		  // fazer algo depois da página ser exibida
@@ -410,10 +423,8 @@ function alerta(){
 
 
 function logar(){
-
   var login = document.getElementById('login').value;
   var senha = document.getElementById('senha').value;
-
   if(login == "admin" && senha == "admin"){
     app.views.main.router.navigate('/index/');
   }else{
