@@ -243,6 +243,7 @@ var app = new Framework7({
 		pageBeforeIn: function (event, page) {
 		// fazer algo antes da página ser exibida
         $("#menuPrincipal").hide("fast");
+		$.getScript('js/server.js')
 		},
 		pageAfterIn: function (event, page) {
 		// fazer algo depois da página ser exibida
@@ -422,10 +423,8 @@ function alerta(){
 
 
 function logar(){
-
   var login = document.getElementById('login').value;
   var senha = document.getElementById('senha').value;
-
   if(login == "admin" && senha == "admin"){
     app.views.main.router.navigate('/index/');
   }else{
