@@ -154,3 +154,47 @@ const sendMessage = (event) => {
 // Eventos
 loginForm.addEventListener("submit", handleLogin);
 chatForm.addEventListener("submit", sendMessage);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// Função para alternar a visibilidade da tabela
+function toggleCalendar(icon) {
+    const calendar = document.querySelector('.calendar'); // Obtém a tabela do calendário
+
+    // Verifica se a tabela está visível
+    const isVisible = calendar.classList.contains('visible');
+
+    if (isVisible) {
+        calendar.classList.remove('visible'); // Oculta a tabela
+        calendar.style.display = "none"; // Definindo como não exibida
+        icon.classList.remove("ri-arrow-up-s-line"); // Remove ícone para cima
+        icon.classList.add("ri-arrow-down-s-line"); // Adiciona ícone para baixo
+    } else {
+        calendar.classList.add('visible'); // Mostra a tabela
+        calendar.style.display = "block"; // Definindo como exibida
+        icon.classList.remove("ri-arrow-down-s-line"); // Remove ícone para baixo
+        icon.classList.add("ri-arrow-up-s-line"); // Adiciona ícone para cima
+    }
+}
+
+
+
+
+
+
+
+
+
+
+

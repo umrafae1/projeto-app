@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <!-- Required meta tags-->
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, viewport-fit=cover"
+    />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <!-- Color theme for statusbar (Android only) -->
+    <meta name="theme-color" content="#2196f3" />
+    <!-- Your app title -->
+    <title>CorpInfo</title>
+    <!-- Path to Framework7 Library Bundle CSS -->
+    <link rel="stylesheet" href="lib/framework7-bundle.min.css" />
+    <!-- CSS PERSONALIZADO PARA MENU-->
+    <link rel="stylesheet" href="css/index.css" />
+    <!--Ícones Material Design-->
+    <link rel="stylesheet" href="css/materialdesignicons.min.css" />
+    <!--Ícones Remix Icon-->
+    <link rel="stylesheet" href="css/remix-icons/remixicon.css" />
+  </head>
+
+  <body>
+    <!-- App root element -->
+    <div id="app">
+      <!-- Your main view, should have "view-main" class -->
+      <div class="view view-main">
+        <!-- TAB BAR-->
+        <div class="toolbar toolbar-bottom">
+          <div class="toolbar-inner display-flex">
+            <a href="/index/" class="tab-link link active">
+              <i class="ri-home-5-line"></i>
+              <span>Início</span>
+            </a>
+            <a href="/link2/" class="tab-link link">
+              <i class="ri-chat-1-line"></i>
+              <span>Chat</span>
+            </a>
+            <a href="/link3/" class="tab-link link">
+              <i class="ri-user-line"></i>
+              <span>Perfil</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- Initial Page, "data-name" contains page name -->
+        <div data-name="login" class="page color-theme-blue">
+          <!--Nome da empresa + logo-->
+
+          <div class="top-nave">
+            <h1 class="tittle-logo"><a href="/agendaadm/"><i class="ri-arrow-left-s-line"></i></a>Adicionar Agenda</h1>
+          </div>
+
+          <div class="info">
+
+            <div class="agente">
+              <h3>Agente:</h3>
+              <input type="text" name="Agente" id="">
+            </div>
+            
+            <div class="horario_inicio">
+              <h3>Horario Inicio:</h3>
+              <input type="text" name="HorarioInicio" id="">
+            </div>
+
+            <div class="horario_final">
+              <h3>Horario Fim:</h3>
+              <input type="text" name="HorarioFim">
+            </div>
+
+            <div class="local">
+              <h3>Local:</h3>
+              <input type="text" name="Local">
+            </div>
+
+            <div class="sd">
+              <h3>Selecionar Destinatario:</h3>
+            </div>
+
+            <div class="porCD">
+
+              <div class="cadastro">
+                <h4>Por Cadastro:</h4>
+                <input type="checkbox">
+              </div>
+
+              <div class="departamento">
+                <h4>Por Departamento:</h4>
+                <input type="checkbox">
+              </div>
+
+            </div>
+
+            <div class="tx">
+              <input type="text" name="" id="">
+            </div>
+
+            <a href="/index/">
+              <button>
+                <h4>Postar</h4>
+              </button>
+            </a>
+
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+    <!-- Path to Framework7 Library Bundle JS-->
+    <script type="text/javascript" src="lib/framework7-bundle.min.js"></script>
+    <!-- jQuery -->
+    <script type="text/javascript" src="lib/jquery-3.7.0.min.js"></script>
+    <!-- Roteamento do app-->
+    <script type="text/javascript" src="js/routes.js"></script>
+    <script src="js/f.js"></script>
+  </body>
+</html>
