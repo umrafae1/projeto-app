@@ -223,3 +223,20 @@ const sendMessage = (event) => {
 // Eventos
 loginForm.addEventListener("submit", handleLogin);
 chatForm.addEventListener("submit", sendMessage);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
