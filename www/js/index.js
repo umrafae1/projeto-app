@@ -66,7 +66,7 @@ document.querySelector('#proximo').addEventListener('click', function() {
 
 atualizarMes();
 criarDias();
-=======
+
 // Elementos de login
 const login = document.querySelector(".login");
 const loginForm = login.querySelector(".login__form");
