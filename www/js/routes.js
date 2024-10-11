@@ -24,7 +24,7 @@ var app = new Framework7({
 	  on: {
 		pageBeforeIn: function (event, page) {
 		// fazer algo antes da página ser exibida
-
+		
         $("#menuPrincipal").show("fast");
 
 		},
@@ -32,9 +32,9 @@ var app = new Framework7({
 		// fazer algo depois da página ser exibida
 		},
 		pageInit: function (event, page) {
-      // fazer algo quando a página for inicializada
-        //app.views.main.router.navigate('/login/')
-        $.getScript('www/js/index.js')
+        // fazer algo quando a página for inicializada
+        app.views.main.router.navigate('/login/')
+        
 
 
     
@@ -356,8 +356,29 @@ var app = new Framework7({
 		  },
 		}
 	  },
+	{
+		path: '/agenda2/',
+		url: 'agenda2.html',
+		animate: false,
+		on: {
+		  pageBeforeIn: function (event, page) {
+		  // fazer algo antes da página ser exibida
+		  $("#menuPrincipal").hide("fast");
+		  $.getScript('www/js/add_agenda.js');
+		  },
+		  pageAfterIn: function (event, page) {
+		  // fazer algo depois da página ser exibida
+		  },
+		  pageInit: function (event, page) {
+		  // fazer algo quando a página for inicializada
+		  },
+		  pageBeforeRemove: function (event, page) {
+		  // fazer algo antes da página ser removida do DOM
+		  },
+		}
+	  },
 	  {
-		path: '/add_agenda/',
+		path: '/add/',
 		url: 'add_agenda.html',
 		animate: false,
 		on: {
@@ -370,6 +391,26 @@ var app = new Framework7({
 		  },
 		  pageInit: function (event, page) {
 		  // fazer algo quando a página for inicializada
+		  },
+		  pageBeforeRemove: function (event, page) {
+		  // fazer algo antes da página ser removida do DOM
+		  },
+		}
+	  },
+	  {
+		path: '/cadastro/',
+		url: 'https://friendly-space-eureka-976qjj95pxqh9g4-3002.app.github.dev/',
+		animate: false,
+		on: {
+		  pageBeforeIn: function (event, page) {
+		  // fazer algo antes da página ser exibida
+		  },
+		  pageAfterIn: function (event, page) {
+		  // fazer algo depois da página ser exibida
+		  },
+		  pageInit: function (event, page) {
+		  // fazer algo quando a página for inicializada
+		  $.getScript('js/server.js')
 		  },
 		  pageBeforeRemove: function (event, page) {
 		  // fazer algo antes da página ser removida do DOM
