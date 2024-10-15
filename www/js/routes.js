@@ -473,3 +473,17 @@ function logar(){
   }
 
 }
+function toggleInput() {
+    const porCadastro = document.getElementById('porCadastro');
+    const codigoColaboradorContainer = document.getElementById('codigoColaboradorContainer');
+
+    // Exibe o campo se "Por Cadastro" estiver selecionado
+    if (porCadastro.checked) {
+        codigoColaboradorContainer.style.display = 'block'; // Mostra o campo
+    } else {
+        codigoColaboradorContainer.style.display = 'none'; // Oculta o campo
+    }
+}
+
+// Chama a função para garantir que o estado inicial esteja correto
+toggleInput();

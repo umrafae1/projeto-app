@@ -81,21 +81,21 @@
 
             <div class="porCD">
 
-              <div class="cadastro">
-                <h4>Por Cadastro:</h4>
-                <input type="checkbox">
-              </div>
-
               <div class="departamento">
-                <h4>Por Departamento:</h4>
-                <input type="checkbox">
-              </div>
-
+                <h4>Todos Funcionários:</h4>
+                <input type="radio" name="fun" id="todosFuncionarios" onclick="toggleInput()" checked />
             </div>
-
-            <div class="tx">
-              <input type="text" name="" id="">
+            
+            <div class="cadastro">
+                <h4>Por Cadastro:</h4>
+                <input type="radio" name="fun" id="porCadastro" onclick="toggleInput()" />
             </div>
+            
+            <h4>Digite o código do colaborador</h4>
+            <div class="tx" id="codigoColaboradorContainer" style="display: none;">
+                <input type="text" name="codigoColaborador" id="codigoColaborador" />
+            </div>
+            
 
             <button>
               <h4>Postar</h4>
@@ -107,6 +107,7 @@
         </div>
       </div>
     </div>
+
     <!-- Path to Framework7 Library Bundle JS-->
     <script type="text/javascript" src="lib/framework7-bundle.min.js"></script>
     <!-- jQuery -->
