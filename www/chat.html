@@ -1,81 +1,43 @@
 <!DOCTYPE html>
-<html>
-
+<html lang="pt-BR">
 <head>
-    <!-- Required meta tags-->
-    <meta charset="utf-8">
-    <meta name="viewport"
-        content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, viewport-fit=cover">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <!-- Color theme for statusbar (Android only) -->
-    <meta name="theme-color" content="#2196f3">
-    <!-- Your app title -->
-    <title>My App</title>
-    <!-- Path to Framework7 Library Bundle CSS -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat App</title>
     <link rel="stylesheet" href="lib/framework7-bundle.min.css">
-    <!-- CSS PERSONALIZADO PARA MENU-->
     <link rel="stylesheet" href="css/index.css">
-    <!--Ícones Material Design-->
     <link rel="stylesheet" href="css/materialdesignicons.min.css">
-
-    <link rel="stylesheet" href="css/remix-icons/remixicon.css" />
-
-
+    <link rel="stylesheet" href="css/remix-icons/remixicon.css">
 </head>
-
 <body>
-    <!-- App root element -->
     <div id="app">
-
-        <!-- Your main view, should have "view-main" class -->
         <div class="view view-main">
-            <!-- Initial Page, "data-name" contains page name -->
             <div data-name="chat" class="page">
-
                 <div class="top-nav__chat">
-
-                    <a href="/link2/" class="btn-volta-chat" >
+                    <a href="/link2/" class="btn-volta-chat">
                         <i class="ri-arrow-left-s-line"></i>
                     </a>
-                        
-        
                     <div class="foto_chat"></div>
-
-
-                    <h2 class="nome_chat" >Barnabé</h2>
-                    <h3 class="nome_chat" >Barnabé</h10>
-
+                    <h2 class="nome_chat">Barnabé</h2>
                 </div>
-
-                <!-- Scrollable page content -->
                 <div class="page-content">
-
-                    
-
-                        <section class="container__chat">
-                            <section class="chat__messages">
-    
-                            </section>
-                    
-                                <form class="chat__form">
-                                    <input type="text" class="chat__input" placeholder="Digite uma mensagem" required />
-                                    <button type="submit" class="chat__button">
-                                        <i class="icone ri-send-plane-2-fill"></i>
-                                    </button>
-                                </form>
-                        </section>
-        
+                    <section class="container__chat">
+                        <section class="chat__messages"></section>
+                        <form class="chat__form">
+                            <input type="text" class="chat__input" placeholder="Digite uma mensagem" required />
+                            <button type="submit" class="chat__button">
+                                <i class="icone ri-send-plane-2-fill"></i>
+                            </button>
+                        </form>
+                    </section>
                 </div>
             </div>
         </div>
     </div>
-    <!-- Path to Framework7 Library Bundle JS-->
-    <script type="text/javascript" src="lib/framework7-bundle.min.js"></script>
-	<!-- jQuery -->
-	<script type="text/javascript" src="lib/jquery-3.7.0.min.js"></script>	
-    <!-- Roteamento do app-->
-    <script type="text/javascript" src="js/routes.js"></script>
-    <script src="cordova.js"></script>
+    
+    <script src="lib/framework7-bundle.min.js"></script>
+    <script src="lib/jquery-3.7.0.min.js"></script>
+    <script src="js/routes.js"></script>
+    <script src="script.js"></script> <!-- Certifique-se de que este é o seu arquivo de script -->
 </body>
-
 </html>

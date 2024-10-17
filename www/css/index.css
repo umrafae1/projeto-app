@@ -219,7 +219,9 @@ form input[type='text']{
 }
 
 .foto-1{
-    background:#e72ecf;
+    background:url("/www/img/foto1.jpeg");
+    background-size: cover;
+    background-position: center;
     max-width: 100%;
     height: 170px;
     border-radius: 10px;
@@ -388,6 +390,7 @@ form input[type='text']{
 
 
 .foto{
+    
     width: 100%;
     height: 200px;
     display: flex;
@@ -408,7 +411,9 @@ form input[type='text']{
 .imagem_perfil{
     width: 100px;
     height: 100px;
-    background: var(--cinza);
+    background:url("/www/img/user.jpg");
+    background-size: cover;
+    background-position: center;
     border-radius: 50px;
 
 }
@@ -972,35 +977,52 @@ h3 {
 }
 
 
-/*Agenda*/
+/* Add Agenda*/
 
 /* Navigation Bar */
 .top-navee {
     display: flex;
     align-items: center;
     justify-content: center;
-    position: relative;
-    background: var(--branco);
+    position: fixed;
+    top: 0;
     width: 100%;
     height: 80px;
+    background: var(--branco);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    padding: 0 20px;
 }
 
-/* Main Calendar Styles */
 .Agenda {
     background: var(--branco);
     display: flex;
     align-items: center;
     flex-direction: column;
-    gap: 20px; /* Spacing between months */
-    padding: 20px;
+    padding: 30px;
     height: 100%;
     width: 100%;
+    gap: 10px;
     box-sizing: border-box;
     overflow-y: auto;
     margin-top: 60px;
 }
 
-/* Each Month Style */
+
+/* Rolagem suave */
+.Agenda::-webkit-scrollbar {
+    width: 0;
+}
+
+.Agenda::-webkit-scrollbar-thumb {
+    background-color: #007bff;
+    border-radius: 10px;
+}
+
+.Agenda::-webkit-scrollbar-track {
+    background-color: #f0f0f0;
+}
+
 .Agenda .month {
     display: flex;
     align-items: center;
@@ -1016,24 +1038,24 @@ h3 {
 }
 
 .Agenda .month:hover {
-    transform: scale(1.03); /* Hover effect */
+    transform: scale(1.03);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
 }
 
-/* Icons and Text inside each Month */
+/* Icons and Month Title */
 .Agenda .month .icons {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: 15px;
-    padding: 0 15px;
     width: 100%;
+    padding: 0 10px;
 }
 
 .icons i {
-    cursor: pointer;
     font-size: 24px;
     color: #333;
-    transition: color 0.2s ease, transform 0.2s ease;
+    cursor: pointer;
+    transition: color 0.3s ease, transform 0.3s ease;
 }
 
 .icons i:hover {
@@ -1041,18 +1063,17 @@ h3 {
     transform: scale(1.2);
 }
 
-/* Month Name Text */
+/* Month Name */
 .Agenda .month .icons span {
-    font-size: 20px;
-    font-weight: 500;
+    font-size: 22px;
+    font-weight: bold;
     color: #333;
-    flex: 1;
     text-align: center;
+    flex-grow: 1;
 }
 
 /* Calendar Styles */
 .calendar {
-    margin-top: 20px;
     width: 100%;
     transition: max-height 0.4s ease-in-out;
     overflow: hidden;
@@ -1061,20 +1082,15 @@ h3 {
     justify-content: center;
 }
 
-.hidden {
-    max-height: 0;
-    opacity: 0;
-    visibility: hidden;
-}
-
-/* Table Styles for Calendar */
 .calendar table {
     width: 100%;
     border-collapse: collapse;
     text-align: center;
 }
 
-.calendar th, .calendar td {
+
+.calendar th,
+.calendar td {
     padding: 10px;
     border: 1px solid #ddd;
 }
@@ -1082,31 +1098,28 @@ h3 {
 .calendar th {
     background-color: #f0f0f0;
     color: #333;
+    font-weight: bold;
 }
 
 .calendar td {
     background-color: #fff;
     color: #555;
     cursor: pointer;
+    transition: background-color 0.3s ease;
 }
 
-.mes-ant{
+.calendar td:hover {
+    background-color: #f0f0f0;
+}
+
+.mes-ant {
     opacity: 0.5;
 }
-
-.calendar {
-    display: none; /* Oculta a tabela inicialmente */
-}
-
-.calendar.visible {
-    display: block; /* Mostra a tabela quando a classe 'visible' é adicionada */
-}
-
 
 /* Responsive Adjustments for Mobile */
 @media (max-width: 768px) {
     .Agenda .month {
-        width: 90%;
+        width: 95%;
         padding: 15px;
     }
 
@@ -1117,6 +1130,11 @@ h3 {
     .Agenda .month .icons span {
         font-size: 18px;
     }
+
+    .calendar td,
+    .calendar th {
+        padding: 8px;
+    }
 }
 
 
@@ -1136,7 +1154,9 @@ h3 {
 
 
 
-.top-nave{
+
+
+.top-nave {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -1158,16 +1178,15 @@ h3 {
     color: black;
 }
 
-.info{
+.info {
     display: flex;
     align-items: center;
     justify-content: center;
     flex-direction: column;
-    height: 100%;
+    height: auto;
+    overflow-y: auto;
 }
 
-
-/* Estilo para cada seção dentro de info */
 .info .agente,
 .info .horario_inicio,
 .info .horario_final,
@@ -1177,10 +1196,9 @@ h3 {
     justify-content: center;
     width: 97%;
     padding: 15px;
-    
+    overflow-y: auto;
 }
 
-/* Estilo dos títulos (h3) */
 .info h3 {
     font-size: 16px;
     color: #333;
@@ -1188,49 +1206,37 @@ h3 {
     min-width: 120px;
 }
 
-/* Estilo dos campos de entrada (input) */
 .info input[type="text"] {
     flex: 1;
-    width: 50%;
+    max-width: 100%;
     padding: 8px;
     border: 1px solid #ccc;
     border-radius: 4px;
     font-size: 14px;
 }
 
-/* Efeito de foco nos campos de entrada */
 .info input[type="text"]:focus {
-    border-color: #007bff;
+    border-color: var(--azul-destaque);
     outline: none;
     box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
 }
 
-/* Estilo adicional para a classe sd */
 .sd {
     position: relative;
     width: 100%;
     display: flex;
     align-items: center;
-    padding: 50px;
+    padding: 10px;
     left: 10px;
-    
 }
 
-/* Estilo adicional para a classe porCD */
 .porCD {
     width: 100%;
 }
 
-.porCD .cadastro{
+.porCD .cadastro,
+.porCD .departamento {
     display: flex;
-    gap: 30px;
-    position: relative;
-    left: 15px;
-}
-
-.porCD .departamento{
-    display: flex;
-    gap: 30px;
     position: relative;
     left: 15px;
 }
@@ -1244,40 +1250,49 @@ h3 {
     margin: 10px 0;
 }
 
-
 .tx input[type="text"] {
     width: 100%;
     border: 1px solid #ccc;
     border-radius: 4px;
     font-size: 14px;
-    box-sizing: border-box;
 }
 
 .tx input[type="text"]:focus {
-    border-color: #007bff;
+    border-color: var(--azul-destaque);
     outline: none;
     box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
 }
 
-.info button{
+.info a{
+    width: 100px;
+} 
+
+.info button {
     position: relative;
-    width: 12%;
-    height: 7%;
-    left: 43%;
-    background-color:  #c510ad;;
+    left: 145%;
+    background-color: var(--roxo);
     border: none;
     border-radius: 15px;
+    transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-.info button h3{
-    color:var(--branco);
+.info button h3 {
+    color: var(--branco);
     display: flex;
     align-items: center;
     justify-content: center;
+}
+
+.info button:hover {
+    background-color: var(--preto);
     color: white;
 }
 
-.info button:hover{
-    background-color: black;
-    color: white;
+@media (max-width: 768px) {
+    .top-nave {
+        flex-direction: column;
+    }
+    .info button {
+        width: 80%;
+    }
 }
