@@ -1136,7 +1136,7 @@ h3 {
 
 
 
-.top-nave{
+.top-nave {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -1158,16 +1158,14 @@ h3 {
     color: black;
 }
 
-.info{
+.info {
     display: flex;
     align-items: center;
     justify-content: center;
     flex-direction: column;
-    height: 100%;
+    height: auto;
 }
 
-
-/* Estilo para cada seção dentro de info */
 .info .agente,
 .info .horario_inicio,
 .info .horario_final,
@@ -1177,10 +1175,8 @@ h3 {
     justify-content: center;
     width: 97%;
     padding: 15px;
-    
 }
 
-/* Estilo dos títulos (h3) */
 .info h3 {
     font-size: 16px;
     color: #333;
@@ -1188,49 +1184,37 @@ h3 {
     min-width: 120px;
 }
 
-/* Estilo dos campos de entrada (input) */
 .info input[type="text"] {
     flex: 1;
-    width: 50%;
+    max-width: 100%;
     padding: 8px;
     border: 1px solid #ccc;
     border-radius: 4px;
     font-size: 14px;
 }
 
-/* Efeito de foco nos campos de entrada */
 .info input[type="text"]:focus {
-    border-color: #007bff;
+    border-color: var(--azul-destaque);
     outline: none;
     box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
 }
 
-/* Estilo adicional para a classe sd */
 .sd {
     position: relative;
     width: 100%;
     display: flex;
     align-items: center;
-    padding: 50px;
+    padding: 10px;
     left: 10px;
-    
 }
 
-/* Estilo adicional para a classe porCD */
 .porCD {
     width: 100%;
 }
 
-.porCD .cadastro{
+.porCD .cadastro,
+.porCD .departamento {
     display: flex;
-    gap: 30px;
-    position: relative;
-    left: 15px;
-}
-
-.porCD .departamento{
-    display: flex;
-    gap: 30px;
     position: relative;
     left: 15px;
 }
@@ -1244,40 +1228,50 @@ h3 {
     margin: 10px 0;
 }
 
-
 .tx input[type="text"] {
     width: 100%;
     border: 1px solid #ccc;
     border-radius: 4px;
     font-size: 14px;
-    box-sizing: border-box;
 }
 
 .tx input[type="text"]:focus {
-    border-color: #007bff;
+    border-color: var(--azul-destaque);
     outline: none;
     box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
 }
 
-.info button{
+.info a{
+    width: 100px;
+} 
+
+.info button {
     position: relative;
-    width: 12%;
-    height: 7%;
-    left: 43%;
-    background-color:  #c510ad;;
+    left: 0%;
+    width: 30px;
+    background-color: var(--roxo);
     border: none;
     border-radius: 15px;
+    transition: 0.3s ease, color 0.3s ease;
 }
 
-.info button h3{
-    color:var(--branco);
+.info button h3 {
+    color: var(--branco);
     display: flex;
     align-items: center;
     justify-content: center;
+}
+
+.info button:hover {
+    background-color: var(--preto);
     color: white;
 }
 
-.info button:hover{
-    background-color: black;
-    color: white;
+@media (max-width: 768px) {
+    .top-nave {
+        flex-direction: column;
+    }
+    .info button {
+        width: 80%;
+    }
 }
