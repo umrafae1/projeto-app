@@ -399,7 +399,7 @@ var app = new Framework7({
 	  },
 	  {
 		path: '/cadastro/',
-		url: 'https://friendly-space-eureka-976qjj95pxqh9g4-3002.app.github.dev/',
+		url: 'cadastro.html',
 		animate: false,
 		on: {
 		  pageBeforeIn: function (event, page) {

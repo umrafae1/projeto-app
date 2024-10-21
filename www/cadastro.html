@@ -1,15 +1,26 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cadastro - Funcionário</title>
-    <link rel="stylesheet" href="CadastroFuncionario.css"> <!-- Estilo adicional, se necessário -->
+    <!-- Required meta tags-->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, viewport-fit=cover">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <!-- Color theme for statusbar (Android only) -->
+    <meta name="theme-color" content="#2196f3">
+    <!-- Your app title -->
+    <title>My App</title>
+    <!-- Path to Framework7 Library Bundle CSS -->
+    <link rel="stylesheet" href="lib/framework7-bundle.min.css">
+    <!-- CSS PERSONALIZADO PARA MENU -->
+    <link rel="stylesheet" href="css/index.css">
+    <!-- Ícones Material Design -->
+    <link rel="stylesheet" href="css/materialdesignicons.min.css">
+    <link rel="stylesheet" href="css/remix-icons/remixicon.css" />
 </head>
 <body>
     <div class="Central">
-        <form id="cadastroFuncionarioForm" enctype="multipart/form-data">
-            <h2>Cadastro de Funcionário</h2>
+        <form id="cadastroAdmGrupoForm" enctype="multipart/form-data">
+            <h2>Cadastro de Administrador</h2>
 
             <label for="Nome">Nome</label>
             <input type="text" name="Nome" id="Nome" placeholder="Digite seu nome" required>
@@ -20,8 +31,11 @@
             <label for="FotoPerfil">Foto de Perfil</label>
             <input type="file" name="FotoPerfil" id="FotoPerfil" accept="image/*" required>
 
-            <label for="Funcao">Função</label>
-            <input type="text" name="Funcao" id="Funcao" placeholder="Digite a função" required>
+            <label for="NomeEmp">Nome da Empresa</label>
+            <input type="text" name="NomeEmp" id="NomeEmp" placeholder="Digite o nome da empresa" required>
+
+            <label for="Logo">Logo da Empresa</label>
+            <input type="file" name="Logo" id="Logo" accept="image/*" required>
 
             <label for="Cadastro">Cadastro</label>
             <input type="text" name="Cadastro" id="Cadastro" placeholder="Digite o cadastro" required>
@@ -32,48 +46,19 @@
             <label for="ConfirmaSenha">Confirme a Senha</label>
             <input type="password" name="ConfirmaSenha" id="ConfirmaSenha" placeholder="Repita a senha" required>
 
+            <label for="Email">E-mail</label>
+            <input type="email" name="Email" id="Email" placeholder="Digite o e-mail" required>
+
             <input type="submit" value="Finalizar" id="Finalizar">
         </form>
         <div id="mensagem"></div>
     </div>
 
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const form = document.getElementById('cadastroFuncionarioForm');
-            form.addEventListener('submit', function(event) {
-                event.preventDefault(); // Previne o envio padrão do formulário
-
-                const senha = document.getElementById('Senha').value;
-                const confirmaSenha = document.getElementById('ConfirmaSenha').value;
-
-                if (senha !== confirmaSenha) {
-                    alert('As senhas não correspondem.');
-                    return; // Impede o envio do formulário
-                }
-
-                // Criando um objeto FormData para enviar os dados do formulário
-                const formData = new FormData(form);
-
-                // Enviando os dados para a API
-                fetch('http://127.0.0.1:3000/api/cadastrarFuncionario', {
-                    method: 'POST',
-                    body: formData
-                })
-                .then(response => {
-                    if (!response.ok) {
-                        throw new Error('Erro ao cadastrar');
-                    }
-                    return response.json();
-                })
-                .then(data => {
-                    document.getElementById('mensagem').innerText = 'Cadastro realizado com sucesso!';
-                    form.reset(); // Limpa o formulário
-                })
-                .catch(error => {
-                    document.getElementById('mensagem').innerText = error.message;
-                });
-            });
-        });
-    </script>
+    <!-- Path to Framework7 Library Bundle JS -->
+    <script type="text/javascript" src="lib/framework7-bundle.min.js"></script>
+    <!-- jQuery -->
+    <script type="text/javascript" src="lib/jquery-3.7.0.min.js"></script>
+    <!-- Roteamento do app -->
+    <script type="text/javascript" src="js/routes.js"></script>
 </body>
 </html>
