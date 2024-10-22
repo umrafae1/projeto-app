@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <!-- Required meta tags-->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, viewport-fit=cover">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <!-- Color theme for statusbar (Android only) -->
+    <meta name="theme-color" content="#2196f3">
+    <!-- Your app title -->
+    <title>My App</title>
+    <!-- Path to Framework7 Library Bundle CSS -->
+    <link rel="stylesheet" href="lib/framework7-bundle.min.css">
+    <!-- CSS PERSONALIZADO PARA MENU -->
+    <link rel="stylesheet" href="css/index.css">
+    <!-- Ícones Material Design -->
+    <link rel="stylesheet" href="css/materialdesignicons.min.css">
+    <link rel="stylesheet" href="css/remix-icons/remixicon.css" />
+</head>
+<body>
+    <div class="Central">
+        <form id="cadastroAdmGrupoForm" enctype="multipart/form-data">
+            <h2>Cadastro de Administrador</h2>
+
+            <label for="Nome">Nome</label>
+            <input type="text" name="Nome" id="Nome" placeholder="Digite seu nome" required>
+
+            <label for="DataNasc">Data de Nascimento</label>
+            <input type="date" name="DataNasc" id="DataNasc" required>
+
+            <label for="FotoPerfil">Foto de Perfil</label>
+            <input type="file" name="FotoPerfil" id="FotoPerfil" accept="image/*" required>
+
+            <label for="NomeEmp">Nome da Empresa</label>
+            <input type="text" name="NomeEmp" id="NomeEmp" placeholder="Digite o nome da empresa" required>
+
+            <label for="Logo">Logo da Empresa</label>
+            <input type="file" name="Logo" id="Logo" accept="image/*" required>
+
+            <label for="Cadastro">Cadastro</label>
+            <input type="text" name="Cadastro" id="Cadastro" placeholder="Digite o cadastro" required>
+
+            <label for="Senha">Senha</label>
+            <input type="password" name="Senha" id="Senha" placeholder="Digite a senha" required>
+
+            <label for="ConfirmaSenha">Confirme a Senha</label>
+            <input type="password" name="ConfirmaSenha" id="ConfirmaSenha" placeholder="Repita a senha" required>
+
+            <label for="Email">E-mail</label>
+            <input type="email" name="Email" id="Email" placeholder="Digite o e-mail" required>
+
+            <input type="submit" value="Finalizar" id="Finalizar">
+        </form>
+        <div id="mensagem"></div>
+    </div>
+
+    <!-- Path to Framework7 Library Bundle JS -->
+    <script type="text/javascript" src="lib/framework7-bundle.min.js"></script>
+    <!-- jQuery -->
+    <script type="text/javascript" src="lib/jquery-3.7.0.min.js"></script>
+    <!-- Roteamento do app -->
+    <script type="text/javascript" src="js/routes.js"></script>
+</body>
+</html>

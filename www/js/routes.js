@@ -24,24 +24,17 @@ var app = new Framework7({
 	  on: {
 		pageBeforeIn: function (event, page) {
 		// fazer algo antes da página ser exibida
-
+		
         $("#menuPrincipal").show("fast");
-
-
-    $("#menuPrincipal").show("fast");
-
 
 		},
 		pageAfterIn: function (event, page) {
 		// fazer algo depois da página ser exibida
 		},
 		pageInit: function (event, page) {
-      // fazer algo quando a página for inicializada
-      app.views.main.router.navigate('/login/')
-
-
-
-      $.getScript('www/js/index.js')
+        // fazer algo quando a página for inicializada
+        app.views.main.router.navigate('/login/')
+        
 
 
     
@@ -148,6 +141,7 @@ var app = new Framework7({
 	  on: {
 		pageBeforeIn: function (event, page) {
 		// fazer algo antes da página ser exibida
+		$("#menuPrincipal").show("fast");
 		},
 		pageAfterIn: function (event, page) {
 		// fazer algo depois da página ser exibida
@@ -187,7 +181,6 @@ var app = new Framework7({
 		pageBeforeIn: function (event, page) {
 		// fazer algo antes da página ser exibida
         $("#menuPrincipal").hide("fast");
-		$.getScript('www/js/index.js');
 		},
 		pageAfterIn: function (event, page) {
 		// fazer algo depois da página ser exibida
@@ -207,7 +200,7 @@ var app = new Framework7({
 	  on: {
 		pageBeforeIn: function (event, page) {
 		// fazer algo antes da página ser exibida
-    $("#menuPrincipal").hide("fast");
+        $("#menuPrincipal").hide("fast");
 		},
 		pageAfterIn: function (event, page) {
 		// fazer algo depois da página ser exibida
@@ -250,6 +243,7 @@ var app = new Framework7({
 		pageBeforeIn: function (event, page) {
 		// fazer algo antes da página ser exibida
         $("#menuPrincipal").hide("fast");
+		$.getScript('js/server.js')
 		},
 		pageAfterIn: function (event, page) {
 		// fazer algo depois da página ser exibida
@@ -329,7 +323,6 @@ var app = new Framework7({
 		pageBeforeIn: function (event, page) {
 		// fazer algo antes da página ser exibida
         $("#menuPrincipal").hide("fast");
-		$.getScript('www/js/index.js');
 		},
 		pageAfterIn: function (event, page) {
 		// fazer algo depois da página ser exibida
@@ -350,13 +343,74 @@ var app = new Framework7({
 		  pageBeforeIn: function (event, page) {
 		  // fazer algo antes da página ser exibida
 		  $("#menuPrincipal").hide("fast");
-		  $.getScript('www/js/index.js');
+		  $.getScript('js/index.js');
 		  },
 		  pageAfterIn: function (event, page) {
 		  // fazer algo depois da página ser exibida
 		  },
 		  pageInit: function (event, page) {
 		  // fazer algo quando a página for inicializada
+		  },
+		  pageBeforeRemove: function (event, page) {
+		  // fazer algo antes da página ser removida do DOM
+		  },
+		}
+	  },
+	{
+		path: '/agenda2/',
+		url: 'agenda2.html',
+		animate: false,
+		on: {
+		  pageBeforeIn: function (event, page) {
+		  // fazer algo antes da página ser exibida
+		  $("#menuPrincipal").hide("fast");
+		  $.getScript('www/js/add_agenda.js');
+		  },
+		  pageAfterIn: function (event, page) {
+		  // fazer algo depois da página ser exibida
+		  },
+		  pageInit: function (event, page) {
+		  // fazer algo quando a página for inicializada
+		  },
+		  pageBeforeRemove: function (event, page) {
+		  // fazer algo antes da página ser removida do DOM
+		  },
+		}
+	  },
+	  {
+		path: '/add/',
+		url: 'add_agenda.html',
+		animate: false,
+		on: {
+		  pageBeforeIn: function (event, page) {
+		  // fazer algo antes da página ser exibida
+		  $("#menuPrincipal").hide("fast");
+		  },
+		  pageAfterIn: function (event, page) {
+		  // fazer algo depois da página ser exibida
+		  },
+		  pageInit: function (event, page) {
+		  // fazer algo quando a página for inicializada
+		  },
+		  pageBeforeRemove: function (event, page) {
+		  // fazer algo antes da página ser removida do DOM
+		  },
+		}
+	  },
+	  {
+		path: '/cadastro/',
+		url: 'cadastro.html',
+		animate: false,
+		on: {
+		  pageBeforeIn: function (event, page) {
+		  // fazer algo antes da página ser exibida
+		  },
+		  pageAfterIn: function (event, page) {
+		  // fazer algo depois da página ser exibida
+		  },
+		  pageInit: function (event, page) {
+		  // fazer algo quando a página for inicializada
+		  $.getScript('js/server.js')
 		  },
 		  pageBeforeRemove: function (event, page) {
 		  // fazer algo antes da página ser removida do DOM
@@ -410,10 +464,8 @@ function alerta(){
 
 
 function logar(){
-
   var login = document.getElementById('login').value;
   var senha = document.getElementById('senha').value;
-
   if(login == "admin" && senha == "admin"){
     app.views.main.router.navigate('/index/');
   }else{
@@ -421,3 +473,17 @@ function logar(){
   }
 
 }
+function toggleInput() {
+    const porCadastro = document.getElementById('porCadastro');
+    const codigoColaboradorContainer = document.getElementById('codigoColaboradorContainer');
+
+    // Exibe o campo se "Por Cadastro" estiver selecionado
+    if (porCadastro.checked) {
+        codigoColaboradorContainer.style.display = 'block'; // Mostra o campo
+    } else {
+        codigoColaboradorContainer.style.display = 'none'; // Oculta o campo
+    }
+}
+
+// Chama a função para garantir que o estado inicial esteja correto
+toggleInput();
