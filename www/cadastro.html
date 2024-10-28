@@ -1,33 +1,177 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-    <!-- Required meta tags-->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, viewport-fit=cover">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <!-- Color theme for statusbar (Android only) -->
-    <meta name="theme-color" content="#2196f3">
-    <!-- Your app title -->
-    <title>My App</title>
-    <!-- Path to Framework7 Library Bundle CSS -->
-    <link rel="stylesheet" href="lib/framework7-bundle.min.css">
-    <!-- CSS PERSONALIZADO PARA MENU -->
-    <link rel="stylesheet" href="css/index.css">
-    <!-- Ícones Material Design -->
-    <link rel="stylesheet" href="css/materialdesignicons.min.css">
-    <link rel="stylesheet" href="css/remix-icons/remixicon.css" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro de Administrador</title>
+    <script type="module">
+        // Importar as funções necessárias do SDK
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js";
+        import { getDatabase, ref, set } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-database.js";
+        import { getStorage, ref as storageRef, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-storage.js";
+        import { getAuth, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-auth.js";
+        import { getAnalytics } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-analytics.js";
+
+        // Configuração do Firebase
+        const firebaseConfig = {
+            apiKey: "AIzaSyBk3kzqpBKEyrwHdnC_RgHmd4PDUJOqoEU",
+            authDomain: "copinfo-5a0f5.firebaseapp.com",
+            projectId: "copinfo-5a0f5",
+            storageBucket: "copinfo-5a0f5.appspot.com",
+            messagingSenderId: "543026869888",
+            appId: "1:543026869888:web:f2ef1ce629b2bf49615865",
+            measurementId: "G-9JHXYXYKGT"
+        };
+
+        // Inicializar Firebase
+        const app = initializeApp(firebaseConfig);
+        const analytics = getAnalytics(app);
+        const db = getDatabase(app);
+        const storage = getStorage(app);
+        const auth = getAuth(app); // Inicializa o Firebase Auth
+
+        document.addEventListener("DOMContentLoaded", () => {
+            const form = document.getElementById("cadastroAdmGrupoForm");
+
+            form.addEventListener("submit", (event) => {
+                event.preventDefault(); // Evitar o envio padrão do formulário
+
+                const nome = document.getElementById("Nome").value.trim();
+                const dataNasc = document.getElementById("DataNasc").value;
+                const nomeEmp = document.getElementById("NomeEmp").value.trim();
+                const cadastro = document.getElementById("Cadastro").value.trim();
+                const senha = document.getElementById("Senha").value.trim();
+                const confirmaSenha = document.getElementById("ConfirmaSenha").value.trim();
+                const email = document.getElementById("Email").value.trim();
+                const fotoPerfilFile = document.getElementById("FotoPerfil").files[0];
+                const logoFile = document.getElementById("Logo").files[0];
+
+                // Verifica se as senhas coincidem
+                if (senha !== confirmaSenha) {
+                    document.getElementById("mensagem").innerText = "As senhas não coincidem.";
+                    return;
+                }
+
+                // Cria o usuário
+                createUserWithEmailAndPassword(auth, email, senha)
+                    .then((userCredential) => {
+                        const user = userCredential.user;
+
+                        // Função para fazer upload de arquivos
+                        const uploadFile = (file, path) => {
+                            return new Promise((resolve, reject) => {
+                                const storageRefFile = storageRef(storage, path);
+                                uploadBytes(storageRefFile, file).then(() => {
+                                    getDownloadURL(storageRefFile).then(resolve).catch(reject);
+                                }).catch(reject);
+                            });
+                        };
+
+                        // Renomear os arquivos
+                        const fotoPerfilPath = `fotos/${user.uid}_perfil.jpg`;
+                        const logoPath = `logos/${user.uid}_logo.jpg`;
+
+                        // Upload da foto de perfil e logo da empresa
+                        return Promise.all([
+                            uploadFile(fotoPerfilFile, fotoPerfilPath),
+                            uploadFile(logoFile, logoPath)
+                        ]).then(([fotoPerfilURL, logoURL]) => {
+                            // Adiciona o novo grupo ao Firebase
+                            const newGrupoRef = ref(db, 'adm_grupo/' + cadastro); // Usando o cadastro como chave
+                            return set(newGrupoRef, {
+                                Nome: nome,
+                                DanaNasc: dataNasc,
+                                FotoPerfil: fotoPerfilURL,
+                                NomeEmp: nomeEmp,
+                                Logo: logoURL,
+                                Cadastro: cadastro,
+                                Senha: senha, // Pode ser interessante não armazenar a senha em texto claro
+                                Email: email
+                            });
+                        });
+                    }).then(() => {
+                        // Mensagem de sucesso
+                        document.getElementById("mensagem").innerText = "Cadastro realizado com sucesso!";
+                        form.reset(); // Limpa o formulário
+                    }).catch((error) => {
+                        // Mensagem de erro
+                        console.error("Erro ao cadastrar: ", error);
+                        document.getElementById("mensagem").innerText = "Erro ao cadastrar: " + error.message;
+                    });
+            });
+        });
+    </script>
+    <style>
+        /* Estilos do formulário */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+
+        .container {
+            max-width: 500px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        label {
+            margin: 10px 0 5px;
+        }
+
+        input[type="text"],
+        input[type="date"],
+        input[type="email"],
+        input[type="password"],
+        input[type="file"] {
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        input[type="submit"] {
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #2196f3;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #1976d2;
+        }
+
+        #mensagem {
+            margin-top: 20px;
+            text-align: center;
+        }
+    </style>
 </head>
 <body>
-    <div class="Central">
-
-        <div class="top-nave">
-            <h1 class="tittle-logo"><a href="/login/"><i class="ri-arrow-left-s-line"></i></a>Cadastro de Administrador</h1>
-        </div>
-
-
+    <div class="container">
+        <h1>Cadastro de Administrador</h1>
         <form id="cadastroAdmGrupoForm" enctype="multipart/form-data">
-        
-
             <label for="Nome">Nome</label>
             <input type="text" name="Nome" id="Nome" placeholder="Digite seu nome" required>
 
@@ -59,12 +203,5 @@
         </form>
         <div id="mensagem"></div>
     </div>
-
-    <!-- Path to Framework7 Library Bundle JS -->
-    <script type="text/javascript" src="lib/framework7-bundle.min.js"></script>
-    <!-- jQuery -->
-    <script type="text/javascript" src="lib/jquery-3.7.0.min.js"></script>
-    <!-- Roteamento do app -->
-    <script type="text/javascript" src="js/routes.js"></script>
 </body>
 </html>
