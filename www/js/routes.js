@@ -33,7 +33,7 @@ var app = new Framework7({
 		},
 		pageInit: function (event, page) {
         // fazer algo quando a página for inicializada
-        app.views.main.router.navigate('/login/')
+      //  app.views.main.router.navigate('/login/')
         
 
 
@@ -463,27 +463,15 @@ function alerta(){
 }
 
 
-function logar(){
-  var login = document.getElementById('login').value;
-  var senha = document.getElementById('senha').value;
-  if(login == "admin" && senha == "admin"){
-    app.views.main.router.navigate('/index/');
-  }else{
-      app.dialog.alert('Usuario ou senha incorretos');
-  }
-
-}
 function toggleInput() {
     const porCadastro = document.getElementById('porCadastro');
     const codigoColaboradorContainer = document.getElementById('codigoColaboradorContainer');
 
-    // Exibe o campo se "Por Cadastro" estiver selecionado
     if (porCadastro.checked) {
-        codigoColaboradorContainer.style.display = 'block'; // Mostra o campo
+        codigoColaboradorContainer.style.display = 'block';
     } else {
-        codigoColaboradorContainer.style.display = 'none'; // Oculta o campo
+        codigoColaboradorContainer.style.display = 'none';
     }
 }
 
-// Chama a função para garantir que o estado inicial esteja correto
 toggleInput();
