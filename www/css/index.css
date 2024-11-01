@@ -26,7 +26,7 @@ body{
 }
 
 .toolbar-inner{
-    background: var(--branco);
+    background: var(--azul);
     border-top: 1px solid var(--gelo);
 }
 
@@ -35,11 +35,11 @@ body{
     height: 80px;  
     line-height: 25px; 
 	font-weight:bold;
-    color: var(--azul);    
+    color: var(--preto);    
 }
 
 .toolbar-inner .link:not(.active){
-    color: var(--preto);
+    color: var(--branco);
 	font-weight:normal;
 }
 

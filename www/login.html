@@ -9,67 +9,109 @@
     <link rel="stylesheet" href="css/materialdesignicons.min.css" />
     <link rel="stylesheet" href="css/remix-icons/remixicon.css" />
     <style>
+      :root{
+    --branco: #FFFF;
+    --gelo: #f1f1f1;
+    --cinza: #acabab;
+    
+    --preto: #2a2a2a;
+    --azul:#106584;
+
+}
+      @import url('https://fonts.googleapis.com/css2?family=Archivo+Black&family=Bebas+Neue&display=swap');
+
+
       body {
         display: flex;
         justify-content: center;
         align-items: center;
         height: 100vh;
         background-color: #f0f4f8; /* Cor de fundo suave */
+        font-family: "Bebas Neue", sans-serif;
       }
+
 
       #app {
         background: white;
         border-radius: 8px;
         box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
         padding: 20px;
-        width: 300px;
+        width: 350px;
+        height: 300px;
         text-align: center;
       }
 
       h1 {
         margin-bottom: 20px;
         font-size: 24px;
-        color: #2196f3; /* Cor do título */
+        color: var(--preto); /* Cor do título */
+      }
+
+      .input_login{
+        width: 300px;
+        height: 100px;
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
       }
 
       input[type="text"],
       input[type="password"] {
-        width: 100%;
-        padding: 10px;
-        margin: 10px 0;
-        border: 1px solid #ccc;
-        border-radius: 4px;
+        width: 90%;
+        height: 45px;
+        border-radius: 10px;
+        margin: auto;
+        padding: 10px 20px;
+        background-color: var(--gelo);
       }
 
       input[type="submit"] {
-        background-color: #2196f3; /* Cor do botão */
+        background-color: var(--azul); /* Cor do botão */
         color: white;
         border: none;
         border-radius: 4px;
         padding: 10px;
         cursor: pointer;
-        width: 100%;
+        width: 90%;
         font-size: 16px;
       }
 
       input[type="submit"]:hover {
         background-color: #1976d2; /* Cor do botão ao passar o mouse */
       }
+
+      .links{
+        width: 290px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 80px;
+      }
+
     </style>
   </head>
 
   <body>
     <div id="app">
       <h1>CorpInfo</h1>
-      <input type="text" id="login" placeholder="Login" />
-      <input type="password" id="senha" placeholder="Senha" />
-      <input type="submit" value="Login" onclick="logar()" />
+
+      <div class="input_login">
+
+        <input type="text" id="login" placeholder="Login" />
+        <input type="password" id="senha" placeholder="Senha" />
+
+      
+      </div>
 
       <div class="links">
         <a href="#">Esqueceu a senha?</a>
         <a onclick="window.location.href = 'cadastro.html'">Cadastrar</a>
       </div>
+
+      <input type="submit" value="Login" onclick="logar()" />
     </div>
+
+    
 
     
 
