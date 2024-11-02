@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agenda</title>
+    <style>
+        :root {
+            --azul: #106584;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-image: url('img/OIP.jpeg');
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-attachment: fixed;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            margin: 0;
+            padding: 0;
+        }
+
+        .corpo {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .cabecalho {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+
+        h1 {
+            margin: 0;
+            color: #333;
+        }
+
+        .cabecalho button {
+            width: 50px;
+            height: 50px;
+            background: var(--azul);
+            border: none;
+            border-radius: 5px;
+            color: #fff;
+            padding: 10px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .cabecalho button:hover {
+            background: #0b4458;
+        }
+
+        .dias {
+            list-style: none;
+            padding: 0;
+        }
+
+        .dia {
+            display: flex;
+            align-items: center;
+            background: #fff;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            padding: 10px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .data {
+            flex: 0 0 100px;
+            font-size: 18px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .descricao {
+            flex: 1;
+            font-size: 14px;
+            color: #666;
+            margin-right: 10px;
+        }
+
+        .botao-nova-pagina {
+            background: var(--azul);
+            border: none;
+            border-radius: 5px;
+            color: #fff;
+            padding: 5px 10px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .botao-nova-pagina:hover {
+            background: #0056b3;
+        }
+
+        @media (max-width: 600px) {
+            .corpo {
+                width: 90%;
+                padding: 10px;
+            }
+            .cabecalho h1 {
+                font-size: 18px;
+            }
+            .dia {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            .botao-nova-pagina {
+                margin-top: 10px;
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="corpo">
+        <div class="cabecalho">
+            <button id="anterior">←</button>
+            <h1 id="nomeMes">Agenda</h1>
+            <button id="proximo">→</button>
+        </div>
+        <ul class="dias" id="listaDias">
+            <!-- Os dias serão gerados aqui -->
+        </ul>
+    </div>
+    <script>
+        const dataAtual = new Date();
+        let mesAtual = dataAtual.getMonth();
+        let anoAtual = dataAtual.getFullYear();
+
+        const meses = [
+            "Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho",
+            "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"
+        ];
+
+        const nomeMesElemento = document.querySelector('#nomeMes');
+        const listaDiasElemento = document.querySelector('#listaDias');
+
+        async function atualizarMes() {
+            nomeMesElemento.textContent = `${meses[mesAtual]} ${anoAtual}`;
+        }
+
+        function criarDias() {
+            listaDiasElemento.innerHTML = '';
+            const ultimoDiaDoMes = new Date(anoAtual, mesAtual + 1, 0).getDate();
+
+            for (let dia = 1; dia <= ultimoDiaDoMes; dia++) {
+                const diaElemento = document.createElement('li');
+                diaElemento.classList.add('dia');
+
+                diaElemento.innerHTML = `
+                    <div class="data">${dia}</div>
+                    <div class="descricao"></div>
+                    <button class="botao-nova-pagina" onclick="window.location.href='add_agenda.html'">Adicionar</button>
+                `;
+
+                listaDiasElemento.appendChild(diaElemento);
+            }
+        }
+
+        document.querySelector('#anterior').addEventListener('click', function() {
+            if (mesAtual > 0) {
+                mesAtual--;
+            } else {
+                mesAtual = 11;
+                anoAtual--;
+            }
+            atualizarMes();
+            criarDias();
+        });
+
+        document.querySelector('#proximo').addEventListener('click', function() {
+            if (mesAtual < 11) {
+                mesAtual++;
+            } else {
+                mesAtual = 0;
+                anoAtual++;
+            }
+            atualizarMes();
+            criarDias();
+        });
+
+        atualizarMes();
+        criarDias();
+    </script>
+</body>
+</html>

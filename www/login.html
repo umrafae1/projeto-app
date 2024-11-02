@@ -10,26 +10,22 @@
     <link rel="stylesheet" href="css/remix-icons/remixicon.css" />
     <style>
       :root{
-    --branco: #FFFF;
-    --gelo: #f1f1f1;
-    --cinza: #acabab;
-    
-    --preto: #2a2a2a;
-    --azul:#106584;
-
-}
+        --branco: #FFFF;
+        --gelo: #f1f1f1;
+        --cinza: #acabab;
+        --preto: #2a2a2a;
+        --azul: #106584;
+      }
       @import url('https://fonts.googleapis.com/css2?family=Archivo+Black&family=Bebas+Neue&display=swap');
-
 
       body {
         display: flex;
         justify-content: center;
         align-items: center;
         height: 100vh;
-        background-color: #f0f4f8; /* Cor de fundo suave */
+        background-color: #f0f4f8;
         font-family: "Bebas Neue", sans-serif;
       }
-
 
       #app {
         background: white;
@@ -44,10 +40,10 @@
       h1 {
         margin-bottom: 20px;
         font-size: 24px;
-        color: var(--preto); /* Cor do título */
+        color: var(--preto);
       }
 
-      .input_login{
+      .input_login {
         width: 300px;
         height: 100px;
         display: flex;
@@ -66,7 +62,7 @@
       }
 
       input[type="submit"] {
-        background-color: var(--azul); /* Cor do botão */
+        background-color: var(--azul);
         color: white;
         border: none;
         border-radius: 4px;
@@ -77,47 +73,37 @@
       }
 
       input[type="submit"]:hover {
-        background-color: #1976d2; /* Cor do botão ao passar o mouse */
+        background-color: #1976d2;
       }
 
-      .links{
+      .links {
         width: 290px;
         display: flex;
         align-items: center;
         justify-content: center;
         gap: 80px;
       }
-
     </style>
   </head>
 
   <body>
     <div id="app">
       <h1>CorpInfo</h1>
-
       <div class="input_login">
-
         <input type="text" id="login" placeholder="Login" />
         <input type="password" id="senha" placeholder="Senha" />
-
-      
       </div>
-
       <div class="links">
         <a href="#">Esqueceu a senha?</a>
         <a onclick="window.location.href = 'cadastro.html'">Cadastrar</a>
       </div>
-
       <input type="submit" value="Login" onclick="logar()" />
     </div>
-
-    
-
-    
 
     <script type="module">
       import { initializeApp } from "https://www.gstatic.com/firebasejs/9.1.0/firebase-app.js";
       import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/9.1.0/firebase-auth.js";
+      import { getFirestore, collection, getDocs, query, where } from "https://www.gstatic.com/firebasejs/9.1.0/firebase-firestore.js";
 
       const firebaseConfig = {
         apiKey: "AIzaSyBk3kzqpBKEyrwHdnC_RgHmd4PDUJOqoEU",
@@ -131,25 +117,36 @@
       // Initialize Firebase
       const app = initializeApp(firebaseConfig);
       const auth = getAuth(app);
+      const db = getFirestore(app);
 
-      window.logar = function () {
+      window.logar = async function () {
         const email = document.getElementById("login").value;
         const senha = document.getElementById("senha").value;
 
-        signInWithEmailAndPassword(auth, email, senha)
-          .then((userCredential) => {
-            alert("Login bem-sucedido");
-            window.location.href = "index.html";
-          })
-          .catch((error) => {
-            const errorMessage = error.message;
-            alert("Erro no login: " + errorMessage);
+        try {
+          const userCredential = await signInWithEmailAndPassword(auth, email, senha);
+          alert("Login bem-sucedido");
+
+          // Recuperando dados do usuário
+          const userId = userCredential.user.uid;
+          const userRef = collection(db, "users");
+          const userQuery = query(userRef, where("uid", "==", userId));
+          const userDocs = await getDocs(userQuery);
+          userDocs.forEach((doc) => {
+            localStorage.setItem("userData", JSON.stringify(doc.data()));
           });
+
+          window.location.href = "index.html";
+        } catch (error) {
+          const errorMessage = error.message;
+          alert("Erro no login: " + errorMessage);
+        }
       };
     </script>
-  </body>
+
     <!-- Incluindo Framework7 JS e jQuery -->
     <script type="text/javascript" src="lib/framework7-bundle.min.js"></script>
     <script type="text/javascript" src="lib/jquery-3.7.0.min.js"></script>
     <script type="text/javascript" src="js/routes.js"></script>
+  </body>
 </html>
