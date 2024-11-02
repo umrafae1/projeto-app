@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cadastro Pessoal</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+    }
+
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      background-color: #f0f2f5;
+    }
+
+    .container {
+      width: 90%;
+      max-width: 400px;
+      padding: 20px;
+      background-color: #fff;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    h2 {
+      text-align: center;
+      margin-bottom: 20px;
+      color: #333;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 5px;
+      font-weight: bold;
+      color: #555;
+    }
+
+    input[type="text"],
+    input[type="date"],
+    input[type="file"],
+    input[type="password"],
+    input[type="email"] {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 15px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      font-size: 16px;
+    }
+
+    .file-input {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .file-input label {
+      margin: 0;
+    }
+
+    .file-input input[type="file"] {
+      display: none;
+    }
+
+    .file-input label[for="fotoPerfil"],
+    .file-input label[for="logoEmpresa"] {
+      padding: 8px 12px;
+      background-color: #007bff;
+      color: #fff;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .btn-finalizar {
+      width: 100%;
+      padding: 10px;
+      background-color: #28a745;
+      color: #fff;
+      font-size: 18px;
+      font-weight: bold;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    .btn-finalizar:hover {
+      background-color: #218838;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <h2>Cadastro Funcionarios</h2>
+  <form>
+    <label for="nome">Nome</label>
+    <input type="text" id="nome" name="nome" required>
+
+    <label for="dataNasc">Data de Nascimento</label>
+    <input type="date" id="dataNasc" name="dataNasc" required>
+
+    <div class="file-input">
+      <label for="fotoPerfil">Foto de Perfil</label>
+      <input type="file" id="fotoPerfil" name="fotoPerfil" accept="image/*">
+    </div>
+
+    <label for="nomeEmpresa">Nome da Empresa</label>
+    <input type="text" id="nomeEmpresa" name="nomeEmpresa">
+
+    <div class="file-input">
+      <label for="logoEmpresa">Logo da Empresa</label>
+      <input type="file" id="logoEmpresa" name="logoEmpresa" accept="image/*">
+    </div>
+
+    <label for="cadastro">Cadastro</label>
+    <input type="text" id="cadastro" name="cadastro" required>
+
+    <label for="senha">Senha</label>
+    <input type="password" id="senha" name="senha" required>
+
+    <label for="confirmarSenha">Confirmar Senha</label>
+    <input type="password" id="confirmarSenha" name="confirmarSenha" required>
+
+    <label for="email">Email</label>
+    <input type="email" id="email" name="email" required>
+
+    <button type="submit" class="btn-finalizar">Finalizar</button>
+  </form>
+</div>
+
+</body>
+</html>
