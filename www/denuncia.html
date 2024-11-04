@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <!-- Required meta tags-->
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, viewport-fit=cover"
+    />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <!-- Color theme for statusbar (Android only) -->
+    <meta name="theme-color" content="#2196f3" />
+    <!-- Your app title -->
+    <title>CorpInfo</title>
+    <!-- Path to Framework7 Library Bundle CSS -->
+    <link rel="stylesheet" href="lib/framework7-bundle.min.css" />
+    <!-- CSS PERSONALIZADO PARA MENU-->
+    <link rel="stylesheet" href="css/index.css" />
+    <!--Ícones Material Design-->
+    <link rel="stylesheet" href="css/materialdesignicons.min.css" />
+    <!--Ícones Remix Icon-->
+    <link rel="stylesheet" href="css/remix-icons/remixicon.css" />
+  </head>
+
+  <body>
+    <!-- App root element -->
+    <div id="app">
+      <!-- Your main view, should have "view-main" class -->
+      <div class="view view-main">
+        <!-- TAB BAR-->
+        <div class="toolbar toolbar-bottom">
+          <div class="toolbar-inner display-flex">
+            <a href="/index/" class="tab-link link active">
+              <i class="ri-home-5-line"></i>
+              <span>Início</span>
+            </a>
+            <a href="/link2/" class="tab-link link">
+              <i class="ri-chat-1-line"></i>
+              <span>Chat</span>
+            </a>
+            <a href="/link3/" class="tab-link link">
+              <i class="ri-user-line"></i>
+              <span>Perfil</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- Initial Page, "data-name" contains page name -->
+        <div data-name="login" class="page color-theme-blue">
+          <!--Nome da empresa + logo-->
+
+          <div class="top-nav">
+            <h1 class="tittle-logo">Denúncia</h1>
+          </div>
+
+          <main>
+            <div class="container">
+                <h2>Formulário de Denúncia Empresarial</h2>
+                <form action="/submit-denuncia" method="POST" enctype="multipart/form-data">
+                    <div class="form-group">
+                        <label for="tipo-usuario">Você é:</label>
+                        <select id="tipo-usuario" name="tipo_usuario" required onchange="mostrarCampoID()">
+                            <option value="">Selecione</option>
+                            <option value="funcionario">Funcionário</option>
+                            <option value="adm">Administrador</option>
+                        </select>
+                    </div>
+                    <div class="form-group hidden" id="campo-id-funcionario">
+                        <label for="id-funcionario">ID do Funcionário</label>
+                        <input type="text" id="id-funcionario" name="id_funcionario" placeholder="ID do funcionário">
+                    </div>
+                    <div class="form-group hidden" id="campo-id-adm">
+                        <label for="id-adm">ID do Administrador</label>
+                        <input type="text" id="id-adm" name="id_adm" placeholder="ID do administrador">
+                    </div>
+                    <div class="form-group">
+                        <label for="nome">Nome</label>
+                        <input type="text" id="nome" name="nome" placeholder="Seu nome completo">
+                    </div>
+                    <div class="form-group">
+                        <label for="email">E-mail</label>
+                        <input type="email" id="email" name="email" placeholder="Seu e-mail" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="setor">Setor</label>
+                        <input type="text" id="setor" name="setor" placeholder="Setor onde trabalha">
+                    </div>
+                    <div class="form-group">
+                        <label for="tipo">Tipo de Denúncia</label>
+                        <select id="tipo" name="tipo" required>
+                            <option value="">Selecione o tipo de denúncia</option>
+                            <option value="abuso">Abuso</option>
+                            <option value="assédio">Assédio</option>
+                            <option value="fraude">Fraude</option>
+                            <option value="outro">Outro</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="descricao">Descrição</label>
+                        <textarea id="descricao" name="descricao" placeholder="Descreva o ocorrido em detalhes" required></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="anonimo">
+                            <input type="checkbox" id="anonimo" name="anonimo"> Enviar esta denúncia de forma anônima
+                        </label>
+                    </div>
+                    <div class="form-group">
+                        <label for="arquivo">Anexar Evidência (opcional)</label>
+                        <input type="file" id="arquivo" name="arquivo">
+                    </div>
+                    <div class="form-group">
+                        <button type="submit">Enviar Denúncia</button>
+                    </div>
+                </form>
+            </div>
+          </main>
+          
+
+          <!-- Scrollable page content -->
+          
+        </div>
+      </div>
+    </div>
+    <!-- Path to Framework7 Library Bundle JS-->
+    <script type="text/javascript" src="lib/framework7-bundle.min.js"></script>
+    <!-- jQuery -->
+    <script type="text/javascript" src="lib/jquery-3.7.0.min.js"></script>
+    <!-- Roteamento do app-->
+    <script type="text/javascript" src="js/routes.js"></script>
+    <script src="cordova.js"></script>
+  </body>
+</html>
