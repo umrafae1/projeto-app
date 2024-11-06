@@ -5,28 +5,26 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cadastro de Administrador</title>
     <script type="module">
-        // Importa as funções necessárias do SDK Firebase
+        // Importa as funções do Firebase
         import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js";
         import { getFirestore, doc, setDoc } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore.js";
         import { getStorage, ref as storageRef, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-storage.js";
         import { getAuth, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-auth.js";
-        import { getAnalytics } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-analytics.js";
 
         // Configuração do Firebase
-        const firebaseConfig = {
-            apiKey: "AIzaSyBk3kzqpBKEyrwHdnC_RgHmd4PDUJOqoEU",
-            authDomain: "copinfo-5a0f5.firebaseapp.com",
-            databaseURL: "https://copinfo-5a0f5-default-rtdb.firebaseio.com",
-            projectId: "copinfo-5a0f5",
-            storageBucket: "copinfo-5a0f5.appspot.com",
-            messagingSenderId: "543026869888",
-            appId: "1:543026869888:web:f2ef1ce629b2bf49615865",
-            measurementId: "G-9JHXYXYKGT"
-        };
+const firebaseConfig = {
+  apiKey: "AIzaSyBk3kzqpBKEyrwHdnC_RgHmd4PDUJOqoEU",
+  authDomain: "copinfo-5a0f5.firebaseapp.com",
+  databaseURL: "https://copinfo-5a0f5-default-rtdb.firebaseio.com",
+  projectId: "copinfo-5a0f5",
+  storageBucket: "copinfo-5a0f5.appspot.com",
+  messagingSenderId: "543026869888",
+  appId: "1:543026869888:web:f2ef1ce629b2bf49615865",
+  measurementId: "G-9JHXYXYKGT"
+};
 
         // Inicializa o Firebase
         const app = initializeApp(firebaseConfig);
-        const analytics = getAnalytics(app);
         const db = getFirestore(app);
         const storage = getStorage(app);
         const auth = getAuth(app);
@@ -47,7 +45,7 @@
                 const fotoPerfilFile = document.getElementById("FotoPerfil").files[0];
                 const logoFile = document.getElementById("Logo").files[0];
 
-                // Validação de email e senha
+                // Validação
                 if (!validateEmail(email)) {
                     document.getElementById("mensagem").innerText = "E-mail inválido.";
                     return;
@@ -59,28 +57,20 @@
                 }
 
                 try {
-                    // Cria o usuário no Firebase Auth
+                    // Cria o usuário com email e senha
                     const userCredential = await createUserWithEmailAndPassword(auth, email, senha);
                     const user = userCredential.user;
 
-                    // Função para upload de arquivo no Storage
-                    const uploadFile = (file, path) => {
-                        return new Promise((resolve, reject) => {
-                            const storageRefFile = storageRef(storage, path);
-                            uploadBytes(storageRefFile, file)
-                                .then(() => getDownloadURL(storageRefFile).then(resolve).catch(reject))
-                                .catch(reject);
-                        });
-                    };
+                    // Função para upload de imagem no Storage e retorno da URL
+                    async function uploadFile(file, path) {
+                        const storageRefFile = storageRef(storage, path);
+                        await uploadBytes(storageRefFile, file);
+                        return await getDownloadURL(storageRefFile);
+                    }
 
-                    const fotoPerfilPath = `fotos/${user.uid}_perfil.jpg`;
-                    const logoPath = `logos/${user.uid}_logo.jpg`;
-
-                    // Faz o upload das imagens e obtém as URLs
-                    const [fotoPerfilURL, logoURL] = await Promise.all([
-                        uploadFile(fotoPerfilFile, fotoPerfilPath),
-                        uploadFile(logoFile, logoPath)
-                    ]);
+                    // Verifica se as imagens foram enviadas e faz o upload
+                    const fotoPerfilURL = fotoPerfilFile ? await uploadFile(fotoPerfilFile, `fotos/${user.uid}_perfil.jpg`) : "";
+                    const logoURL = logoFile ? await uploadFile(logoFile, `logos/${user.uid}_logo.jpg`) : "";
 
                     // Grava os dados no Firestore
                     await setDoc(doc(db, "users", user.uid), {
@@ -103,7 +93,7 @@
                 }
             });
 
-            // Função para validar o formato do email
+            // Validação de email
             function validateEmail(email) {
                 const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
                 return re.test(String(email).toLowerCase());
