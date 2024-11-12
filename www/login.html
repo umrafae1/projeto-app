@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="css/materialdesignicons.min.css" />
     <link rel="stylesheet" href="css/remix-icons/remixicon.css" />
     <style>
-      :root{
+      :root {
         --branco: #FFFF;
         --gelo: #f1f1f1;
         --cinza: #acabab;
@@ -17,7 +17,6 @@
         --azul: #106584;
       }
       @import url('https://fonts.googleapis.com/css2?family=Archivo+Black&family=Bebas+Neue&display=swap');
-
       body {
         display: flex;
         justify-content: center;
@@ -26,7 +25,6 @@
         background-color: #f0f4f8;
         font-family: "Bebas Neue", sans-serif;
       }
-
       #app {
         background: white;
         border-radius: 8px;
@@ -36,13 +34,11 @@
         height: 300px;
         text-align: center;
       }
-
       h1 {
         margin-bottom: 20px;
         font-size: 24px;
         color: var(--preto);
       }
-
       .input_login {
         width: 300px;
         height: 100px;
@@ -50,7 +46,6 @@
         flex-direction: column;
         gap: 20px;
       }
-
       input[type="text"],
       input[type="password"] {
         width: 90%;
@@ -60,7 +55,6 @@
         padding: 10px 20px;
         background-color: var(--gelo);
       }
-
       input[type="submit"] {
         background-color: var(--azul);
         color: white;
@@ -71,11 +65,9 @@
         width: 90%;
         font-size: 16px;
       }
-
       input[type="submit"]:hover {
         background-color: #1976d2;
       }
-
       .links {
         width: 290px;
         display: flex;
@@ -101,10 +93,11 @@
     </div>
 
     <script type="module">
-      import { initializeApp } from "https://www.gstatic.com/firebasejs/9.1.0/firebase-app.js";
-      import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/9.1.0/firebase-auth.js";
-      import { getFirestore, collection, getDocs, query, where } from "https://www.gstatic.com/firebasejs/9.1.0/firebase-firestore.js";
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js";
+      import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-auth.js";
+      import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore.js";
 
+      // Configurações do Firebase
       const firebaseConfig = {
         apiKey: "AIzaSyBk3kzqpBKEyrwHdnC_RgHmd4PDUJOqoEU",
         authDomain: "copinfo-5a0f5.firebaseapp.com",
@@ -114,32 +107,33 @@
         appId: "1:543026869888:web:f2ef1ce629b2bf49615865",
       };
 
-      // Initialize Firebase
+      // Inicializa o Firebase
       const app = initializeApp(firebaseConfig);
       const auth = getAuth(app);
       const db = getFirestore(app);
 
+      // Função de login
       window.logar = async function () {
         const email = document.getElementById("login").value;
         const senha = document.getElementById("senha").value;
 
         try {
+          // Autentica o usuário
           const userCredential = await signInWithEmailAndPassword(auth, email, senha);
-          alert("Login bem-sucedido");
-
-          // Recuperando dados do usuário
           const userId = userCredential.user.uid;
-          const userRef = collection(db, "users");
-          const userQuery = query(userRef, where("uid", "==", userId));
-          const userDocs = await getDocs(userQuery);
-          userDocs.forEach((doc) => {
-            localStorage.setItem("userData", JSON.stringify(doc.data()));
-          });
 
-          window.location.href = "index.html";
+          // Recupera dados do usuário pelo UID
+          const userDoc = await getDoc(doc(db, "users", userId));
+          if (userDoc.exists()) {
+            const userData = userDoc.data();
+            localStorage.setItem("userData", JSON.stringify(userData)); // Armazena os dados no localStorage
+            alert("Login bem-sucedido");
+            window.location.href = "index.html"; // Redireciona para a página inicial
+          } else {
+            alert("Dados do usuário não encontrados.");
+          }
         } catch (error) {
-          const errorMessage = error.message;
-          alert("Erro no login: " + errorMessage);
+          alert("Erro no login: " + error.message);
         }
       };
     </script>

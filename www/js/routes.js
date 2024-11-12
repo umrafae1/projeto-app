@@ -33,7 +33,13 @@ var app = new Framework7({
 		},
 		pageInit: function (event, page) {
         // fazer algo quando a página for inicializada
-        app.views.main.router.navigate('/login/')
+        //app.views.main.router.navigate('/login/')
+		if(!localStorage.getItem('acessouIndex')){
+			localStorage.setItem('acessouIndex', true);
+			window.location.href = "login.html";
+		}else{
+			console.log('autenticado')
+		}
         
 
 
@@ -74,8 +80,8 @@ var app = new Framework7({
 	  }
     },
     {
-      path: '/link3/',
-      url: 'link3.html',
+      path: '/user/',
+      url: 'user.html',
       animate: false,
 	  on: {
 		pageBeforeIn: function (event, page) {

@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <!-- Required meta tags-->
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, viewport-fit=cover"
+    />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <!-- Color theme for statusbar (Android only) -->
+    <meta name="theme-color" content="#2196f3" />
+    <!-- Your app title -->
+    <title>CorpInfo</title>
+    <!-- Path to Framework7 Library Bundle CSS -->
+    <link rel="stylesheet" href="lib/framework7-bundle.min.css" />
+    <!-- CSS PERSONALIZADO PARA MENU-->
+    <link rel="stylesheet" href="css/index.css" />
+    <!--Ícones Material Design-->
+    <link rel="stylesheet" href="css/materialdesignicons.min.css" />
+    <!--Ícones Remix Icon-->
+    <link rel="stylesheet" href="css/remix-icons/remixicon.css" />
+</head>
+<body>
+    <!-- App root element -->
+    <div id="app">
+        <!-- Your main view, should have "view-main" class -->
+        <div class="view view-main">
+            <!-- Initial Page, "data-name" contains page name -->
+            <div data-name="link3" class="page">
+                <!-- Top Navbar -->
+                <div class="top-nav">
+                    <h1 class="tittle-logo">Meu Perfil</h1>
+                    <a href="#" class="a-editar">
+                        <button class="btn-editar">
+                            <i class="ri-edit-box-line"></i>  
+                        </button>
+                    </a>
+                </div>
+
+                <!-- Scrollable page content -->
+                <div class="page-content">
+                    <div class="foto"> <!--Div para a foto de perfil e o dados ficarem um do lado do outro-->
+                        <div class="foto_perfil">
+                            <div class="imagem_perfil"></div>
+                        </div>
+                        
+                        <div class="dados">
+                            <h2>Dados pessoais</h2>
+                            <h7></h7>   
+                            <h7></h7>
+                            <h7></h7>
+                            <h7></h7>
+                        </div>
+                    </div>
+                    
+                    <div class="informacao">
+                        <h4>Informações profissionais</h4>
+                        <div class="pessoal"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="menuPrincipal" class="toolbar toolbar-bottom">
+        <div class="toolbar-inner display-flex">
+          <a onclick="window.location.href= 'index.html'" class="tab-link link">
+            <i class="ri-home-5-line"></i>
+            <span>Início</span>
+          </a>
+          <a onclick="window.location.href= 'link2.html'" class="tab-link link">
+            <i class="ri-chat-1-line"></i>
+            <span>Chat</span>
+          </a>
+          <a onclick="window.location.href= 'user.html'" class="tab-link link active">
+            <i class="ri-user-line"></i>
+            <span>Perfil</span>
+          </a>
+        </div>
+      </div>
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            // Recupera os dados do usuário do localStorage
+            const userData = JSON.parse(localStorage.getItem("userData"));
+            if (userData) {
+                document.querySelector(".dados h2").innerText = userData.Nome || "Nome não disponível";
+                document.querySelector(".dados h7:nth-child(2)").innerText = "Data de Nascimento: " + (userData.DataNasc || "Não informada");
+                document.querySelector(".dados h7:nth-child(3)").innerText = "Empresa: " + (userData.NomeEmp || "Não informada");
+                document.querySelector(".dados h7:nth-child(4)").innerText = "Email: " + (userData.Email || "Não informado");
+    
+                // Exibe a foto de perfil, se disponível
+                const fotoPerfil = document.querySelector(".imagem_perfil");
+                if (userData.FotoPerfil) {
+                    fotoPerfil.style.backgroundImage = `url(${userData.FotoPerfil})`;
+                } else {
+                    fotoPerfil.innerText = "Foto não disponível";
+                }
+            } else {
+                document.querySelector(".dados h2").innerText = "Nenhum dado encontrado. Por favor, faça login.";
+            }
+        });
+    </script>   
+    <!-- Path to Framework7 Library Bundle JS-->
+    <script type="text/javascript" src="lib/framework7-bundle.min.js"></script>
+    <!-- jQuery -->
+    <script type="text/javascript" src="lib/jquery-3.7.0.min.js"></script>
+    <!-- Roteamento do app-->
+    <script type="text/javascript" src="js/routes.js"></script>
+    <script src="cordova.js"></script>
+</body>
+
+</html>
