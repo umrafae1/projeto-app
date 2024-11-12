@@ -4,121 +4,118 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Cadastro Funcionários</title>
-  <style>
-    /* Estilos permanecem os mesmos */
-  </style>
 </head>
 <body>
 
-<div class="container">
-  <h2>Cadastro Funcionários</h2>
-  <form id="cadastroFuncionarioForm">
-    <label for="nome">Nome</label>
-    <input type="text" id="nome" name="nome" required>
+  <div class="container">
+    <h2>Cadastro Funcionários</h2>
+    <form id="cadastroFuncionarioForm">
+      <label for="nome">Nome</label>
+      <input type="text" id="nome" name="nome" required>
 
-    <label for="dataNasc">Data de Nascimento</label>
-    <input type="date" id="dataNasc" name="dataNasc" required>
+      <label for="dataNasc">Data de Nascimento</label>
+      <input type="date" id="dataNasc" name="dataNasc" required>
 
-    <div class="file-input">
-      <label for="fotoPerfil">Foto de Perfil</label>
-      <input type="file" id="fotoPerfil" name="fotoPerfil" accept="image/*">
-    </div>
+      <div class="file-input">
+        <label for="fotoPerfil">Foto de Perfil</label>
+        <input type="file" id="fotoPerfil" name="fotoPerfil" accept="image/*">
+      </div>
 
-    <label for="nomeEmpresa">Nome da Empresa</label>
-    <input type="text" id="nomeEmpresa" name="nomeEmpresa">
+      <label for="cadastro">Cadastro</label>
+      <input type="text" id="cadastro" name="cadastro" required>
 
-    <div class="file-input">
-      <label for="logoEmpresa">Logo da Empresa</label>
-      <input type="file" id="logoEmpresa" name="logoEmpresa" accept="image/*">
-    </div>
+      <label for="senha">Senha</label>
+      <input type="password" id="senha" name="senha" required>
 
-    <label for="cadastro">Cadastro</label>
-    <input type="text" id="cadastro" name="cadastro" required>
+      <label for="confirmarSenha">Confirmar Senha</label>
+      <input type="password" id="confirmarSenha" name="confirmarSenha" required>
 
-    <label for="senha">Senha</label>
-    <input type="password" id="senha" name="senha" required>
+      <label for="email">Email</label>
+      <input type="email" id="email" name="email" required>
 
-    <label for="confirmarSenha">Confirmar Senha</label>
-    <input type="password" id="confirmarSenha" name="confirmarSenha" required>
+      <button type="submit" class="btn-finalizar">Finalizar</button>
+    </form>
+  </div>
 
-    <label for="email">Email</label>
-    <input type="email" id="email" name="email" required>
+  <script type="module">
+    // Recupera dados do usuário (admin) armazenados no localStorage
+    const userData = JSON.parse(localStorage.getItem("userData"));
 
-    <button type="submit" class="btn-finalizar">Finalizar</button>
-  </form>
-</div>
+    import { getAuth, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-auth.js";
+    import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore.js";
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js";
+    import { getStorage, ref, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-storage.js";
 
-<script type="module">
-  // Import the functions you need from the SDKs you need
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js";
-  import { getAnalytics } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-analytics.js";
-  import { getAuth, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-auth.js";
-  import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore.js";
+    // Configuração do Firebase
+    const firebaseConfig = {
+      apiKey: "AIzaSyBk3kzqpBKEyrwHdnC_RgHmd4PDUJOqoEU",
+      authDomain: "copinfo-5a0f5.firebaseapp.com",
+      databaseURL: "https://copinfo-5a0f5-default-rtdb.firebaseio.com",
+      projectId: "copinfo-5a0f5",
+      storageBucket: "copinfo-5a0f5.appspot.com",
+      messagingSenderId: "543026869888",
+      appId: "1:543026869888:web:f2ef1ce629b2bf49615865",
+      measurementId: "G-9JHXYXYKGT"
+    };
 
-  // Sua configuração do Firebase
-  const firebaseConfig = {
-    apiKey: "AIzaSyBk3kzqpBKEyrwHdnC_RgHmd4PDUJOqoEU",
-    authDomain: "copinfo-5a0f5.firebaseapp.com",
-    databaseURL: "https://copinfo-5a0f5-default-rtdb.firebaseio.com",
-    projectId: "copinfo-5a0f5",
-    storageBucket: "copinfo-5a0f5.appspot.com",
-    messagingSenderId: "543026869888",
-    appId: "1:543026869888:web:f2ef1ce629b2bf49615865",
-    measurementId: "G-9JHXYXYKGT"
-  };
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth();
+    const db = getFirestore();
+    const storage = getStorage(); // Inicializa o Firebase Storage
 
-  // Inicializa o Firebase
-  const app = initializeApp(firebaseConfig);
-  const analytics = getAnalytics(app);
-  const auth = getAuth();
-  const db = getFirestore();
-
-  // Simule a autenticação do administrador (substitua pelo seu método real)
-  const adminUser = auth.currentUser; // Obtenha o usuário autenticado (administrador)
-
-  document.getElementById('cadastroFuncionarioForm').addEventListener('submit', async function(e) {
-    e.preventDefault();
-
-    const nome = document.getElementById('nome').value;
-    const dataNasc = document.getElementById('dataNasc').value;
-    const nomeEmpresa = document.getElementById('nomeEmpresa').value;
-    const cadastro = document.getElementById('cadastro').value;
-    const senha = document.getElementById('senha').value;
-    const email = document.getElementById('email').value;
-
-    // Verifica se a senha e a confirmação de senha são iguais
-    const confirmarSenha = document.getElementById('confirmarSenha').value;
-    if (senha !== confirmarSenha) {
-      alert("As senhas não coincidem!");
-      return;
+    // Função para upload de imagem no Storage e retorno da URL
+    async function uploadFile(file, path) {
+      const storageRefFile = ref(storage, path);
+      await uploadBytes(storageRefFile, file); // Faz o upload do arquivo
+      return await getDownloadURL(storageRefFile); // Retorna a URL do arquivo
     }
 
-    try {
-      // Cria um novo usuário
-      const userCredential = await createUserWithEmailAndPassword(auth, email, senha);
-      
-      // Adiciona dados do funcionário ao Firestore
-      await addDoc(collection(db, 'funcionarios'), {
-        uid: userCredential.user.uid,
-        nome,
-        dataNasc,
-        nomeEmpresa,
-        cadastro,
-        email,
-        fotoPerfil: '', // URL da foto
-        logoEmpresa: '', // URL do logo
-        adminId: adminUser ? adminUser.uid : null // Armazena o ID do administrador
-      });
+    // Evento de envio do formulário
+    document.getElementById('cadastroFuncionarioForm').addEventListener('submit', async function(e) {
+      e.preventDefault();
 
-      alert("Funcionário cadastrado com sucesso!");
-      // Limpa o formulário
-      document.getElementById('cadastroFuncionarioForm').reset();
-    } catch (error) {
-      console.error("Erro ao cadastrar: ", error);
-      alert("Erro ao cadastrar funcionário: " + error.message);
-    }
-  });
-</script>
+      const nome = document.getElementById('nome').value;
+      const dataNasc = document.getElementById('dataNasc').value;
+      const cadastro = document.getElementById('cadastro').value;
+      const senha = document.getElementById('senha').value;
+      const email = document.getElementById('email').value;
+      const fotoPerfilFile = document.getElementById("fotoPerfil").files[0];
 
+      // Verifica se a senha e a confirmação de senha são iguais
+      const confirmarSenha = document.getElementById('confirmarSenha').value;
+      if (senha !== confirmarSenha) {
+        alert("As senhas não coincidem!");
+        return;
+      }
+
+      try {
+        // Cria um novo usuário
+        const userCredential = await createUserWithEmailAndPassword(auth, email, senha);
+        const userId = userCredential.user.uid;
+
+        // Faz o upload da foto de perfil (se houver)
+        const fotoPerfilURL = fotoPerfilFile ? await uploadFile(fotoPerfilFile, `fotos/${userId}_perfil.jpg`) : "";
+
+        // Adiciona dados do funcionário ao Firestore
+        await addDoc(collection(db, 'funcionarios'), {
+          uid: userId,
+          nome,
+          dataNasc,
+          nomeEmpresa: userData.NomeEmp, // Nome da empresa do admin
+          Logo: userData.Logo, // Logo da empresa do admin
+          cadastro,
+          email,
+          fotoPerfil: fotoPerfilURL, // URL da foto
+          adminId: userData.Email // Email do administrador
+        });
+
+        alert("Funcionário cadastrado com sucesso!");
+        document.getElementById('cadastroFuncionarioForm').reset();
+      } catch (error) {
+        console.error("Erro ao cadastrar: ", error);
+        alert("Erro ao cadastrar funcionário: " + error.message);
+      }
+    });
+  </script>
 </body>
 </html>

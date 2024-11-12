@@ -48,6 +48,7 @@
                         
                         <div class="dados">
                             <h2>Dados pessoais</h2>
+                            <h7></h7>
                             <h7></h7>   
                             <h7></h7>
                             <h7></h7>
@@ -85,9 +86,10 @@
             const userData = JSON.parse(localStorage.getItem("userData"));
             if (userData) {
                 document.querySelector(".dados h2").innerText = userData.Nome || "Nome não disponível";
-                document.querySelector(".dados h7:nth-child(2)").innerText = "Data de Nascimento: " + (userData.DataNasc || "Não informada");
-                document.querySelector(".dados h7:nth-child(3)").innerText = "Empresa: " + (userData.NomeEmp || "Não informada");
-                document.querySelector(".dados h7:nth-child(4)").innerText = "Email: " + (userData.Email || "Não informado");
+                document.querySelector(".dados h7:nth-child(2)").innerText = "Cadastro: " + (userData.Cadastro  || "Não informada");
+                document.querySelector(".dados h7:nth-child(3)").innerText = "Data de Nascimento: " + (userData.DataNasc || "Não informada");
+                document.querySelector(".dados h7:nth-child(4)").innerText = "Empresa: " + (userData.NomeEmp || "Não informada");
+                document.querySelector(".dados h7:nth-child(5)").innerText = "Email: " + (userData.Email || "Não informado");
     
                 // Exibe a foto de perfil, se disponível
                 const fotoPerfil = document.querySelector(".imagem_perfil");
