@@ -2,9 +2,9 @@
     --branco: #FFFF;
     --gelo: #f1f1f1;
     --cinza: #acabab;
-    --roxo: #c510ad;
     --preto: #2a2a2a;
     --azul:#106584;
+    --azul_2:#033f57;
 
 }
 
@@ -35,11 +35,11 @@ body{
     height: 80px;  
     line-height: 25px; 
 	font-weight:bold;
-    color: var(--preto);    
+    color: var(--branco);    
 }
 
 .toolbar-inner .link:not(.active){
-    color: var(--branco);
+    color: var(--azul_2);
 	font-weight:normal;
 }
 
@@ -221,7 +221,7 @@ form input[type='text']{
 }
 
 .foto-1{
-    background:url("/www/img/foto1.jpeg");
+    background:var(--cinza);
     background-size: cover;
     background-position: center;
     max-width: 100%;
@@ -230,17 +230,17 @@ form input[type='text']{
     
 }
 .foto-2{
-    background:#aa2298;
+    background:var(--cinza);
     height: 170px;
     border-radius: 10px;
 }
 .foto-3{
-    background:#e72ecf;
+    background:var(--cinza);
     height: 170px;
     border-radius: 10px;
 }
 .foto-4{
-    background:#fa70e7;
+    background:var(--cinza);
     height: 170px;
     border-radius: 10px;
 }
@@ -274,11 +274,11 @@ form input[type='text']{
     height: 100px;
     border: none;
     outline: none;
-    background: var(--cinza);
+    background: var(--azul);
     color: white;
     font-size: 10px;
     margin: 30px;
-    border-radius: 13px;
+    border-radius: 5px;
     transition: 0.3s;
     
     
@@ -298,11 +298,11 @@ form input[type='text']{
     height: 100px;
     border: none;
     outline: none;
-    background: var(--cinza);
+    background: var(--azul);
     color: white;
     font-size: 10px;
     margin: 30px;
-    border-radius: 13px;
+    border-radius: 5px;
     transition: 0.3s;
     
     
@@ -615,6 +615,24 @@ form input[type='text']{
 
 }
 
+/*Top Nav*/
+
+.top-nav-geral{
+    width: 100%;
+    height: 80px;
+    display: flex;
+    align-items: center;
+    
+    
+}
+
+/*Top Nav Nome*/
+.top-name-agenda{
+    color: var(--preto);
+    margin-left: 60px;
+    font-size: 25px;
+}
+
 
 
 /*Botão de Volta*/
@@ -626,7 +644,6 @@ form input[type='text']{
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-right: 5%;
     border-radius: 50px;
     border: 1px solid var(--gelo);
     font-size: 20px;
@@ -637,7 +654,19 @@ form input[type='text']{
 
 /*Lista de Usuário*/
 
+.top-nav-user{
+    width: 100%;
+    height: 80px;
+    display: flex;
+    align-items: center;
+    
+}
 
+.top-name-user{
+    color: var(--preto);
+    margin-left: 60px;
+    font-size: 25px;
+}
 
 .botoes_lu{
     width: 100%;
@@ -649,24 +678,8 @@ form input[type='text']{
     
 }
 
-
 .botoes_lu button{
     font-size: 20px;
-}
-
-.btn-volta{
-    width: 40px;
-    height: 40px;
-    background: var(--branco);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-right: 5%;
-    border-radius: 50px;
-    border: 1px solid var(--gelo);
-    font-size: 20px;
-    color: var(--preto);
-
 }
 
 .btn_lu{
@@ -677,7 +690,7 @@ form input[type='text']{
     font-weight: bold;
     border: none;
     margin: 15px 5;
-    border-radius: 10px;
+    border-radius: 5px;
     cursor: pointer;
     margin-top: 20px;
 
@@ -691,7 +704,7 @@ form input[type='text']{
     font-weight: bold;
     border: none;
     margin: 15px 5;
-    border-radius: 10px;
+    border-radius: 5px;
     cursor: pointer;
     margin-top: 50px;
 
@@ -1116,24 +1129,6 @@ h3 {
 }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 .top-nave {
     display: flex;
     align-items: center;
@@ -1275,3 +1270,61 @@ h3 {
     }
 }
 
+/*Adicionar avisos*/
+
+.top-nav-add-aviso{
+    width: 100%;
+    height: 80px;
+    display: flex;
+    align-items: center;
+    
+}
+
+.top-name-add-aviso{
+    color: var(--preto);
+    margin-left: 60px;
+    font-size: 25px;
+}
+
+.page-content-aviso{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.texto-aviso{
+    width: 90%;
+    height: 300px;
+    border-radius: 10px;
+    background: var(--cinza);
+    padding: 15px;
+    
+}
+
+.ri-attachment-2{
+    font-size: 25px;
+    height: 70px;
+    position: absolute;
+    left: 35px;
+    
+}
+
+textarea::placeholder{
+    color: var(--preto);
+    font-size: 16px;
+}
+
+.enviar-aviso{
+    background-color: var(--azul);
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 10px;
+    cursor: pointer;
+    height: 50px;
+    width: 100px;
+    font-size: 16px;
+    margin-top: 60%;
+    margin-left: 65%;
+}

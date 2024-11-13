@@ -282,6 +282,26 @@ var app = new Framework7({
 		  },
 		}
 	  },
+	  {
+		path: '/add_aviso/',
+		url: 'adiciona_aviso.html',
+		animate: false,
+		on: {
+		  pageBeforeIn: function (event, page) {
+		  // fazer algo antes da página ser exibida
+		  },
+		  pageAfterIn: function (event, page) {
+		  // fazer algo depois da página ser exibida
+		  },
+		  pageInit: function (event, page) {
+		  // fazer algo quando a página for inicializada
+		  $.getScript('js/server.js')
+		  },
+		  pageBeforeRemove: function (event, page) {
+		  // fazer algo antes da página ser removida do DOM
+		  },
+		}
+	  },
   ],
   // ... other parameters
 });

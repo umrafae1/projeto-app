@@ -14,12 +14,9 @@
     <!-- Path to Framework7 Library Bundle CSS -->
     <link rel="stylesheet" href="lib/framework7-bundle.min.css">
     <!-- CSS PERSONALIZADO PARA MENU-->
-    <link rel="stylesheet" href="css/index.css">
+    <link rel="stylesheet" href="css/personalizado.css">
     <!--Ícones Material Design-->
     <link rel="stylesheet" href="css/materialdesignicons.min.css">
-
-    <link rel="stylesheet" href="css/remix-icons/remixicon.css" />
-
 
 </head>
 
@@ -30,45 +27,28 @@
         <!-- Your main view, should have "view-main" class -->
         <div class="view view-main">
             <!-- Initial Page, "data-name" contains page name -->
-            <div data-name="opcoes" class="page">
+            <div data-name="lista_user" class="page">
 
-                <div class="top-nav">
-                    <h1 class="tittle-logo">Opções</h1>
+                <!--  NAV TOPO -->
+                <div class="top-nav-add-aviso">
+                    
+                    <h1 class="tittle-logo"><a href="/opcoes/"><i class="ri-arrow-left-s-line"></i></a></h1>
+                    <h2 class="top-nome-add-aviso" >Adicionar Avisos</h2>
 
                 </div>
+                  
+                
 
                 <!-- Scrollable page content -->
-                <div class="page-content">
+                <div class="page-content-aviso">
 
-                    <div class="body-opc">
+                    <textarea class="texto-aviso" placeholder="Digite aqui..." rows="4" ></textarea>
 
-                        <a href="/add_aviso/">
-                            <button class="opc"> 
-                                <i class="icon ri-megaphone-line"></i>
-                                <h3 class="nome">Adicionar Avisos</h1>
-                            </button>
-                        </a>
+                    <i class="ri-attachment-2"></i>
 
-                        <a onclick="window.location.href = 'agendaNova.html'">
-                            <button class="opc">
-                                <i class="icon ri-calendar-2-line"></i>
-                                <h3 class="nome">Adicionar a Agenda</h1>
-                            </button>
-                        </a>
-                        
-                        <a href="/lista_user/">
-                            <button class="opc"> 
-                                <i class="icon ri-id-card-line"></i>
-                                <h3 class="nome">Lista de Usuários</h1>
-                            </button>
-                        </a>
-
-
-                
-                    </div>
+                    <button class="enviar-aviso">Postar</button>
                     
-                    
-                    
+                   
                 </div>
             </div>
         </div>
