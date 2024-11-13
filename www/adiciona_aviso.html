@@ -14,12 +14,9 @@
     <!-- Path to Framework7 Library Bundle CSS -->
     <link rel="stylesheet" href="lib/framework7-bundle.min.css">
     <!-- CSS PERSONALIZADO PARA MENU-->
-    <link rel="stylesheet" href="css/index.css">
+    <link rel="stylesheet" href="css/personalizado.css">
     <!--Ícones Material Design-->
     <link rel="stylesheet" href="css/materialdesignicons.min.css">
-
-    <link rel="stylesheet" href="css/remix-icons/remixicon.css" />
-
 
 </head>
 
@@ -30,40 +27,28 @@
         <!-- Your main view, should have "view-main" class -->
         <div class="view view-main">
             <!-- Initial Page, "data-name" contains page name -->
-            <div data-name="agenda" class="page">
+            <div data-name="lista_user" class="page">
 
-                <div class="top-nav-geral">
+                <!--  NAV TOPO -->
+                <div class="top-nav-add-aviso">
                     
-                    <h1 class="tittle-logo"><a href="/index/"><i class="ri-arrow-left-s-line"></i></a></h1>
-                    <h2 class="top-name-agenda" >Agenda</h2>
+                    <h1 class="tittle-logo"><a href="/opcoes/"><i class="ri-arrow-left-s-line"></i></a></h1>
+                    <h2 class="top-nome-add-aviso" >Adicionar Avisos</h2>
 
                 </div>
+                  
+                
 
                 <!-- Scrollable page content -->
-                <div class="page-content">
+                <div class="page-content-aviso">
 
-                    <div class="corpo">
-                
-                        <div class="cabecalho">
-                
-                            <button id="anterior">
-                                <i class="ri-arrow-left-wide-line"></i>
-                            </button>
-                
-                            <h3 id="nomeMes">Mês Atual</h3>
-                
-                            <button id="proximo">
-                                <i class="ri-arrow-right-wide-line"></i>
-                            </button>
-                
-                        </div>
-                        
-                        <ul class="dias" id="listaDias">
-                        </ul>
-                
-                    </div>
+                    <textarea class="texto-aviso" placeholder="Digite aqui..." rows="4" ></textarea>
 
-                       
+                    <i class="ri-attachment-2"></i>
+
+                    <button class="enviar-aviso">Postar</button>
+                    
+                   
                 </div>
             </div>
         </div>
