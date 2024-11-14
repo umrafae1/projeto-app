@@ -130,6 +130,14 @@
         </div>
       </div>
     </div>
+    <script>
+      const userData = JSON.parse(localStorage.getItem("userData"));
+      if (userData.Admin==true) {
+        document.getElementById("bts2").style.display = "none";
+      }else{
+        document.getElementById("bts2").style.display = "block";
+      }
+    </script>
     <script src="https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.15.0/firebase-auth.js"></script>
     <!-- Path to Framework7 Library Bundle JS-->

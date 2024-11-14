@@ -42,14 +42,14 @@
 
                     <div class="body-opc">
 
-                        <a href="/add_aviso/">
-                            <button class="opc"> 
+                        <a onclick="window.location.href = 'adiciona_aviso.html'">
+                            <button class="opc" id="addA"> 
                                 <i class="icon ri-megaphone-line"></i>
                                 <h3 class="nome">Adicionar Avisos</h1>
                             </button>
                         </a>
 
-                        <a onclick="window.location.href = 'agendaNova.html'">
+                        <a id="agendaN" onclick="window.location.href = 'agendaNova.html'">
                             <button class="opc">
                                 <i class="icon ri-calendar-2-line"></i>
                                 <h3 class="nome">Adicionar a Agenda</h1>
@@ -73,6 +73,13 @@
             </div>
         </div>
     </div>
+    <script>
+        const userData = JSON.parse(localStorage.getItem("userData"));
+        if (userData.Admin==false) {
+            document.getElementById("addA").style.display = "none";
+            document.getElementById("agendaN").style.display = "none";
+        }
+    </script>
     <!-- Path to Framework7 Library Bundle JS-->
     <script type="text/javascript" src="lib/framework7-bundle.min.js"></script>
 	<!-- jQuery -->

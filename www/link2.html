@@ -1,15 +1,12 @@
 <!DOCTYPE html>
-<html>
+<html lang="pt-BR">
 
 <head>
     <!-- Required meta tags-->
     <meta charset="utf-8">
-    <meta name="viewport"
-        content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, viewport-fit=cover">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, viewport-fit=cover">
     <meta name="apple-mobile-web-app-capable" content="yes">
-    <!-- Color theme for statusbar (Android only) -->
     <meta name="theme-color" content="#2196f3">
-    <!-- Your app title -->
     <title>My App</title>
     <!-- Path to Framework7 Library Bundle CSS -->
     <link rel="stylesheet" href="lib/framework7-bundle.min.css">
@@ -17,23 +14,17 @@
     <link rel="stylesheet" href="css/index.css">
     <!--Ícones Material Design-->
     <link rel="stylesheet" href="css/materialdesignicons.min.css">
-
     <link rel="stylesheet" href="css/remix-icons/remixicon.css" />
-
-
 </head>
 
 <body>
-    <!-- App root element -->
     <div id="app">
-
         <!-- Your main view, should have "view-main" class -->
         <div class="view view-main">
             <!-- Initial Page, "data-name" contains page name -->
             <div data-name="link2" class="page">
-
                 <div class="top-nav">
-                    <h1 class="tittle-logo">Chats Abertos</h1>
+                    <h1 class="tittle-logo">Chats</h1>
                 </div>
 
                 <form class="form1">
@@ -43,57 +34,82 @@
 
                 <!-- Scrollable page content -->
                 <div class="page-content">
-
-                    <div class="body-chat">
-
-                        <a href="/chat/">
-                            <button class="user1">
-                                <div class="icone-user"> 
-                                    <i class="user-icon ri-user-line">  
-                                </i></div>
-                              
-                                <h2 class="nome">Barnabé</h2>
-                                
-
-                            </button>
-
-                        </a>
-
-
-            
-
+                    <div class="body-chat" id="listaChats">
+                        <!-- A lista de chats será preenchida dinamicamente com JavaScript -->
                     </div>
-                    
-                    
-                    
                 </div>
             </div>
         </div>
     </div>
+
     <div id="menuPrincipal" class="toolbar toolbar-bottom">
         <div class="toolbar-inner display-flex">
-          <a onclick="window.location.href= 'index.html'" class="tab-link link">
-            <i class="ri-home-5-line"></i>
-            <span>Início</span>
-          </a>
-          <a onclick="window.location.href= 'link2.html'" class="tab-link link active">
-            <i class="ri-chat-1-line"></i>
-            <span>Chat</span>
-          </a>
-          <a onclick="window.location.href= 'user.html'" class="tab-link link">
-            <i class="ri-user-line"></i>
-            <span>Perfil</span>
-          </a>
+            <a onclick="window.location.href= 'index.html'" class="tab-link link">
+                <i class="ri-home-5-line"></i>
+                <span>Início</span>
+            </a>
+            <a onclick="window.location.href= 'link2.html'" class="tab-link link active">
+                <i class="ri-chat-1-line"></i>
+                <span>Chat</span>
+            </a>
+            <a onclick="window.location.href= 'user.html'" class="tab-link link">
+                <i class="ri-user-line"></i>
+                <span>Perfil</span>
+            </a>
         </div>
-      </div>
+    </div>
 
     <!-- Path to Framework7 Library Bundle JS-->
     <script type="text/javascript" src="lib/framework7-bundle.min.js"></script>
-	<!-- jQuery -->
-	<script type="text/javascript" src="lib/jquery-3.7.0.min.js"></script>	
+    <!-- jQuery -->
+    <script type="text/javascript" src="lib/jquery-3.7.0.min.js"></script>
     <!-- Roteamento do app-->
     <script type="text/javascript" src="js/routes.js"></script>
     <script src="cordova.js"></script>
+
+    <!-- Script para carregar os chats -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js";
+        import { getFirestore, collection, getDocs } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyBk3kzqpBKEyrwHdnC_RgHmd4PDUJOqoEU",
+            authDomain: "copinfo-5a0f5.firebaseapp.com",
+            projectId: "copinfo-5a0f5",
+            storageBucket: "copinfo-5a0f5.appspot.com",
+            messagingSenderId: "543026869888",
+            appId: "1:543026869888:web:f2ef1ce629b2bf49615865",
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+
+        async function carregarChats() {
+            const emailMudado = localStorage.getItem("emailMudado");
+            const usuariosCollection = collection(db, emailMudado);
+            const usuariosSnapshot = await getDocs(usuariosCollection);
+            const usuariosList = usuariosSnapshot.docs.map(doc => doc.data());
+
+            const listaChats = document.getElementById("listaChats");
+            listaChats.innerHTML = "";
+
+            usuariosList.forEach(user => {
+                const button = document.createElement("a");
+                button.href = "/chat/";
+                button.classList.add("user1");
+                button.innerHTML = `
+                    <div class="icone-user"> 
+                        <i class="user-icon ri-user-line"></i>
+                    </div>
+                    <h2 class="nome">${user.Nome}</h2>
+                `;
+                listaChats.appendChild(button);
+            });
+        }
+
+        // Carregar chats assim que a página carregar
+        window.onload = carregarChats;
+    </script>
 </body>
 
 </html>
