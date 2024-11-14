@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Required meta tags-->
+    <meta charset="utf-8">
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, viewport-fit=cover">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <!-- Color theme for statusbar (Android only) -->
+    <meta name="theme-color" content="#2196f3">
+    <!-- Your app title -->
+    <title>My App</title>
+    <!-- Path to Framework7 Library Bundle CSS -->
+    <link rel="stylesheet" href="lib/framework7-bundle.min.css">
+    <!-- CSS PERSONALIZADO PARA MENU-->
+    <link rel="stylesheet" href="css/personalizado.css">
+    <!--Ícones Material Design-->
+    <link rel="stylesheet" href="css/materialdesignicons.min.css">
+</head>
+<body>
+    <!-- App root element -->
+    <div id="app">
+
+        <!-- Your main view, should have "view-main" class -->
+        <div class="view view-main">
+            <!-- Initial Page, "data-name" contains page name -->
+            <div data-name="lista_user" class="page">
+
+                <!-- NAV TOPO -->
+                <div class="top-nav-user">
+                    <h1 class="tittle-logo"><a href="/opcoes/"><i class="ri-arrow-left-s-line"></i></a></h1>
+                    <h2 class="top-nome-user">Listar Usuários</h2>
+                </div>
+
+                <!-- Scrollable page content -->
+                <div class="page-content">
+                    <div class="botoes_lu" id="userList">
+                        <!-- Os botões de usuário serão preenchidos aqui -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Path to Framework7 Library Bundle JS-->
+    <script type="text/javascript" src="lib/framework7-bundle.min.js"></script>
+    <!-- jQuery -->
+    <script type="text/javascript" src="lib/jquery-3.7.0.min.js"></script>
+    <!-- Roteamento do app-->
+    <script type="text/javascript" src="js/routes.js"></script>
+    <script src="cordova.js"></script>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js";
+        import { getFirestore, collection, getDocs } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore.js";
+
+        // Configuração do Firebase
+        const firebaseConfig = {
+            apiKey: "AIzaSyBk3kzqpBKEyrwHdnC_RgHmd4PDUJOqoEU",
+            authDomain: "copinfo-5a0f5.firebaseapp.com",
+            databaseURL: "https://copinfo-5a0f5-default-rtdb.firebaseio.com",
+            projectId: "copinfo-5a0f5",
+            storageBucket: "copinfo-5a0f5.appspot.com",
+            messagingSenderId: "543026869888",
+            appId: "1:543026869888:web:f2ef1ce629b2bf49615865",
+            measurementId: "G-9JHXYXYKGT"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+
+        // Função para carregar os usuários
+        async function loadUsers() {
+            const emailMudado = localStorage.getItem("emailMudado"); // Recuperar o email do admin
+            if (!emailMudado) {
+                alert("Email do administrador não encontrado.");
+                return;
+            }
+
+            try {
+                // Obter a coleção de usuários baseada no email do admin
+                const querySnapshot = await getDocs(collection(db, emailMudado));
+
+                // Selecionar o container onde os botões de usuários serão inseridos
+                const userListDiv = document.getElementById("userList");
+
+                // Verificar se existem usuários
+                if (querySnapshot.empty) {
+                    userListDiv.innerHTML = "<p>Nenhum usuário encontrado.</p>";
+                    return;
+                }
+
+                // Adicionar os usuários ao HTML
+                querySnapshot.forEach((doc) => {
+                    const userData = doc.data();
+                    const userName = userData.Nome || "Usuário sem nome"; // Caso não haja nome
+                    const userButton = document.createElement("button");
+                    userButton.className = "btn_lu";
+                    userButton.innerHTML = `<i class="ri-user-line"></i> ${userName}`;
+                    userListDiv.appendChild(userButton);
+                });
+            } catch (error) {
+                console.error("Erro ao carregar os usuários: ", error);
+                alert("Erro ao carregar os usuários.");
+            }
+        }
+
+        // Chamar a função para carregar os usuários quando a página carregar
+        window.onload = loadUsers;
+    </script>
+        <!-- Path to Framework7 Library Bundle JS-->
+        <script type="text/javascript" src="lib/framework7-bundle.min.js"></script>
+        <!-- jQuery -->
+        <script type="text/javascript" src="lib/jquery-3.7.0.min.js"></script>
+        <!-- Roteamento do app-->
+        <script type="text/javascript" src="js/routes.js"></script>
+        <script src="cordova.js"></script>
+</body>
+</html>

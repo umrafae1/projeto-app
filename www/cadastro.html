@@ -28,6 +28,7 @@ const firebaseConfig = {
         const db = getFirestore(app);
         const storage = getStorage(app);
         const auth = getAuth(app);
+        
 
         document.addEventListener("DOMContentLoaded", () => {
             const form = document.getElementById("cadastroAdmGrupoForm");
@@ -45,6 +46,8 @@ const firebaseConfig = {
                 const fotoPerfilFile = document.getElementById("FotoPerfil").files[0];
                 const logoFile = document.getElementById("Logo").files[0];
 
+                const emailMudado = email.replace(/[.#$[\]/]/g,"")
+                localStorage.setItem("emailMudado", emailMudado);
                 // Validação
                 if (!validateEmail(email)) {
                     document.getElementById("mensagem").innerText = "E-mail inválido.";
@@ -73,14 +76,15 @@ const firebaseConfig = {
                     const logoURL = logoFile ? await uploadFile(logoFile, `logos/${user.uid}_logo.jpg`) : "";
 
                     // Grava os dados no Firestore
-                    await setDoc(doc(db, "users", user.uid), {
+                    await setDoc(doc(db, emailMudado, user.uid), {
                         Nome: nome,
                         DataNasc: dataNasc,
                         FotoPerfil: fotoPerfilURL,
                         NomeEmp: nomeEmp,
                         Logo: logoURL,
                         Cadastro: cadastro,
-                        Email: email
+                        Email: email,
+                        Admin: true
                     });
 
                     document.getElementById("mensagem").innerText = "Cadastro realizado com sucesso!";

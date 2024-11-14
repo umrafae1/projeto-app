@@ -116,19 +116,19 @@
       window.logar = async function () {
         const email = document.getElementById("login").value;
         const senha = document.getElementById("senha").value;
+        const emailAlterado = email.replace(/[.#$[\]/]/g,"")
+        localStorage.setItem("emailMudado", emailAlterado);
 
         try {
-          // Autentica o usuário
           const userCredential = await signInWithEmailAndPassword(auth, email, senha);
           const userId = userCredential.user.uid;
 
-          // Recupera dados do usuário pelo UID
-          const userDoc = await getDoc(doc(db, "users", userId));
+          const userDoc = await getDoc(doc(db, emailAlterado, userId));
           if (userDoc.exists()) {
             const userData = userDoc.data();
-            localStorage.setItem("userData", JSON.stringify(userData)); // Armazena os dados no localStorage
+            localStorage.setItem("userData", JSON.stringify(userData));
             alert("Login bem-sucedido");
-            window.location.href = "index.html"; // Redireciona para a página inicial
+            window.location.href = "index.html";
           } else {
             alert("Dados do usuário não encontrados.");
           }

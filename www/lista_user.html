@@ -1,94 +1,160 @@
 <!DOCTYPE html>
-<html>
-
+<html lang="pt-BR">
 <head>
-    <!-- Required meta tags-->
     <meta charset="utf-8">
     <meta name="viewport"
         content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, viewport-fit=cover">
     <meta name="apple-mobile-web-app-capable" content="yes">
-    <!-- Color theme for statusbar (Android only) -->
     <meta name="theme-color" content="#2196f3">
-    <!-- Your app title -->
-    <title>My App</title>
-    <!-- Path to Framework7 Library Bundle CSS -->
+    <title>Listar Usuários</title>
     <link rel="stylesheet" href="lib/framework7-bundle.min.css">
-    <!-- CSS PERSONALIZADO PARA MENU-->
     <link rel="stylesheet" href="css/personalizado.css">
-    <!--Ícones Material Design-->
     <link rel="stylesheet" href="css/materialdesignicons.min.css">
+    
+    <style>
+        /* Lista de Usuário */
+        .botoes_lu{
+            width: 100%;
+            height: 80%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+        }
 
+        .botoes_lu button{
+            font-size: 20px;
+        }
 
+        .btn-volta{
+            width: 40px;
+            height: 40px;
+            background: var(--branco);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 5%;
+            border-radius: 50px;
+            border: 1px solid var(--gelo);
+            font-size: 20px;
+            color: var(--preto);
+        }
+
+        .btn_lu{
+            width: 80%;
+            height: 40px;
+            background: #2a2a2a;
+            color: #f1f1f1;
+            font-weight: bold;
+            border: none;
+            margin: 15px 5;
+            border-radius: 10px;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+
+        .btn_lua{
+            width: 80%;
+            height: 40px;
+            background: var(--azul);
+            color: #f1f1f1;
+            font-weight: bold;
+            border: none;
+            margin: 15px 5;
+            border-radius: 10px;
+            cursor: pointer;
+            margin-top: 50px;
+        }
+
+        #bt{
+            height: px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            font: 20px;
+            font-weight: bold;
+            cursor: pointer;
+            color: #f1f1f1;
+        }
+
+        :root{
+            --branco: #FFFF;
+            --gelo: #f1f1f1;
+            --cinza: #acabab;
+            --preto: #2a2a2a;
+            --azul: #106584;
+            --azul_2: #033f57;
+        }
+    </style>
 </head>
-
 <body>
-    <!-- App root element -->
-    <div id="app">
 
+    <div id="app">
         <!-- Your main view, should have "view-main" class -->
         <div class="view view-main">
             <!-- Initial Page, "data-name" contains page name -->
             <div data-name="lista_user" class="page">
-
                 <!--  NAV TOPO -->
                 <div class="top-nav-user">
-                    
                     <h1 class="tittle-logo"><a href="/opcoes/"><i class="ri-arrow-left-s-line"></i></a></h1>
-                    <h2 class="top-nome-user" >Listar Usuários</h2>
-
+                    <h2 class="top-nome-user">Listar Usuários</h2>
                 </div>
-                  
                 
-
                 <!-- Scrollable page content -->
                 <div class="page-content">
-                    <div class="botoes_lu">
-                        <button class="btn_lu">
-                            <i class="ri-user-line"></i>
-                            Diane Marli
-                        </button>
-                        
-                        <button class="btn_lu">
-                            <i class="ri-user-line" ></i>
-                            Gabriel Ricardo
-                        </button></i>
-                        
-                        <button class="btn_lu">
-                            <i class="ri-user-line" ></i>
-                            Rafael Oliveira
-                        </button></i>
-                        
-                        <button class="btn_lu">
-                            <i class="ri-user-line" ></i>
-                            Cleiton Muniz
-                        </button></i>
-                        
-                        <button class="btn_lu">
-                            <i class="ri-user-line" ></i>
-                            Matheus Nogueira
-                        </button></i>
-                        
-                        <button class="btn_lu">
-                            <i class="ri-user-line" ></i>
-                            Agnelo Santana
-                        </button></i>
-                        
-                         <button class="btn_lua">
-                            Adicionar Usuário
-                        </button>
+                    <div class="botoes_lu" id="listaUsuarios">
+                        <!-- Aqui a lista de usuários será populada via JavaScript -->
                     </div>
-                   
+                    
+                    <button class="btn_lua" onclick="window.location.href = 'addfuncionario.html'">
+                        Adicionar Funcionário
+                    </button>
                 </div>
             </div>
         </div>
     </div>
-    <!-- Path to Framework7 Library Bundle JS-->
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js";
+        import { getFirestore, collection, getDocs } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyBk3kzqpBKEyrwHdnC_RgHmd4PDUJOqoEU",
+            authDomain: "copinfo-5a0f5.firebaseapp.com",
+            projectId: "copinfo-5a0f5",
+            storageBucket: "copinfo-5a0f5.appspot.com",
+            messagingSenderId: "543026869888",
+            appId: "1:543026869888:web:f2ef1ce629b2bf49615865",
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+
+        async function carregarUsuarios() {
+            const emailMudado = localStorage.getItem("emailMudado");
+            const usersCollection = collection(db, emailMudado);
+            const userSnapshot = await getDocs(usersCollection);
+            const userList = userSnapshot.docs.map(doc => doc.data());
+
+            const listaUsuarios = document.getElementById("listaUsuarios");
+            listaUsuarios.innerHTML = ""; // Limpar antes de adicionar
+
+            userList.forEach(user => {
+                const button = document.createElement("button");
+                button.classList.add("btn_lu");
+                button.innerHTML = `<i class="ri-user-line"></i> ${user.Nome}`;
+                listaUsuarios.appendChild(button);
+            });
+        }
+
+        // Carregar usuários assim que a página carregar
+        window.onload = carregarUsuarios;
+    </script>
+
     <script type="text/javascript" src="lib/framework7-bundle.min.js"></script>
-	<!-- jQuery -->
-	<script type="text/javascript" src="lib/jquery-3.7.0.min.js"></script>	
-    <!-- Roteamento do app-->
+    <script type="text/javascript" src="lib/jquery-3.7.0.min.js"></script>
     <script type="text/javascript" src="js/routes.js"></script>
     <script src="cordova.js"></script>
 </body>
-
 </html>

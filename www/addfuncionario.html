@@ -80,6 +80,8 @@
       const senha = document.getElementById('senha').value;
       const email = document.getElementById('email').value;
       const fotoPerfilFile = document.getElementById("fotoPerfil").files[0];
+      const nomeEmp = userData.NomeEmp
+      const logoURL = userData.Logo
 
       // Verifica se a senha e a confirmação de senha são iguais
       const confirmarSenha = document.getElementById('confirmarSenha').value;
@@ -95,18 +97,17 @@
 
         // Faz o upload da foto de perfil (se houver)
         const fotoPerfilURL = fotoPerfilFile ? await uploadFile(fotoPerfilFile, `fotos/${userId}_perfil.jpg`) : "";
-
+        const emailMudado = localStorage.getItem("emailMudado");
         // Adiciona dados do funcionário ao Firestore
-        await addDoc(collection(db, 'funcionarios'), {
-          uid: userId,
-          nome,
-          dataNasc,
-          nomeEmpresa: userData.NomeEmp, // Nome da empresa do admin
-          Logo: userData.Logo, // Logo da empresa do admin
-          cadastro,
-          email,
-          fotoPerfil: fotoPerfilURL, // URL da foto
-          adminId: userData.Email // Email do administrador
+        await addDoc(collection(db, emailMudado), {
+          Nome: nome,
+          DataNasc: dataNasc,
+          FotoPerfil: fotoPerfilURL,
+          NomeEmp: nomeEmp,
+          Logo: logoURL,
+          Cadastro: cadastro,
+          Email: email,
+          Admin: false
         });
 
         alert("Funcionário cadastrado com sucesso!");
@@ -114,6 +115,7 @@
       } catch (error) {
         console.error("Erro ao cadastrar: ", error);
         alert("Erro ao cadastrar funcionário: " + error.message);
+
       }
     });
   </script>
