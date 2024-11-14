@@ -360,3 +360,12 @@ function toggleInput() {
 }
 
 toggleInput();
+
+
+
+const dataSalva = localStorage('dataSelecionada');
+if (dataSalva) {
+  document.getElementById('data').innerHTML = dataSalva;
+}else{
+  document.getElementById('data').innerHTML = 'Nenhuma data selecionada';
+}

@@ -133,7 +133,6 @@
             <button id="proximo">→</button>
         </div>
         <ul class="dias" id="listaDias">
-            <!-- Os dias serão gerados aqui -->
         </ul>
     </div>
     <script>
@@ -164,11 +163,17 @@
                 diaElemento.innerHTML = `
                     <div class="data">${dia}</div>
                     <div class="descricao"></div>
-                    <button class="botao-nova-pagina" onclick="window.location.href='add_agenda.html'">Adicionar</button>
+                    <button class="botao-nova-pagina" onclick="salvarData(${dia}, ${mesAtual + 1}, ${anoAtual})">Adicionar</button>
                 `;
 
                 listaDiasElemento.appendChild(diaElemento);
             }
+        }
+
+        function salvarData(dia, mes, ano) {
+            localStorage.setItem('dataSelecionada', JSON.stringify({ dia, mes, ano }));
+            alert(`Data salva: ${dia}/${mes}/${ano}`);
+            window.location.href = 'add_agenda.html';
         }
 
         document.querySelector('#anterior').addEventListener('click', function() {

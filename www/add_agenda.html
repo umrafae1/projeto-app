@@ -28,17 +28,17 @@
       <!-- Your main view, should have "view-main" class -->
       <div class="view view-main">
         <!-- TAB BAR-->
-        <div class="toolbar toolbar-bottom">
+        <div id="menuPrincipal" class="toolbar toolbar-bottom">
           <div class="toolbar-inner display-flex">
-            <a href="/index/" class="tab-link link active">
+            <a onclick="window.location.href= 'index.html'" class="tab-link link active">
               <i class="ri-home-5-line"></i>
               <span>Início</span>
             </a>
-            <a href="/link2/" class="tab-link link">
+            <a onclick="window.location.href= 'link2.html'" class="tab-link link">
               <i class="ri-chat-1-line"></i>
               <span>Chat</span>
             </a>
-            <a href="/link3/" class="tab-link link">
+            <a onclick="window.location.href= 'user.html'" class="tab-link link">
               <i class="ri-user-line"></i>
               <span>Perfil</span>
             </a>
@@ -48,21 +48,19 @@
         <!-- Initial Page, "data-name" contains page name -->
         <div data-name="add" class="page color-theme-blue">
           <!--Nome da empresa + logo-->
-
           <div class="top-nav-user">
-                    
-            <h1 class="tittle-logo"><a href="/agenda2/"><i class="ri-arrow-left-s-line"></i></a></h1>
+            <h1 class="tittle-logo"><a onclick="window.location.href= 'agendaNova.html'"><i class="ri-arrow-left-s-line"></i></a></h1>
             <h2 class="top-nome-user" >Informações</h2>
-
-        </div>
+          </div>
 
           <div class="info">
-
             <div class="Tarefa">
-              <h3>Agente:</h3>
+              <h3>Evento:</h3>
               <input type="text" name="Agente" id="">
             </div>
-            
+
+            <h3 id="data">Data:</h3>
+
             <div class="horario_inicio">
               <h3>Horario Inicio:</h3>
               <input type="text" name="HorarioInicio" id="">
@@ -83,34 +81,31 @@
             </div>
 
             <div class="porCD">
-
               <div class="departamento">
                 <h4>Todos Funcionários:</h4>
                 <input type="radio" name="fun" id="todosFuncionarios" onclick="toggleInput()" checked />
-            </div>
+              </div>
             
-            <div class="cadastro">
+              <div class="cadastro">
                 <h4>Por Cadastro:</h4>
                 <input type="radio" name="fun" id="porCadastro" onclick="toggleInput()" />
-            </div>
+              </div>
             
-            <h4>Digite o código do colaborador</h4>
-            <div class="tx" id="codigoColaboradorContainer" style="display: none;">
+              <h4>Digite o código do colaborador</h4>
+              <div class="tx" id="codigoColaboradorContainer" style="display: none;">
                 <input type="text" name="codigoColaborador" id="codigoColaborador" />
+              </div>
+            
+
+              <button onclick="enviarAgenda()">
+                <h4>Postar</h4>
+              </button>
             </div>
-            
-
-            <button onclick="enviarAgenda()">
-              <h4>Postar</h4>
-            </button>
-            
           </div>
-
-          
         </div>
       </div>
     </div>
-
+    
     <!-- Path to Framework7 Library Bundle JS-->
     <script type="text/javascript" src="lib/framework7-bundle.min.js"></script>
     <!-- jQuery -->
@@ -118,5 +113,21 @@
     <!-- Roteamento do app-->
     <script type="text/javascript" src="js/routes.js"></script>
     <script src="cordova.js"></script>
+
+    <script>
+      // Função para recuperar a data do localStorage e exibir no elemento com id "data"
+      function carregarData() {
+          const dataSalva = localStorage.getItem('dataSelecionada');
+          if (dataSalva) {
+              const { dia, mes, ano } = JSON.parse(dataSalva);
+              document.getElementById('data').textContent = `Data: ${dia}/${mes}/${ano}`;
+          } else {
+              document.getElementById('data').textContent = 'Data: Nenhuma data selecionada.';
+          }
+      }
+
+      // Carrega a data ao carregar a página
+      window.onload = carregarData;
+    </script>
   </body>
 </html>
