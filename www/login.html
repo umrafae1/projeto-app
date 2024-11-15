@@ -16,7 +16,9 @@
         --preto: #2a2a2a;
         --azul: #106584;
       }
+
       @import url('https://fonts.googleapis.com/css2?family=Archivo+Black&family=Bebas+Neue&display=swap');
+
       body {
         display: flex;
         justify-content: center;
@@ -25,27 +27,31 @@
         background-color: #f0f4f8;
         font-family: "Bebas Neue", sans-serif;
       }
+
       #app {
         background: white;
         border-radius: 8px;
         box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
         padding: 20px;
         width: 350px;
-        height: 300px;
         text-align: center;
+        height: auto;
+        max-height: 500px;
       }
+
       h1 {
         margin-bottom: 20px;
         font-size: 24px;
         color: var(--preto);
       }
+
       .input_login {
-        width: 300px;
-        height: 100px;
+        width: 100%;
         display: flex;
         flex-direction: column;
-        gap: 20px;
+        gap: 15px;
       }
+
       input[type="text"],
       input[type="password"] {
         width: 90%;
@@ -54,7 +60,10 @@
         margin: auto;
         padding: 10px 20px;
         background-color: var(--gelo);
+        border: 1px solid var(--cinza);
+        font-size: 16px;
       }
+
       input[type="submit"] {
         background-color: var(--azul);
         color: white;
@@ -65,15 +74,62 @@
         width: 90%;
         font-size: 16px;
       }
+
       input[type="submit"]:hover {
         background-color: #1976d2;
       }
+
+      input[type="submit"]:active {
+        transform: translateY(2px);
+      }
+
       .links {
-        width: 290px;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        gap: 20px;
+        margin-top: 15px;
+      }
+
+      .radio-group {
+        display: flex;
+        justify-content: space-around;
+        margin-bottom: 20px;
+        font-size: 16px;
+      }
+
+      .radio-group label {
         display: flex;
         align-items: center;
-        justify-content: center;
-        gap: 80px;
+      }
+
+      #admin-email-container {
+        display: none;
+        margin-top: 10px;
+        width: 90%;
+      }
+
+      #admin-email-container input {
+        width: 100%;
+        height: 45px;
+        border-radius: 10px;
+        margin: auto;
+        padding: 10px 20px;
+        background-color: var(--gelo);
+        border: 1px solid var(--cinza);
+        font-size: 16px;
+      }
+
+      @media (max-width: 400px) {
+        #app {
+          width: 90%;
+          padding: 15px;
+        }
+
+        .links {
+          flex-direction: column;
+          gap: 10px;
+        }
       }
     </style>
   </head>
@@ -81,9 +137,20 @@
   <body>
     <div id="app">
       <h1>CorpInfo</h1>
+      <div class="radio-group">
+        <label>
+          <input type="radio" name="userType" value="admin" checked /> Administrador
+        </label>
+        <label>
+          <input type="radio" name="userType" value="funcionario" /> Funcionário
+        </label>
+      </div>
       <div class="input_login">
         <input type="text" id="login" placeholder="Login" />
         <input type="password" id="senha" placeholder="Senha" />
+        <div id="admin-email-container">
+          <input type="text" id="adminEmail" placeholder="E-mail do Administrador" />
+        </div>
       </div>
       <div class="links">
         <a href="#">Esqueceu a senha?</a>
@@ -112,19 +179,56 @@
       const auth = getAuth(app);
       const db = getFirestore(app);
 
+      // Exibe ou esconde o campo de e-mail do administrador, dependendo da seleção
+      document.querySelectorAll('input[name="userType"]').forEach(radio => {
+        radio.addEventListener('change', () => {
+          const adminEmailContainer = document.getElementById('admin-email-container');
+          if (document.querySelector('input[name="userType"]:checked').value === 'funcionario') {
+            adminEmailContainer.style.display = 'block';
+          } else {
+            adminEmailContainer.style.display = 'none';
+          }
+        });
+      });
+
       // Função de login
       window.logar = async function () {
         const email = document.getElementById("login").value;
         const senha = document.getElementById("senha").value;
-        const emailAlterado = email.replace(/[.#$[\]/]/g,"")
+        const userType = document.querySelector('input[name="userType"]:checked').value;
+        const emailAlterado = email.replace(/[.#$[\]/]/g, ""); // Certifique-se de que o e-mail seja formatado corretamente
         localStorage.setItem("emailMudado", emailAlterado);
 
-        try {
-          const userCredential = await signInWithEmailAndPassword(auth, email, senha);
-          const userId = userCredential.user.uid;
+        console.log("E-mail: ", email); // Debugging
+        console.log("Senha: ", senha); // Debugging
 
-          const userDoc = await getDoc(doc(db, emailAlterado, userId));
-          if (userDoc.exists()) {
+        try {
+          // Tenta autenticar com Firebase Auth
+          const userCredential = await signInWithEmailAndPassword(auth, email, senha);
+          let userDoc;
+
+          console.log("Usuário autenticado com sucesso:", userCredential); // Verificando as credenciais de autenticação
+
+          if (userType === "admin") {
+            // Lógica para Admin
+            const userId = userCredential.user.uid;
+            console.log("Buscando admin com UID:", userId); // Debugging
+            userDoc = await getDoc(doc(db, emailAlterado, userId)); // Busca o admin com o UID
+          } else {
+            // Lógica para Funcionário
+            const adminEmail = document.getElementById("adminEmail").value;
+            const adminEmailAlterado = adminEmail.replace(/[.#$[\]/]/g, ""); // Aplique a mesma transformação no e-mail do administrador
+            const userId = userCredential.user.uid;
+            console.log("Buscando funcionário com UID:", userId); // Debugging
+            userDoc = await getDoc(doc(db, adminEmailAlterado, userId)); // Busca diretamente o documento do funcionário
+
+            if (!userDoc.exists()) {
+              alert("Funcionário não encontrado.");
+              return;
+            }
+          }
+
+          if (userDoc && userDoc.exists()) {
             const userData = userDoc.data();
             localStorage.setItem("userData", JSON.stringify(userData));
             alert("Login bem-sucedido");
@@ -133,14 +237,16 @@
             alert("Dados do usuário não encontrados.");
           }
         } catch (error) {
-          alert("Erro no login: " + error.message);
+          console.error("Erro no login:", error); // Exibe o erro para depuração
+          alert("Erro no login: " + error.message); // Exibe o erro na tela
         }
       };
+
     </script>
 
     <!-- Incluindo Framework7 JS e jQuery -->
     <script type="text/javascript" src="lib/framework7-bundle.min.js"></script>
     <script type="text/javascript" src="lib/jquery-3.7.0.min.js"></script>
-    <script type="text/javascript" src="js/routes.js"></script>
+    <script type="text/javascript" src="js/app.js"></script>
   </body>
 </html>
