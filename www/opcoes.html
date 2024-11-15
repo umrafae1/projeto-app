@@ -17,10 +17,7 @@
     <link rel="stylesheet" href="css/index.css">
     <!--Ícones Material Design-->
     <link rel="stylesheet" href="css/materialdesignicons.min.css">
-
     <link rel="stylesheet" href="css/remix-icons/remixicon.css" />
-
-
 </head>
 
 <body>
@@ -34,56 +31,72 @@
 
                 <div class="top-nav">
                     <h1 class="tittle-logo">Opções</h1>
-
                 </div>
 
                 <!-- Scrollable page content -->
                 <div class="page-content">
 
                     <div class="body-opc">
-
                         <a onclick="window.location.href = 'adiciona_aviso.html'">
-                            <button class="opc" id="addA"> 
+                            <button class="opc" id="addA">
                                 <i class="icon ri-megaphone-line"></i>
-                                <h3 class="nome">Adicionar Avisos</h1>
+                                <h3 class="nome">Adicionar Avisos</h3>
                             </button>
                         </a>
 
                         <a id="agendaN" onclick="window.location.href = 'agendaNova.html'">
                             <button class="opc">
                                 <i class="icon ri-calendar-2-line"></i>
-                                <h3 class="nome">Adicionar a Agenda</h1>
+                                <h3 class="nome">Adicionar a Agenda</h3>
                             </button>
                         </a>
-                        
+
                         <a onclick="window.location.href = 'lista_user.html'">
-                            <button class="opc"> 
+                            <button class="opc">
                                 <i class="icon ri-id-card-line"></i>
-                                <h3 class="nome">Lista de Usuários</h1>
+                                <h3 class="nome">Lista de Usuários</h3>
                             </button>
                         </a>
-
-
-                
                     </div>
-                    
-                    
                     
                 </div>
             </div>
+                    <!-- TAB BAR-->
+        <div id="menuPrincipal" class="toolbar toolbar-bottom">
+            <div class="toolbar-inner display-flex">
+              <a onclick="window.location.href= 'index.html'" class="tab-link link">
+                <i class="ri-home-5-line"></i>
+                <span>Início</span>
+              </a>
+              <a onclick="window.location.href= 'link2.html'" class="tab-link link">
+                <i class="ri-chat-1-line"></i>
+                <span>Chat</span>
+              </a>
+              <a onclick="window.location.href= 'user.html'" class="tab-link link">
+                <i class="ri-user-line"></i>
+                <span>Perfil</span>
+              </a>
+            </div>
+          </div>
         </div>
+        
     </div>
+    
+
     <script>
         const userData = JSON.parse(localStorage.getItem("userData"));
-        if (userData.Admin==false) {
+        if (userData.Admin == false) {
             document.getElementById("addA").style.display = "none";
             document.getElementById("agendaN").style.display = "none";
-        }
+        }else{
+            document.getElementById("addA").style.display = "block";
+            document.getElementById("agendaN").style.display = "block";}
     </script>
+
     <!-- Path to Framework7 Library Bundle JS-->
     <script type="text/javascript" src="lib/framework7-bundle.min.js"></script>
-	<!-- jQuery -->
-	<script type="text/javascript" src="lib/jquery-3.7.0.min.js"></script>	
+    <!-- jQuery -->
+    <script type="text/javascript" src="lib/jquery-3.7.0.min.js"></script>
     <!-- Roteamento do app-->
     <script type="text/javascript" src="js/routes.js"></script>
     <script src="cordova.js"></script>

@@ -196,32 +196,35 @@
         const email = document.getElementById("login").value;
         const senha = document.getElementById("senha").value;
         const userType = document.querySelector('input[name="userType"]:checked').value;
-        const emailAlterado = email.replace(/[.#$[\]/]/g, ""); // Certifique-se de que o e-mail seja formatado corretamente
+        const emailAlterado = email.replace(/[.#$[\]/]/g, "");
         localStorage.setItem("emailMudado", emailAlterado);
 
-        console.log("E-mail: ", email); // Debugging
-        console.log("Senha: ", senha); // Debugging
+        console.log("E-mail: ", email);
+        console.log("Senha: ", senha);
 
         try {
           // Tenta autenticar com Firebase Auth
           const userCredential = await signInWithEmailAndPassword(auth, email, senha);
           let userDoc;
 
-          console.log("Usuário autenticado com sucesso:", userCredential); // Verificando as credenciais de autenticação
+          console.log("Usuário autenticado com sucesso:", userCredential);
 
           if (userType === "admin") {
             // Lógica para Admin
             const userId = userCredential.user.uid;
             console.log("Buscando admin com UID:", userId); // Debugging
-            userDoc = await getDoc(doc(db, emailAlterado, userId)); // Busca o admin com o UID
+            userDoc = await getDoc(doc(db, emailAlterado, userId));
+            localStorage.setItem('acessouIndex', true)
           } else {
             // Lógica para Funcionário
             const adminEmail = document.getElementById("adminEmail").value;
-            const adminEmailAlterado = adminEmail.replace(/[.#$[\]/]/g, ""); // Aplique a mesma transformação no e-mail do administrador
+            const adminEmailAlterado = adminEmail.replace(/[.#$[\]/]/g, "");
             const userId = userCredential.user.uid;
-            console.log("Buscando funcionário com UID:", userId); // Debugging
-            userDoc = await getDoc(doc(db, adminEmailAlterado, userId)); // Busca diretamente o documento do funcionário
-
+            console.log("Buscando funcionário com UID:", userId); 
+            userDoc = await getDoc(doc(db, adminEmailAlterado, userId));
+            
+            localStorage.setItem("emailMudado", adminEmailAlterado);
+            
             if (!userDoc.exists()) {
               alert("Funcionário não encontrado.");
               return;
@@ -232,13 +235,14 @@
             const userData = userDoc.data();
             localStorage.setItem("userData", JSON.stringify(userData));
             alert("Login bem-sucedido");
+            localStorage.setItem('acessouIndex', true)
             window.location.href = "index.html";
           } else {
             alert("Dados do usuário não encontrados.");
           }
         } catch (error) {
-          console.error("Erro no login:", error); // Exibe o erro para depuração
-          alert("Erro no login: " + error.message); // Exibe o erro na tela
+          console.error("Erro no login:", error);
+          alert("Erro no login: " + error.message);
         }
       };
 

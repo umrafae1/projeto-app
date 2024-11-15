@@ -104,10 +104,10 @@
                 <!-- Scrollable page content -->
                 <div class="page-content">
                     <div class="botoes_lu" id="listaUsuarios">
-                        <!-- Aqui a lista de usuários será populada via JavaScript -->
+                       
                     </div>
                     
-                    <button class="btn_lua" onclick="window.location.href = 'addfuncionario.html'">
+                    <button id="Adicionar" class="btn_lua" style="display: none;" onclick="window.location.href = 'addfuncionario.html'">
                         Adicionar Funcionário
                     </button>
                 </div>
@@ -138,7 +138,7 @@
             const userList = userSnapshot.docs.map(doc => doc.data());
 
             const listaUsuarios = document.getElementById("listaUsuarios");
-            listaUsuarios.innerHTML = ""; // Limpar antes de adicionar
+            listaUsuarios.innerHTML = "";
 
             userList.forEach(user => {
                 const button = document.createElement("button");
@@ -146,9 +146,14 @@
                 button.innerHTML = `<i class="ri-user-line"></i> ${user.Nome}`;
                 listaUsuarios.appendChild(button);
             });
+            const userData = JSON.parse(localStorage.getItem("userData"));
+            if (userData.Admin==true) {
+            const bt_Add = document.getElementById("Adicionar")
+            bt_Add.style.display = "block";
         }
-
-        // Carregar usuários assim que a página carregar
+        }
+        
+       
         window.onload = carregarUsuarios;
     </script>
 
