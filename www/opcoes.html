@@ -40,7 +40,7 @@
                         <a onclick="window.location.href = 'adiciona_aviso.html'">
                             <button class="opc" id="addA">
                                 <i class="icon ri-megaphone-line"></i>
-                                <h3 class="nome">Adicionar Avisos</h3>
+                                <h3 class="nome" >Adicionar Avisos</h3>
                             </button>
                         </a>
 
@@ -81,16 +81,11 @@
         </div>
         
     </div>
-    
-
     <script>
         const userData = JSON.parse(localStorage.getItem("userData"));
         if (userData.Admin == false) {
             document.getElementById("addA").style.display = "none";
-            document.getElementById("agendaN").style.display = "none";
-        }else{
-            document.getElementById("addA").style.display = "block";
-            document.getElementById("agendaN").style.display = "block";}
+            document.getElementById("agendaN").style.display = "none";}
     </script>
 
     <!-- Path to Framework7 Library Bundle JS-->

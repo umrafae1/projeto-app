@@ -1,65 +1,156 @@
 <!DOCTYPE html>
-<html>
+<html lang="pt-br">
 
 <head>
-    <!-- Required meta tags-->
     <meta charset="utf-8">
-    <meta name="viewport"
-        content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, viewport-fit=cover">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, viewport-fit=cover">
     <meta name="apple-mobile-web-app-capable" content="yes">
-    <!-- Color theme for statusbar (Android only) -->
     <meta name="theme-color" content="#2196f3">
-    <!-- Your app title -->
     <title>My App</title>
-    <!-- Path to Framework7 Library Bundle CSS -->
-    <link rel="stylesheet" href="lib/framework7-bundle.min.css">
-    <!-- CSS PERSONALIZADO PARA MENU-->
-    <link rel="stylesheet" href="css/personalizado.css">
-    <!--Ícones Material Design-->
-    <link rel="stylesheet" href="css/materialdesignicons.min.css">
 
+    <link rel="stylesheet" href="css/remix-icons/remixicon.css" />
+    <link rel="stylesheet" href="css/materialdesignicons.min.css">
+    <link rel="stylesheet" href="css/index.css">
+
+    <style>
+        .top-nav-add-aviso {
+            width: 100%;
+            height: 80px;
+            display: flex;
+            align-items: center;
+        }
+
+        .top-name-add-aviso {
+            color: var(--preto);
+            margin-left: 60px;
+            font-size: 25px;
+        }
+
+        .page-content-aviso {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+        }
+
+        .texto-aviso {
+            width: 90%;
+            height: 300px;
+            border-radius: 10px;
+            background: var(--cinza);
+            padding: 15px;
+            position: relative;
+        }
+
+        .ri-attachment-2 {
+            font-size: 25px;
+            height: 70px;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+
+        textarea::placeholder {
+            color: var(--preto);
+            font-size: 16px;
+        }
+
+        .enviar-aviso {
+            background-color: var(--azul);
+            color: white;
+            border: none;
+            border-radius: 4px;
+            padding: 10px;
+            cursor: pointer;
+            height: 50px;
+            width: 100px;
+            font-size: 16px;
+            margin-top: 60%;
+            margin-left: 65%;
+        }
+
+        .file-preview {
+            margin-top: 20px;
+            width: 90%;
+        }
+
+        .file-preview img {
+            max-width: 100%;
+            max-height: 300px;
+        }
+
+        #fileInput {
+            display: none;
+        }
+    </style>
 </head>
 
 <body>
-    <!-- App root element -->
     <div id="app">
-
-        <!-- Your main view, should have "view-main" class -->
         <div class="view view-main">
-            <!-- Initial Page, "data-name" contains page name -->
             <div data-name="lista_user" class="page">
-
-                <!--  NAV TOPO -->
                 <div class="top-nav-add-aviso">
-                    
-                    <h1 class="tittle-logo"><a href="/opcoes/"><i class="ri-arrow-left-s-line"></i></a></h1>
-                    <h2 class="top-nome-add-aviso" >Adicionar Avisos</h2>
-
+                    <h1 class="tittle-logo"><a onclick="window.location.href = 'opcoes.html'"><i class="ri-arrow-left-s-line"></i></a></h1>
+                    <h2 class="top-name-add-aviso">Adicionar Avisos</h2>
                 </div>
-                  
-                
 
-                <!-- Scrollable page content -->
                 <div class="page-content-aviso">
-
-                    <textarea class="texto-aviso" placeholder="Digite aqui..." rows="4" ></textarea>
-
-                    <i class="ri-attachment-2"></i>
+                    <textarea class="texto-aviso" placeholder="Digite aqui..." rows="4"></textarea>
 
                     <button class="enviar-aviso">Postar</button>
-                    
-                   
                 </div>
             </div>
         </div>
     </div>
-    <!-- Path to Framework7 Library Bundle JS-->
-    <script type="text/javascript" src="lib/framework7-bundle.min.js"></script>
-	<!-- jQuery -->
-	<script type="text/javascript" src="lib/jquery-3.7.0.min.js"></script>	
-    <!-- Roteamento do app-->
-    <script type="text/javascript" src="js/routes.js"></script>
-    <script src="cordova.js"></script>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-app.js";
+        import { getAnalytics } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-analytics.js";
+        import { getDatabase, ref, push, set } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-database.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyBk3kzqpBKEyrwHdnC_RgHmd4PDUJOqoEU",
+            authDomain: "copinfo-5a0f5.firebaseapp.com",
+            databaseURL: "https://copinfo-5a0f5-default-rtdb.firebaseio.com",
+            projectId: "copinfo-5a0f5",
+            storageBucket: "copinfo-5a0f5.appspot.com",
+            messagingSenderId: "543026869888",
+            appId: "1:543026869888:web:f2ef1ce629b2bf49615865",
+            measurementId: "G-9JHXYXYKGT"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const analytics = getAnalytics(app);
+        const database = getDatabase(app);
+
+        document.querySelector('.enviar-aviso').addEventListener('click', function() {
+            const avisoTexto = document.querySelector('.texto-aviso').value;
+
+            if (avisoTexto.trim() !== '') {
+                const userData = JSON.parse(localStorage.getItem("userData"));
+                const userEmail = userData.Email;
+
+                const newPostKey = push(ref(database, 'aviso')).key;
+
+                const avisoData = {
+                    texto: avisoTexto,
+                    email: userEmail,
+                    data: new Date().toISOString(),
+                };
+
+                set(ref(database, 'aviso/' + newPostKey), avisoData)
+                    .then(() => {
+                        alert("Aviso postado com sucesso!");
+                        document.querySelector('.texto-aviso').value = '';
+                    })
+                    .catch((error) => {
+                        console.error('Erro ao postar aviso:', error);
+                        alert('Erro ao postar aviso. Tente novamente.');
+                    });
+            } else {
+                alert('Por favor, digite um aviso!');
+            }
+        });
+    </script>
 </body>
 
 </html>

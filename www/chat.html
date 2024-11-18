@@ -4,74 +4,195 @@
 <head>
     <!-- Required meta tags-->
     <meta charset="utf-8">
-    <meta name="viewport"
-        content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, viewport-fit=cover">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, viewport-fit=cover">
     <meta name="apple-mobile-web-app-capable" content="yes">
-    <!-- Color theme for statusbar (Android only) -->
     <meta name="theme-color" content="#2196f3">
-    <!-- Your app title -->
     <title>My App</title>
-    <!-- Path to Framework7 Library Bundle CSS -->
     <link rel="stylesheet" href="lib/framework7-bundle.min.css">
-    <!-- CSS PERSONALIZADO PARA MENU-->
     <link rel="stylesheet" href="css/index.css">
-    <!--Ícones Material Design-->
     <link rel="stylesheet" href="css/materialdesignicons.min.css">
-
     <link rel="stylesheet" href="css/remix-icons/remixicon.css" />
-
-
 </head>
 
 <body>
-    <!-- App root element -->
     <div id="app">
-        <!-- Your main view, should have "view-main" class -->
         <div class="view view-main">
-            <!-- Initial Page, "data-name" contains page name -->
             <div data-name="chat" class="page">
-
                 <div class="top-nav__chat">
-                    
                     <h1 class="tittle-logo"><a onclick="window.location.href= 'link2.html'"><i class="ri-arrow-left-s-line"></i></a></h1>
-                    
-        
                     <div class="foto_chat"></div>
-
-
-                    <h2 class="nome_chat" >Barnabé</h2>
-
+                    <h2 class="nome_chat"></h2>
                 </div>
 
-                <!-- Scrollable page content -->
                 <div class="page-content">
+                    <section class="container__chat">
+                        <section class="chat__messages" id="chatMessages"></section>
 
-                    
+                        <!-- Formulário de mensagem com envio de texto e arquivo -->
+                        <form class="chat__form" id="chatForm">
+                            <input type="text" class="chat__input" placeholder="Digite uma mensagem" required id="messageInput" />
 
-                        <section class="container__chat">
-                            <section class="chat__messages">
-    
-                            </section>
-                    
-                                <form class="chat__form">
-                                    <input type="text" class="chat__input" placeholder="Digite uma mensagem" required />
-                                    <button type="submit" class="chat__button">
-                                        <i class="icone ri-send-plane-2-fill"></i>
-                                    </button>
-                                </form>
-                        </section>
-        
+                            <!-- Ícone de anexar arquivos -->
+                            <i class="ri-attachment-2" id="attachmentIcon" style="font-size: 30px; cursor: pointer;"></i>
+
+                            <input type="file" id="fileInput" style="display: none;" multiple />
+
+                            <button type="submit" class="chat__button">
+                                <i class="icone ri-send-plane-2-fill"></i>
+                            </button>
+                        </form>
+
+                        <!-- Exibição dos arquivos anexados -->
+                        <div id="filePreview"></div>
+                    </section>
                 </div>
             </div>
         </div>
     </div>
-    <!-- Path to Framework7 Library Bundle JS-->
+
     <script type="text/javascript" src="lib/framework7-bundle.min.js"></script>
-	<!-- jQuery -->
-	<script type="text/javascript" src="lib/jquery-3.7.0.min.js"></script>	
-    <!-- Roteamento do app-->
+    <script type="text/javascript" src="lib/jquery-3.7.0.min.js"></script>
     <script type="text/javascript" src="js/routes.js"></script>
     <script src="cordova.js"></script>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js";
+        import { getFirestore, collection, getDocs, addDoc, query, orderBy, onSnapshot } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyBk3kzqpBKEyrwHdnC_RgHmd4PDUJOqoEU",
+            authDomain: "copinfo-5a0f5.firebaseapp.com",
+            projectId: "copinfo-5a0f5",
+            storageBucket: "copinfo-5a0f5.appspot.com",
+            messagingSenderId: "543026869888",
+            appId: "1:543026869888:web:f2ef1ce629b2bf49615865",
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+
+        // Função para abrir o seletor de arquivos quando o ícone de anexo for clicado
+        document.getElementById('attachmentIcon').addEventListener('click', function() {
+            document.getElementById('fileInput').click();
+        });
+
+        // Exibir os arquivos selecionados
+        document.getElementById('fileInput').addEventListener('change', function(event) {
+            const files = event.target.files;
+            const filePreview = document.getElementById('filePreview');
+            filePreview.innerHTML = '';  // Limpar a visualização anterior
+
+            Array.from(files).forEach(file => {
+                const fileReader = new FileReader();
+                fileReader.onload = function(e) {
+                    const fileURL = e.target.result;
+
+                    const fileElement = document.createElement('div');
+                    if (file.type.startsWith('image/')) {
+                        const img = document.createElement('img');
+                        img.src = fileURL;
+                        img.style.maxWidth = '100%';
+                        img.style.maxHeight = '300px';
+                        fileElement.appendChild(img);
+                    } else if (file.type.startsWith('video/')) {
+                        const video = document.createElement('video');
+                        video.src = fileURL;
+                        video.controls = true;
+                        video.style.maxWidth = '100%';
+                        video.style.maxHeight = '300px';
+                        fileElement.appendChild(video);
+                    } else {
+                        fileElement.innerHTML = `<p>Arquivo: ${file.name}</p>`;
+                    }
+
+                    filePreview.appendChild(fileElement);
+                };
+                fileReader.readAsDataURL(file);
+            });
+        });
+
+        // Carregar mensagens do Firestore
+        function loadMessages() {
+            const chatMessages = document.getElementById('chatMessages');
+            const usuarioId = localStorage.getItem("usuarioId"); // Pegando o ID do usuário no chat
+            const chatRef = collection(db, "chats", usuarioId, "messages");
+            const q = query(chatRef, orderBy("timestamp"));
+            
+            onSnapshot(q, (querySnapshot) => {
+                chatMessages.innerHTML = ""; // Limpa as mensagens ao recarregar
+                querySnapshot.forEach((doc) => {
+                    const messageData = doc.data();
+                    const messageElement = document.createElement('div');
+                    messageElement.classList.add('message');
+                    messageElement.innerHTML = `<p><strong>${messageData.sender}:</strong> ${messageData.text}</p>`;
+
+                    // Exibir os arquivos anexados, se houver
+                    messageData.files.forEach(file => {
+                        const fileElement = document.createElement('div');
+                        if (file.type === "image") {
+                            const img = document.createElement('img');
+                            img.src = file.url;
+                            img.style.maxWidth = '100%';
+                            img.style.maxHeight = '300px';
+                            fileElement.appendChild(img);
+                        }
+                        messageElement.appendChild(fileElement);
+                    });
+
+                    chatMessages.appendChild(messageElement);
+                });
+            });
+        }
+
+        // Enviar a mensagem de texto e anexos para o Firestore
+        document.getElementById('chatForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            const messageInput = document.getElementById('messageInput');
+            const messageText = messageInput.value.trim();
+
+            if (messageText === '' && !document.getElementById('fileInput').files.length) {
+                alert('Por favor, digite uma mensagem ou anexe um arquivo!');
+                return;
+            }
+
+            const usuarioId = localStorage.getItem("usuarioId");
+            const messageContainer = document.getElementById('chatMessages');
+            const newMessage = {
+                sender: "Usuário",  // Aqui você pode colocar o nome do usuário logado
+                text: messageText,
+                timestamp: new Date(),
+                files: []  // Inicializando a lista de arquivos
+
+            };
+
+            // Se houver arquivos anexados
+            const filePreview = document.getElementById('filePreview');
+            if (filePreview.innerHTML) {
+                const files = document.getElementById('fileInput').files;
+                Array.from(files).forEach(file => {
+                    const fileObj = {
+                        type: file.type.split('/')[0],  // "image", "video" etc.
+                        url: URL.createObjectURL(file) // Utilizando a URL do arquivo
+                    };
+                    newMessage.files.push(fileObj);
+                });
+            }
+
+            // Enviar a mensagem para o Firestore
+            addDoc(collection(db, "chats", usuarioId, "messages"), newMessage)
+                .then(() => {
+                    messageInput.value = '';  // Limpar campo de texto
+                    filePreview.innerHTML = '';  // Limpar visualização de arquivos
+                })
+                .catch((error) => {
+                    console.error("Erro ao enviar mensagem: ", error);
+                });
+        });
+
+        // Carregar mensagens quando a página for carregada
+        window.onload = loadMessages;
+    </script>
 </body>
 
 </html>

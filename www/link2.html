@@ -54,10 +54,8 @@
                         <span>Perfil</span>
                     </a>
                 </div>
+            </div>
         </div>
-    </div>
-
-  
     </div>
 
     <!-- Path to Framework7 Library Bundle JS-->
@@ -86,7 +84,6 @@
         const db = getFirestore(app);
 
         async function carregarChats() {
-
             const emailMudado = localStorage.getItem("emailMudado");
             const usuariosCollection = collection(db, emailMudado);
             const usuariosSnapshot = await getDocs(usuariosCollection);
@@ -97,19 +94,32 @@
 
             usuariosList.forEach(user => {
                 const button = document.createElement("a");
-                button.href = "/chat/";
+                //button.href = "chat.html";
                 button.classList.add("user1");
+                button.onclick = () => {
+                    window.location.href = "chat.html";
+                }
+                
+                button.setAttribute("data-id", user.id);
+                
                 button.innerHTML = `
                     <div class="icone-user"> 
-                        <i class="user-icon ri-user-line"></i>
+                        <i class="user-icon ri-user-line" ></i>
                     </div>
                     <h2 class="nome">${user.Nome}</h2>
                 `;
+
+                
+                button.addEventListener("click", (event) => {
+                    const userId = event.target.closest("a").getAttribute("data-id");
+                    localStorage.setItem("usuarioId", userId);
+                });
+
                 listaChats.appendChild(button);
             });
         }
 
-        // Carregar chats assim que a página carregar
+       
         window.onload = carregarChats;
     </script>
 </body>
