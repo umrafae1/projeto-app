@@ -6,119 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, viewport-fit=cover">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="theme-color" content="#2196f3">
-    <title>Lista de Avisos</title>
-    <style>
-        /* Estilo básico */
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f4f4f4;
-            overflow-x: hidden;
-        }
-
-        /* Navegação superior */
-        .top-nav {
-            width: 100%;
-            height: 80px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            background-color: #2196f3;
-            color: white;
-            padding: 0 15px;
-            box-sizing: border-box;
-        }
-
-        .top-name {
-            font-size: 22px;
-            display: flex;
-            align-items: center;
-        }
-
-        .top-name img {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            margin-right: 10px;
-        }
-
-        .back-button {
-            background-color: transparent;
-            border: none;
-            font-size: 28px;
-            color: white;
-            cursor: pointer;
-        }
-
-        /* Lista de mensagens */
-        .message-list {
-            padding: 10px;
-            box-sizing: border-box;
-            position: fixed;
-            bottom: 0;
-            right: 0;
-            width: 100%;
-            max-width: 400px;
-            height: 100%;
-            overflow-y: auto;
-            display: flex;
-            flex-direction: column-reverse; /* Coloca as mensagens no fundo */
-        }
-
-        .message-item {
-            background-color: #fff;
-            padding: 15px;
-            margin-bottom: 10px;
-            border-radius: 8px;
-            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-            position: relative;
-            width: fit-content;
-            max-width: 90%;
-            margin-left: auto; /* Alinha a mensagem à direita */
-        }
-
-        .message-item p {
-            font-size: 16px;
-            margin: 0;
-        }
-
-        .message-item small {
-            display: block;
-            font-size: 12px;
-            color: gray;
-            margin-top: 5px;
-        }
-
-        /* Botão de excluir */
-        .delete-button {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            background-color: #f44336;
-            color: white;
-            border: none;
-            padding: 5px 10px;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-
-        /* Responsividade para telas menores */
-        @media (max-width: 600px) {
-            .top-name {
-                font-size: 20px;
-            }
-
-            .message-item p {
-                font-size: 14px;
-            }
-
-            .delete-button {
-                padding: 4px 8px;
-                font-size: 12px;
-            }
-        }
-    </style>
+    <title>Avisos</title>
+    <link rel="stylesheet" href="css/telaaviso.css">
 </head>
 
 <body>
@@ -134,6 +23,17 @@
 
         <div class="message-list" id="messageList">
             <!-- Os avisos serão carregados aqui -->
+        </div>
+
+        <!-- Modal de confirmação -->
+        <div class="modal" id="confirmModal">
+            <div class="modal-content">
+                <h3>Tem certeza que deseja excluir este aviso?</h3>
+                <div class="modal-buttons">
+                    <button id="confirmDeleteBtn">Excluir</button>
+                    <button id="cancelDeleteBtn">Cancelar</button>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -155,11 +55,14 @@
         const app = initializeApp(firebaseConfig);
         const db = getFirestore(app);
 
+        let currentDocId = null;  // Variável global para armazenar o ID do documento a ser excluído
+        let validAdminEmail = null; // Variável para armazenar o e-mail do administrador válido
+
         function carregarAvisos() {
             const messageListElement = document.getElementById('messageList');
             const userData = JSON.parse(localStorage.getItem("userData"));
-            const adminEmail = localStorage.getItem("emailAdmin"); // Agora pega o e-mail do localStorage
-            const validAdminEmail = adminEmail.replace(/\./g, "_");
+            const adminEmail = localStorage.getItem("emailAdmin");
+            validAdminEmail = adminEmail.replace(/\./g, "_"); // Atualiza a variável global
 
             // Exibir a logo do grupo
             const groupLogo = document.getElementById("groupLogo");
@@ -168,20 +71,17 @@
             }
 
             try {
-                // Referência para a subcoleção "tela de aviso"
                 const adminDocRef = collection(db, "admins", validAdminEmail, "tela de aviso");
-                const q = query(adminDocRef, orderBy("data", "desc"));  // Ordena os avisos pela data
+                const q = query(adminDocRef, orderBy("data", "desc"));
 
-                // Usando onSnapshot para escutar mudanças em tempo real
                 onSnapshot(q, (querySnapshot) => {
-                    messageListElement.innerHTML = ""; // Limpa a lista antes de adicionar novas mensagens
+                    messageListElement.innerHTML = "";
 
                     if (querySnapshot.empty) {
                         messageListElement.innerHTML = '<p>Não há avisos disponíveis no momento.</p>';
                         return;
                     }
 
-                    // Para cada documento retornado, cria um item de aviso
                     querySnapshot.forEach((docSnapshot) => {
                         const aviso = docSnapshot.data();
                         const messageItem = document.createElement('div');
@@ -191,18 +91,14 @@
                             <small>Postado em: ${new Date(aviso.data).toLocaleString()}</small>
                         `;
 
-                        // Exibir o botão de exclusão apenas para administradores
-                        if (userData.isAdmin === true) {
+                        if (userData.Admin === true) {
                             const deleteButton = document.createElement('button');
                             deleteButton.classList.add('delete-button');
                             deleteButton.textContent = 'Excluir';
-                            deleteButton.onclick = async () => {
-                                try {
-                                    // Usando a referência correta do documento para exclusão
-                                    await deleteDoc(doc(db, "admins", validAdminEmail, "tela de aviso", docSnapshot.id));
-                                } catch (error) {
-                                    console.error("Erro ao excluir o aviso:", error);
-                                }
+                            deleteButton.onclick = () => {
+                                // Armazenar o ID do documento a ser excluído
+                                currentDocId = docSnapshot.id;
+                                document.getElementById('confirmModal').style.display = 'flex';
                             };
                             messageItem.appendChild(deleteButton);
                         }
@@ -216,6 +112,25 @@
                 messageListElement.innerHTML = '<p>Erro ao carregar os avisos. Tente novamente mais tarde.</p>';
             }
         }
+
+        // Confirmar exclusão
+        document.getElementById('confirmDeleteBtn').onclick = async () => {
+            if (currentDocId) {
+                try {
+                    await deleteDoc(doc(db, "admins", validAdminEmail, "tela de aviso", currentDocId));
+                    currentDocId = null;
+                    document.getElementById('confirmModal').style.display = 'none';
+                } catch (error) {
+                    console.error("Erro ao excluir o aviso:", error);
+                }
+            }
+        };
+
+        // Cancelar a exclusão
+        document.getElementById('cancelDeleteBtn').onclick = () => {
+            currentDocId = null;
+            document.getElementById('confirmModal').style.display = 'none';
+        };
 
         document.addEventListener('DOMContentLoaded', carregarAvisos);
     </script>

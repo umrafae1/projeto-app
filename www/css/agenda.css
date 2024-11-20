@@ -1,0 +1,166 @@
+:root {
+    --branco: #FFFF;
+    --gelo: #f1f1f1;
+    --cinza: #acabab;
+    --preto: #2a2a2a;
+    --azul: #106584;
+    --azul_2: #033f57;
+}
+
+/* Estilos gerais */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: var(--gelo);
+    color: var(--preto);
+}
+
+/* Barra superior */
+.top-nave {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--azul);
+    color: var(--branco);
+    height: 70px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.top-nave h2 {
+    font-size: 24px;
+}
+
+/* Container principal */
+.corpo {
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 20px;
+    background: var(--branco);
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.cabecalho {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.cabecalho button {
+    background: var(--azul);
+    color: var(--branco);
+    border: none;
+    border-radius: 5px;
+    width: 40px;
+    height: 40px;
+    font-size: 18px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.3s ease;
+}
+
+.cabecalho button:hover {
+    background: var(--azul_2);
+}
+
+h3 {
+    font-size: 20px;
+    color: var(--preto);
+    margin: 0;
+}
+
+/* Lista de dias */
+.dias {
+    list-style: none;
+    padding: 0;
+}
+
+.dia {
+    display: flex;
+    align-items: center;
+    background: var(--branco);
+    border: 1px solid var(--cinza);
+    border-radius: 8px;
+    margin-bottom: 10px;
+    padding: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.data {
+    flex: 0 0 50px;
+    font-size: 18px;
+    font-weight: bold;
+    color: var(--preto);
+    text-align: center;
+}
+
+.descricao {
+    flex: 1;
+    font-size: 14px;
+    color: var(--cinza);
+    margin-left: 10px;
+}
+
+.botao-expandir {
+    background: var(--azul);
+    border: none;
+    border-radius: 5px;
+    color: var(--branco);
+    padding: 5px 10px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background 0.3s ease;
+}
+
+.botao-expandir:hover {
+    background: var(--azul_2);
+}
+
+.expanded {
+    display: none;
+    background: var(--gelo);
+    border-top: 1px solid var(--cinza);
+    padding: 10px;
+    margin-top: 5px;
+    border-radius: 0 0 8px 8px;
+}
+
+.expanded.show {
+    display: block;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+    .corpo {
+        padding: 15px;
+    }
+
+    .cabecalho button {
+        width: 35px;
+        height: 35px;
+    }
+
+    h3 {
+        font-size: 18px;
+    }
+
+    .data {
+        font-size: 16px;
+    }
+
+    .descricao {
+        font-size: 12px;
+    }
+
+    .botao-expandir {
+        font-size: 12px;
+    }
+
+    .expanded {
+        font-size: 12px;
+    }
+}
