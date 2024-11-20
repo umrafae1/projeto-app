@@ -195,7 +195,23 @@
             <ul class="dias" id="listaDias"></ul>
         </div>
     </div>
-    <script>
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js";
+        import { getFirestore, collection, query, where, getDocs } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyBk3kzqpBKEyrwHdnC_RgHmd4PDUJOqoEU",
+            authDomain: "copinfo-5a0f5.firebaseapp.com",
+            projectId: "copinfo-5a0f5",
+            storageBucket: "copinfo-5a0f5.appspot.com",
+            messagingSenderId: "543026869888",
+            appId: "1:543026869888:web:f2ef1ce629b2bf49615865",
+            measurementId: "G-9JHXYXYKGT"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+
         function iniciarCalendario() {
             const dataAtual = new Date();
             let mesAtual = dataAtual.getMonth();
@@ -214,20 +230,37 @@
                 criarDias();
             }
 
-            function criarDias() {
+            async function criarDias() {
                 listaDiasElemento.innerHTML = '';
                 const ultimoDiaDoMes = new Date(anoAtual, mesAtual + 1, 0).getDate();
+
+                // Consultar eventos no Firestore
+                const eventosQuery = query(
+                    collection(db, "admins"),
+                    where("data", ">", new Date(anoAtual, mesAtual, 1)),
+                    where("data", "<", new Date(anoAtual, mesAtual + 1, 0))
+                );
+                const eventosSnapshot = await getDocs(eventosQuery);
+                const eventos = eventosSnapshot.docs.map(doc => doc.data());
 
                 for (let dia = 1; dia <= ultimoDiaDoMes; dia++) {
                     const diaElemento = document.createElement('li');
                     diaElemento.classList.add('dia');
+                    let descricao = "Expediente";
+
+                    // Verificar se há evento para o dia
+                    const eventoDoDia = eventos.filter(evento => new Date(evento.data.seconds * 1000).getDate() === dia);
+
+                    if (eventoDoDia.length > 0) {
+                        descricao = eventoDoDia[0].descricao;
+                    }
 
                     diaElemento.innerHTML = `
                         <div class="data">${dia}</div>
-                        <div class="descricao">Expediente</div>
+                        <div class="descricao">${descricao}</div>
                         <button class="botao-expandir">Detalhes</button>
                         <div class="expanded">
-                            <p>Detalhes sobre o expediente do dia ${dia}.</p>
+                            <p>${eventoDoDia.length > 0 ? eventoDoDia[0].detalhes : "Sem detalhes."}</p>
                         </div>
                     `;
 

@@ -158,13 +158,21 @@
     const dataSelecionada = JSON.parse(localStorage.getItem('dataSelecionada'));
     if (dataSelecionada) {
       const { dia, mes, ano } = dataSelecionada;
-      const dataFormatada = `${ano}-${String(mes).padStart(2, '0')}-${String(dia).padStart(2, '0')}`;
-      document.getElementById("data").value = dataFormatada;
-    }
-
-    // Função para substituir caracteres não permitidos no Firestore
-    function sanitizeEmail(email) {
-      return email.replace(/[\.#$\[\]\/]/g, '_');
+      const dataSalva = new Date(ano, mes - 1, dia);  // Meses começam em 0 no JavaScript
+      
+      // Data atual
+      const dataAtual = new Date();
+      
+      // Verifica se a data salva é no passado
+      if (dataSalva < dataAtual) {
+        // Se a data salva for no passado, usa a data atual
+        const dataFormatada = `${dataAtual.getFullYear()}-${String(dataAtual.getMonth() + 1).padStart(2, '0')}-${String(dataAtual.getDate()).padStart(2, '0')}`;
+        document.getElementById("data").value = dataFormatada;
+      } else {
+        // Caso contrário, usa a data salva
+        const dataFormatada = `${ano}-${String(mes).padStart(2, '0')}-${String(dia).padStart(2, '0')}`;
+        document.getElementById("data").value = dataFormatada;
+      }
     }
 
     onAuthStateChanged(auth, async (user) => {
@@ -181,11 +189,17 @@
           const codigoColaborador = document.getElementById("codigoColaborador").value;
 
           try {
-            const eventoId = new Date().getTime();
+            const eventoId = new Date().getTime(); // Usando o timestamp como ID do evento
             const sanitizedEmail = sanitizeEmail(user.email);
+
+            // A data de postagem é a data atual
+            const dataPostagem = new Date();
+
+            // A referência para a subcoleção do evento, dentro do email do admin
             const eventoRef = doc(db, "admins", sanitizedEmail, "eventos", eventoId.toString());
 
-            await setDoc(eventoRef, {
+            // Estrutura de dados do evento
+            const eventoData = {
               evento,
               data,
               horarioInicio,
@@ -193,9 +207,18 @@
               local,
               destinatario,
               codigoColaborador,
-            });
+              dataPostagem,
+            };
+
+            // Salvar evento na subcoleção
+            await setDoc(eventoRef, eventoData);
 
             showAlert("Evento enviado com sucesso!");
+            
+            // Após 5 segundos, redireciona para a página agendaNova.html
+            setTimeout(() => {
+              window.location.href = "agendaNova.html";
+            }, 5000);
           } catch (error) {
             showAlert("Erro ao enviar evento: " + error.message);
           }
@@ -215,10 +238,16 @@
         }
       });
     });
+
+ 
+    function sanitizeEmail(email) {
+      return email.replace(/[\.#$\[\]\/]/g, '_');
+    }
   </script>
 
   <script type="text/javascript" src="lib/framework7-bundle.min.js"></script>
   <script type="text/javascript" src="lib/jquery-3.7.0.min.js"></script>
+
 </body>
 
 </html>
