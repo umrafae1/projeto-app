@@ -210,6 +210,7 @@
           console.log("Usuário autenticado com sucesso:", userCredential);
 
           if (userType === "admin") {
+            localStorage.setItem("emailAdmin", email)
             // Lógica para Admin
             const userId = userCredential.user.uid;
             console.log("Buscando admin com UID:", userId); // Debugging
@@ -220,6 +221,7 @@
             const adminEmail = document.getElementById("adminEmail").value;
             const adminEmailAlterado = adminEmail.replace(/[.#$[\]/]/g, "");
             const userId = userCredential.user.uid;
+            localStorage.setItem("emailAdmin", adminEmail)
             console.log("Buscando funcionário com UID:", userId); 
             userDoc = await getDoc(doc(db, adminEmailAlterado, userId));
             

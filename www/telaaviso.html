@@ -1,183 +1,123 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, viewport-fit=cover">
+    <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="theme-color" content="#2196f3">
-    <title>Chat</title>
+    <title>Lista de Avisos</title>
     <style>
-        /* Configuração da página */
+        /* Estilo básico */
         body {
-            margin: 0;
             font-family: Arial, sans-serif;
-            background-color: #f0f0f0;
-            display: flex;
-            flex-direction: column;
-            height: 100vh;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            overflow-x: hidden;
         }
 
+        /* Navegação superior */
         .top-nav {
             width: 100%;
-            height: 60px;
-            background-color: #2196f3;
-            color: white;
+            height: 80px;
             display: flex;
             align-items: center;
+            justify-content: space-between;
+            background-color: #2196f3;
+            color: white;
             padding: 0 15px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            box-sizing: border-box;
+        }
+
+        .top-name {
+            font-size: 22px;
         }
 
         .back-button {
-            background: none;
+            background-color: transparent;
             border: none;
+            font-size: 28px;
             color: white;
-            font-size: 20px;
-            margin-right: 10px;
             cursor: pointer;
         }
 
-        .top-title {
-            font-size: 20px;
-            font-weight: bold;
-        }
-
-        .page-content {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            overflow-y: auto;
-            padding: 10px;
-        }
-
-        /* Estilização da lista de mensagens */
+        /* Lista de mensagens */
         .message-list {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-            display: flex;
-            flex-direction: column;
-        }
-
-        /* Mensagem recebida */
-        .message-item {
-            max-width: 80%;
-            padding: 10px 15px;
-            border-radius: 10px;
-            margin: 5px 0;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            padding: 10px;
+            max-width: 100%;
+            box-sizing: border-box;
             position: relative;
-            word-wrap: break-word;
-            background-color: #ffffff;
+            bottom: 0;
         }
 
-        /* Alinhamento das mensagens */
-        .message-item.received {
-            align-self: flex-start;
-            background-color: #e0e0e0;
+        .message-item {
+            background-color: #fff;
+            padding: 15px;
+            margin-bottom: 10px;
+            border-radius: 8px;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+            position: relative;
         }
 
-        /* Estilização do remetente e hora */
-        .message-item strong {
-            display: block;
-            font-size: 14px;
-            margin-bottom: 5px;
+        .message-item p {
+            font-size: 16px;
+            margin: 0;
         }
 
         .message-item small {
+            display: block;
             font-size: 12px;
             color: gray;
-            display: block;
             margin-top: 5px;
         }
 
-        /* Estilo do botão de excluir */
-        .delete-btn {
+        /* Botão de excluir */
+        .delete-button {
             position: absolute;
-            top: 5px;
-            right: 5px;
-            background-color: #ff4444;
-            color: white;
-            border: none;
-            padding: 5px;
-            cursor: pointer;
-            font-size: 12px;
-            border-radius: 5px;
-        }
-
-        .delete-btn:hover {
-            background-color: #cc0000;
-        }
-
-        /* Estilo do modal de confirmação */
-        .modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.5);
-            justify-content: center;
-            align-items: center;
-        }
-
-        .modal-content {
-            background-color: white;
-            padding: 20px;
-            border-radius: 10px;
-            max-width: 300px;
-            text-align: center;
-        }
-
-        .modal-button {
-            padding: 10px;
-            font-size: 16px;
-            margin: 10px;
-            cursor: pointer;
-            border-radius: 5px;
-        }
-
-        .modal-button.confirm {
-            background-color: #4CAF50;
-            color: white;
-        }
-
-        .modal-button.cancel {
+            top: 10px;
+            right: 10px;
             background-color: #f44336;
             color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
         }
 
+        /* Responsividade para telas menores */
+        @media (max-width: 600px) {
+            .top-name {
+                font-size: 20px;
+            }
+
+            .message-item p {
+                font-size: 14px;
+            }
+
+            .delete-button {
+                padding: 4px 8px;
+                font-size: 12px;
+            }
+        }
     </style>
 </head>
 
 <body>
     <div id="app">
-
         <div class="top-nav">
             <button class="back-button" onclick="window.location.href = 'index.html'">&larr;</button>
-            <h2 class="top-title">Avisos</h2>
+            <h2 class="top-name">Avisos</h2>
         </div>
 
-        <div class="page-content">
-            <ul class="message-list" id="messageList">
-              
-            </ul>
-        </div>
-    </div>
-
-    <!-- Modal de confirmação -->
-    <div id="confirmationModal" class="modal">
-        <div class="modal-content">
-            <h3>Você tem certeza que deseja excluir esta mensagem?</h3>
-            <button class="modal-button confirm" id="confirmDelete">Confirmar</button>
-            <button class="modal-button cancel" id="cancelDelete">Cancelar</button>
+        <div class="message-list" id="messageList">
+            <!-- Os avisos serão carregados aqui -->
         </div>
     </div>
 
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-app.js";
-        import { getDatabase, ref, onChildAdded, remove } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-database.js";
+        import { getFirestore, collection, query, orderBy, doc, deleteDoc, onSnapshot } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-firestore.js";
 
         const firebaseConfig = {
             apiKey: "AIzaSyBk3kzqpBKEyrwHdnC_RgHmd4PDUJOqoEU",
@@ -189,85 +129,67 @@
             appId: "1:543026869888:web:f2ef1ce629b2bf49615865",
             measurementId: "G-9JHXYXYKGT"
         };
+
         const app = initializeApp(firebaseConfig);
-        const database = getDatabase(app);
+        const db = getFirestore(app);
 
-        const userData = JSON.parse(localStorage.getItem("userData"));
-        const userEmail = userData.Email;
-        const isAdmin = userData.Admin;
-
-        let messageIdToDelete = null;
-
-        async function carregarMensagens() {
+        function carregarAvisos() {
             const messageListElement = document.getElementById('messageList');
-            const messageRef = ref(database, 'aviso');
+            const userData = JSON.parse(localStorage.getItem("userData"));
+            const adminEmail = localStorage.getItem("emailAdmin"); // Agora pega o e-mail do localStorage
+            const validAdminEmail = adminEmail.replace(/\./g, "_");
 
             try {
-                messageListElement.innerHTML = '';
+                // Referência para a subcoleção "tela de aviso"
+                const adminDocRef = collection(db, "admins", validAdminEmail, "tela de aviso");
+                const q = query(adminDocRef, orderBy("data", "desc"));  // Ordena os avisos pela data
 
-                onChildAdded(messageRef, (snapshot) => {
-                    const message = snapshot.val();
-                    const messageId = snapshot.key;
+                // Usando onSnapshot para escutar mudanças em tempo real
+                onSnapshot(q, (querySnapshot) => {
+                    messageListElement.innerHTML = ""; // Limpa a lista antes de adicionar novas mensagens
 
-                    const messageItem = document.createElement('li');
-                    messageItem.classList.add('message-item');
-                    messageItem.classList.add('received');
-                    messageItem.innerHTML = `
-                        <strong>Administrador</strong>
-                        <p>${message.texto}</p>
-                        <small>${new Date(message.data).toLocaleString()}</small>
-                    `;
-
-                    // Exibir o botão de excluir apenas se for um admin
-                    if (isAdmin) {
-                        const deleteButton = document.createElement('button');
-                        deleteButton.textContent = 'Excluir';
-                        deleteButton.classList.add('delete-btn');
-                        deleteButton.onclick = () => confirmarExclusao(messageId);
-                        messageItem.appendChild(deleteButton);
+                    if (querySnapshot.empty) {
+                        messageListElement.innerHTML = '<p>Não há avisos disponíveis no momento.</p>';
+                        return;
                     }
 
-                    messageListElement.appendChild(messageItem);
+                    // Para cada documento retornado, cria um item de aviso
+                    querySnapshot.forEach((docSnapshot) => {
+                        const aviso = docSnapshot.data();
+                        const messageItem = document.createElement('div');
+                        messageItem.classList.add('message-item');
+                        messageItem.innerHTML = `
+                            <p>${aviso.texto}</p>
+                            <small>Postado em: ${new Date(aviso.data).toLocaleString()}</small>
+                        `;
+
+                        // Exibir o botão de exclusão apenas para administradores
+                        if (userData.isAdmin === true) {
+                            const deleteButton = document.createElement('button');
+                            deleteButton.classList.add('delete-button');
+                            deleteButton.textContent = 'Excluir';
+                            deleteButton.onclick = async () => {
+                                try {
+                                    // Usando a referência correta do documento para exclusão
+                                    await deleteDoc(doc(db, "admins", validAdminEmail, "tela de aviso", docSnapshot.id));
+                                } catch (error) {
+                                    console.error("Erro ao excluir o aviso:", error);
+                                }
+                            };
+                            messageItem.appendChild(deleteButton);
+                        }
+
+                        messageListElement.appendChild(messageItem);
+                    });
                 });
+
             } catch (error) {
-                console.error("Erro ao carregar mensagens:", error);
-                messageListElement.innerHTML = '<li class="message-item">Erro ao carregar mensagens. Tente novamente mais tarde.</li>';
+                console.error("Erro ao carregar os avisos:", error);
+                messageListElement.innerHTML = '<p>Erro ao carregar os avisos. Tente novamente mais tarde.</p>';
             }
         }
 
-        function confirmarExclusao(messageId) {
-            messageIdToDelete = messageId;
-            const modal = document.getElementById('confirmationModal');
-            modal.style.display = 'flex';
-
-            // Ação para confirmar a exclusão
-            document.getElementById('confirmDelete').onclick = () => {
-                excluirMensagem(messageIdToDelete);
-                fecharModal();
-            };
-
-            document.getElementById('cancelDelete').onclick = fecharModal;
-        }
-
-        function excluirMensagem(messageId) {
-            const messageRef = ref(database, `aviso/${messageId}`);
-            remove(messageRef)
-                .then(() => {
-                    console.log("Mensagem excluída com sucesso.");
-
-                    carregarMensagens();
-                })
-                .catch((error) => {
-                    console.error("Erro ao excluir mensagem:", error);
-                });
-        }
-
-        function fecharModal() {
-            const modal = document.getElementById('confirmationModal');
-            modal.style.display = 'none';
-        }
-
-        document.addEventListener('DOMContentLoaded', carregarMensagens);
+        document.addEventListener('DOMContentLoaded', carregarAvisos);
     </script>
 </body>
 

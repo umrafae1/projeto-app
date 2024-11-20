@@ -105,7 +105,7 @@
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-app.js";
         import { getAnalytics } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-analytics.js";
-        import { getDatabase, ref, push, set } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-database.js";
+        import { getFirestore, doc, setDoc, collection, addDoc } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-firestore.js";
 
         const firebaseConfig = {
             apiKey: "AIzaSyBk3kzqpBKEyrwHdnC_RgHmd4PDUJOqoEU",
@@ -120,32 +120,42 @@
 
         const app = initializeApp(firebaseConfig);
         const analytics = getAnalytics(app);
-        const database = getDatabase(app);
+        const db = getFirestore(app);
 
-        document.querySelector('.enviar-aviso').addEventListener('click', function() {
+        document.querySelector('.enviar-aviso').addEventListener('click', async function() {
             const avisoTexto = document.querySelector('.texto-aviso').value;
 
             if (avisoTexto.trim() !== '') {
                 const userData = JSON.parse(localStorage.getItem("userData"));
-                const userEmail = userData.Email;
+                const adminEmail = userData.Email;
 
-                const newPostKey = push(ref(database, 'aviso')).key;
+                // Substituir os pontos (.) no email por sublinhados (_) para criar um nome válido para a coleção
+                const validAdminEmail = adminEmail.replace(/\./g, "_");
 
-                const avisoData = {
-                    texto: avisoTexto,
-                    email: userEmail,
-                    data: new Date().toISOString(),
-                };
+                try {
+                    const adminDocRef = doc(db, "admins", validAdminEmail);
 
-                set(ref(database, 'aviso/' + newPostKey), avisoData)
-                    .then(() => {
-                        alert("Aviso postado com sucesso!");
-                        document.querySelector('.texto-aviso').value = '';
-                    })
-                    .catch((error) => {
-                        console.error('Erro ao postar aviso:', error);
-                        alert('Erro ao postar aviso. Tente novamente.');
+
+                    await setDoc(adminDocRef, {
+                        email: adminEmail,
+                        chat: "Ativo",
                     });
+
+                    // Subcoleção "tela de aviso"
+                    const avisosRef = collection(adminDocRef, "tela de aviso");
+
+                    // Adiciona o aviso na subcoleção
+                    await addDoc(avisosRef, {
+                        texto: avisoTexto,
+                        data: new Date().toISOString(),
+                    });
+
+                    alert("Aviso postado com sucesso!");
+                    document.querySelector('.texto-aviso').value = '';
+                } catch (error) {
+                    console.error('Erro ao postar aviso:', error);
+                    alert('Erro ao postar aviso. Tente novamente.');
+                }
             } else {
                 alert('Por favor, digite um aviso!');
             }
@@ -154,3 +164,4 @@
 </body>
 
 </html>
+
