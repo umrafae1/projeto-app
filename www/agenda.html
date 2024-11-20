@@ -1,80 +1,270 @@
 <!DOCTYPE html>
-<html>
+<html lang="pt-BR">
 
 <head>
-    <!-- Required meta tags-->
-    <meta charset="utf-8">
-    <meta name="viewport"
-        content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, viewport-fit=cover">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <!-- Color theme for statusbar (Android only) -->
-    <meta name="theme-color" content="#2196f3">
-    <!-- Your app title -->
-    <title>My App</title>
-    <!-- Path to Framework7 Library Bundle CSS -->
-    <link rel="stylesheet" href="lib/framework7-bundle.min.css">
-    <!-- CSS PERSONALIZADO PARA MENU-->
-    <link rel="stylesheet" href="css/index.css">
-    <!--Ícones Material Design-->
-    <link rel="stylesheet" href="css/materialdesignicons.min.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#106584">
+    <title>Agenda</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/2.5.0/remixicon.css">
+    <style>
+        :root {
+            --branco: #FFFF;
+            --gelo: #f1f1f1;
+            --cinza: #acabab;
+            --preto: #2a2a2a;
+            --azul: #106584;
+            --azul_2: #033f57;
+        }
 
-    <link rel="stylesheet" href="css/remix-icons/remixicon.css" />
+        /* Estilos gerais */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--gelo);
+            color: var(--preto);
+        }
 
+        /* Barra superior */
+        .top-nave {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--azul);
+            color: var(--branco);
+            height: 70px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
 
+        .top-nave h2 {
+            font-size: 24px;
+        }
+
+        /* Container principal */
+        .corpo {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background: var(--branco);
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .cabecalho {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+
+        .cabecalho button {
+            background: var(--azul);
+            color: var(--branco);
+            border: none;
+            border-radius: 5px;
+            width: 40px;
+            height: 40px;
+            font-size: 18px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.3s ease;
+        }
+
+        .cabecalho button:hover {
+            background: var(--azul_2);
+        }
+
+        h3 {
+            font-size: 20px;
+            color: var(--preto);
+            margin: 0;
+        }
+
+        /* Lista de dias */
+        .dias {
+            list-style: none;
+            padding: 0;
+        }
+
+        .dia {
+            display: flex;
+            align-items: center;
+            background: var(--branco);
+            border: 1px solid var(--cinza);
+            border-radius: 8px;
+            margin-bottom: 10px;
+            padding: 10px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .data {
+            flex: 0 0 50px;
+            font-size: 18px;
+            font-weight: bold;
+            color: var(--preto);
+            text-align: center;
+        }
+
+        .descricao {
+            flex: 1;
+            font-size: 14px;
+            color: var(--cinza);
+            margin-left: 10px;
+        }
+
+        .botao-expandir {
+            background: var(--azul);
+            border: none;
+            border-radius: 5px;
+            color: var(--branco);
+            padding: 5px 10px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: background 0.3s ease;
+        }
+
+        .botao-expandir:hover {
+            background: var(--azul_2);
+        }
+
+        .expanded {
+            display: none;
+            background: var(--gelo);
+            border-top: 1px solid var(--cinza);
+            padding: 10px;
+            margin-top: 5px;
+            border-radius: 0 0 8px 8px;
+        }
+
+        .expanded.show {
+            display: block;
+        }
+
+        /* Responsividade */
+        @media (max-width: 768px) {
+            .corpo {
+                padding: 15px;
+            }
+
+            .cabecalho button {
+                width: 35px;
+                height: 35px;
+            }
+
+            h3 {
+                font-size: 18px;
+            }
+
+            .data {
+                font-size: 16px;
+            }
+
+            .descricao {
+                font-size: 12px;
+            }
+
+            .botao-expandir {
+                font-size: 12px;
+            }
+
+            .expanded {
+                font-size: 12px;
+            }
+        }
+    </style>
 </head>
 
 <body>
-    <!-- App root element -->
     <div id="app">
-
-        <!-- Your main view, should have "view-main" class -->
-        <div class="view view-main">
-            <!-- Initial Page, "data-name" contains page name -->
-            <div data-name="agenda" class="page">
-
-                <div class="top-nav-geral">
-                    
-                    <h1 class="tittle-logo"><a href="/index/"><i class="ri-arrow-left-s-line"></i></a></h1>
-                    <h2 class="top-name-agenda" >Agenda</h2>
-
-                </div>
-
-                <!-- Scrollable page content -->
-                <div class="page-content">
-
-                    <div class="corpo">
-                
-                        <div class="cabecalho">
-                
-                            <button id="anterior">
-                                <i class="ri-arrow-left-wide-line"></i>
-                            </button>
-                
-                            <h3 id="nomeMes">Mês Atual</h3>
-                
-                            <button id="proximo">
-                                <i class="ri-arrow-right-wide-line"></i>
-                            </button>
-                
-                        </div>
-                        
-                        <ul class="dias" id="listaDias">
-                        </ul>
-                
-                    </div>
-
-                       
-                </div>
+        <div class="top-nave">
+            <h2>Agenda</h2>
+        </div>
+        <div class="corpo">
+            <div class="cabecalho">
+                <button id="anterior">
+                    <i class="ri-arrow-left-line"></i>
+                </button>
+                <h3 id="nomeMes">Mês Atual</h3>
+                <button id="proximo">
+                    <i class="ri-arrow-right-line"></i>
+                </button>
             </div>
+            <ul class="dias" id="listaDias"></ul>
         </div>
     </div>
-    <!-- Path to Framework7 Library Bundle JS-->
-    <script type="text/javascript" src="lib/framework7-bundle.min.js"></script>
-	<!-- jQuery -->
-	<script type="text/javascript" src="lib/jquery-3.7.0.min.js"></script>	
-    <!-- Roteamento do app-->
-    <script type="text/javascript" src="js/routes.js"></script>
-    <script src="cordova.js"></script>
+    <script>
+        function iniciarCalendario() {
+            const dataAtual = new Date();
+            let mesAtual = dataAtual.getMonth();
+            let anoAtual = dataAtual.getFullYear();
+
+            const meses = [
+                "Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho",
+                "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"
+            ];
+
+            const nomeMesElemento = document.querySelector('#nomeMes');
+            const listaDiasElemento = document.querySelector('#listaDias');
+
+            function atualizarMes() {
+                nomeMesElemento.textContent = `${meses[mesAtual]} ${anoAtual}`;
+                criarDias();
+            }
+
+            function criarDias() {
+                listaDiasElemento.innerHTML = '';
+                const ultimoDiaDoMes = new Date(anoAtual, mesAtual + 1, 0).getDate();
+
+                for (let dia = 1; dia <= ultimoDiaDoMes; dia++) {
+                    const diaElemento = document.createElement('li');
+                    diaElemento.classList.add('dia');
+
+                    diaElemento.innerHTML = `
+                        <div class="data">${dia}</div>
+                        <div class="descricao">Expediente</div>
+                        <button class="botao-expandir">Detalhes</button>
+                        <div class="expanded">
+                            <p>Detalhes sobre o expediente do dia ${dia}.</p>
+                        </div>
+                    `;
+
+                    diaElemento.querySelector('.botao-expandir').addEventListener('click', function () {
+                        const expanded = diaElemento.querySelector('.expanded');
+                        expanded.classList.toggle('show');
+                    });
+
+                    listaDiasElemento.appendChild(diaElemento);
+                }
+            }
+
+            document.querySelector('#anterior').addEventListener('click', function () {
+                if (mesAtual > 0) {
+                    mesAtual--;
+                } else {
+                    mesAtual = 11;
+                    anoAtual--;
+                }
+                atualizarMes();
+            });
+
+            document.querySelector('#proximo').addEventListener('click', function () {
+                if (mesAtual < 11) {
+                    mesAtual++;
+                } else {
+                    mesAtual = 0;
+                    anoAtual++;
+                }
+                atualizarMes();
+            });
+
+            atualizarMes();
+        }
+
+        iniciarCalendario();
+    </script>
 </body>
 
 </html>

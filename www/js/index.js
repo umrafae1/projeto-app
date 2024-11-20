@@ -66,6 +66,7 @@ function iniciarCalendario() {
 
     atualizarMes();
     criarDias();
+    
 }
 
 iniciarCalendario();

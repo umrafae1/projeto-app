@@ -321,6 +321,75 @@ form input[type='text']{
 }
 
 /*Chats Abertos*/
+/* Estilo da foto de perfil */
+.icone-user {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%; /* Torna a imagem arredondada */
+    overflow: hidden;   /* Garante que a imagem fique dentro do círculo */
+    margin-right: 10px; /* Espaçamento entre a foto e o nome */
+    display: inline-block;
+}
+
+.user-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Faz com que a imagem ocupe todo o espaço da div sem distorcer */
+}
+
+/* Estilos adicionais para o item do chat */
+.user1 {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    border-bottom: 1px solid #ddd; /* Adiciona uma linha de separação entre os chats */
+    text-decoration: none;
+    color: inherit;
+    margin-bottom: 10px;
+}
+
+.user1:hover {
+    background-color: #f0f0f0; /* Muda a cor de fundo ao passar o mouse */
+}
+
+.nome {
+    font-size: 16px;
+    font-weight: bold;
+    color: #333;
+    margin: 0;
+}
+
+/* Personalize a aparência do campo de busca */
+.form1 {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    margin: 10px 0;
+}
+
+#buscarInput {
+    width: 85%;
+    border: none;
+    padding: 8px;
+    font-size: 14px;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+.icone-busca {
+    font-size: 20px;
+    color: #2196f3;
+    cursor: pointer;
+}
+
+.icone-busca:hover {
+    color: #1976d2;
+}
+
 
 .body-chat{
     max-width: 100%;
@@ -965,146 +1034,6 @@ h3 {
 
 .expanded.show {
     display: block;
-}
-
-
-/* Add Agenda*/
-
-/* Navigation Bar */
-.top-navee {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: fixed;
-    top: 0;
-    width: 100%;
-    height: 80px;
-    background: var(--branco);
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    z-index: 1000;
-    padding: 0 20px;
-}
-
-.Agenda {
-    background: var(--branco);
-    display: flex;
-    align-items: center;
-    flex-direction: column;
-    padding: 30px;
-    height: 100%;
-    width: 100%;
-    gap: 10px;
-    box-sizing: border-box;
-    overflow-y: auto;
-    margin-top: 60px;
-}
-
-
-/* Rolagem suave */
-.Agenda::-webkit-scrollbar {
-    width: 0;
-}
-
-.Agenda::-webkit-scrollbar-thumb {
-    background-color: #007bff;
-    border-radius: 10px;
-}
-
-.Agenda::-webkit-scrollbar-track {
-    background-color: #f0f0f0;
-}
-
-.Agenda .month {
-    display: flex;
-    align-items: center;
-    flex-direction: column;
-    justify-content: center;
-    background-color: #fff;
-    width: 70%;
-    padding: 20px;
-    border-radius: 12px;
-    border: 1px solid #d0d0d0;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    transition: transform 0.2s ease;
-}
-
-.Agenda .month:hover {
-    transform: scale(1.03);
-    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
-}
-
-/* Icons and Month Title */
-.Agenda .month .icons {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    width: 100%;
-    padding: 0 10px;
-}
-
-.icons i {
-    font-size: 24px;
-    color: #333;
-    cursor: pointer;
-    transition: color 0.3s ease, transform 0.3s ease;
-}
-
-.icons i:hover {
-    color: #007bff;
-    transform: scale(1.2);
-}
-
-/* Month Name */
-.Agenda .month .icons span {
-    font-size: 22px;
-    font-weight: bold;
-    color: #333;
-    text-align: center;
-    flex-grow: 1;
-}
-
-/* Calendar Styles */
-.calendar {
-    width: 100%;
-    transition: max-height 0.4s ease-in-out;
-    overflow: hidden;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.calendar table {
-    width: 100%;
-    border-collapse: collapse;
-    text-align: center;
-}
-
-
-.calendar th,
-.calendar td {
-    padding: 10px;
-    border: 1px solid #ddd;
-}
-
-.calendar th {
-    background-color: #f0f0f0;
-    color: #333;
-    font-weight: bold;
-}
-
-.calendar td {
-    background-color: #fff;
-    color: #555;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-}
-
-.calendar td:hover {
-    background-color: #f0f0f0;
-}
-
-.mes-ant {
-    opacity: 0.5;
 }
 
 /* Responsive Adjustments for Mobile */

@@ -32,6 +32,15 @@
 
         .top-name {
             font-size: 22px;
+            display: flex;
+            align-items: center;
+        }
+
+        .top-name img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            margin-right: 10px;
         }
 
         .back-button {
@@ -45,10 +54,16 @@
         /* Lista de mensagens */
         .message-list {
             padding: 10px;
-            max-width: 100%;
             box-sizing: border-box;
-            position: relative;
+            position: fixed;
             bottom: 0;
+            right: 0;
+            width: 100%;
+            max-width: 400px;
+            height: 100%;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column-reverse; /* Coloca as mensagens no fundo */
         }
 
         .message-item {
@@ -58,6 +73,9 @@
             border-radius: 8px;
             box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
             position: relative;
+            width: fit-content;
+            max-width: 90%;
+            margin-left: auto; /* Alinha a mensagem à direita */
         }
 
         .message-item p {
@@ -107,7 +125,11 @@
     <div id="app">
         <div class="top-nav">
             <button class="back-button" onclick="window.location.href = 'index.html'">&larr;</button>
-            <h2 class="top-name">Avisos</h2>
+            <h2 class="top-name">
+                <!-- Logo do grupo -->
+                <img id="groupLogo" src="" alt="Logo do grupo">
+                Avisos
+            </h2>
         </div>
 
         <div class="message-list" id="messageList">
@@ -138,6 +160,12 @@
             const userData = JSON.parse(localStorage.getItem("userData"));
             const adminEmail = localStorage.getItem("emailAdmin"); // Agora pega o e-mail do localStorage
             const validAdminEmail = adminEmail.replace(/\./g, "_");
+
+            // Exibir a logo do grupo
+            const groupLogo = document.getElementById("groupLogo");
+            if (userData && userData.Logo) {
+                groupLogo.src = userData.Logo;
+            }
 
             try {
                 // Referência para a subcoleção "tela de aviso"
