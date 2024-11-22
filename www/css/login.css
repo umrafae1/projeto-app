@@ -4,6 +4,8 @@
     --cinza: #acabab;
     --preto: #2a2a2a;
     --azul: #106584;
+    --azul_2:#033f57;
+
   }
 
   @import url('https://fonts.googleapis.com/css2?family=Archivo+Black&family=Bebas+Neue&display=swap');
@@ -65,7 +67,7 @@
   }
 
   input[type="submit"]:hover {
-    background-color: #1976d2;
+    background-color: var(--azul_2);
   }
 
   input[type="submit"]:active {
