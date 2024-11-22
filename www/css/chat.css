@@ -1,0 +1,136 @@
+:root {
+    --branco: #FFFF;
+    --gelo: #f1f1f1;
+    --cinza: #acabab;
+    --preto: #2a2a2a;
+    --azul: #106584;
+    --azul_2: #033f57;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background: var(--branco);
+}
+
+.top-nav__chat {
+    background-color: var(--azul);
+    width: 100%;
+    height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 20px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 10;
+}
+
+.btn-back {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--branco);
+    font-size: 24px;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.nome_chat {
+    font-size: 20px;
+    color: var(--branco);
+    flex-grow: 1;
+    text-align: center;
+}
+
+.foto_chat {
+    width: 50px;
+    height: 50px;
+    background: var(--preto);
+    border-radius: 50%;
+    background-size: cover;
+    background-position: center;
+}
+
+.page-content {
+    padding-top: 80px;
+}
+
+.container__chat {
+    display: flex;
+    flex-direction: column;
+    height: calc(100vh - 80px);
+    background: var(--gelo);
+}
+
+.chat__messages {
+    flex-grow: 1;
+    padding: 10px 20px;
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+}
+
+.message {
+    padding: 10px;
+    max-width: 250px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    margin-bottom: 15px;
+    line-height: 22px;
+    word-wrap: break-word;
+}
+
+.message--self {
+    background-color: var(--azul);
+    color: #121212;
+    border-radius: 10px 10px 0 10px;
+    align-self: flex-end;
+}
+
+.message--other {
+    background-color: #333;
+    color: #f2f2f2;
+    border-radius: 0 10px 10px 10px;
+    align-self: flex-start;
+}
+
+.chat__form {
+    background-color: var(--azul);
+    padding: 15px 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.chat__input {
+    border: none;
+    padding: 15px;
+    border-radius: 8px;
+    flex-grow: 1;
+    outline: none;
+    font-size: 1rem;
+}
+
+.chat__button {
+    width: 50px;
+    height: 50px;
+    border: none;
+    border-radius: 50%;
+    background: var(--preto);
+    color: #f2f2f2;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.icone {
+    font-size: 20px;
+}
