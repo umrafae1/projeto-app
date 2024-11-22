@@ -1,44 +1,33 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-    <!-- Required meta tags-->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, viewport-fit=cover">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="theme-color" content="#2196f3">
     <title>Chat</title>
-    <link rel="stylesheet" href="lib/framework7-bundle.min.css">
-    <link rel="stylesheet" href="css/index.css">
-    <link rel="stylesheet" href="css/materialdesignicons.min.css">
-    <link rel="stylesheet" href="css/remix-icons/remixicon.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/remixicon/fonts/remixicon.css">
+    <link rel="stylesheet" href="css/chat.css">
 </head>
-
 <body>
     <div id="app">
         <div class="view view-main">
             <div data-name="chat" class="page">
-                <!-- Cabeçalho do chat -->
                 <div class="top-nav__chat">
-                    <h1 class="tittle-logo">
-                        <a onclick="window.location.href= 'link2.html'">
-                            <i class="ri-arrow-left-s-line"></i>
-                        </a>
-                    </h1>
-                    <div class="foto_chat" id="fotoChat"></div>
+                    <a class="btn-back" href="link2.html">
+                        <i class="ri-arrow-left-s-line"></i>
+                    </a>
                     <h2 class="nome_chat" id="nomeChat"></h2>
+                    <div class="foto_chat" id="fotoChat"></div>
                 </div>
 
                 <div class="page-content">
                     <section class="container__chat">
                         <section class="chat__messages" id="chatMessages"></section>
-
-                        <!-- Formulário de mensagem com envio de texto e arquivo -->
                         <form class="chat__form" id="chatForm">
                             <input type="text" class="chat__input" placeholder="Digite uma mensagem" required id="messageInput" />
-                            <i class="ri-attachment-2" id="attachmentIcon" style="font-size: 30px; cursor: pointer;"></i>
-                            <input type="file" id="fileInput" style="display: none;" multiple />
                             <button type="submit" class="chat__button">
-                                <i class="icone ri-send-plane-2-fill"></i>
+                                <i class="ri-send-plane-2-fill icone"></i>
                             </button>
                         </form>
                     </section>
@@ -46,12 +35,6 @@
             </div>
         </div>
     </div>
-
-    <!-- Scripts -->
-    <script type="text/javascript" src="lib/framework7-bundle.min.js"></script>
-    <script type="text/javascript" src="lib/jquery-3.7.0.min.js"></script>
-    <script type="text/javascript" src="js/routes.js"></script>
-    <script src="cordova.js"></script>
 
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js";
@@ -69,69 +52,58 @@
         const app = initializeApp(firebaseConfig);
         const db = getFirestore(app);
 
-        // Recuperar as informações do usuário do localStorage
         const usuarioNome = localStorage.getItem("usuarioNome");
         const usuarioFoto = localStorage.getItem("usuarioFoto");
 
-        // Exibir o nome e a foto do usuário no cabeçalho
         document.getElementById("nomeChat").textContent = usuarioNome;
         const fotoChat = document.getElementById("fotoChat");
         fotoChat.style.backgroundImage = `url('${usuarioFoto}')`;
-        fotoChat.style.backgroundSize = 'cover';
-        fotoChat.style.backgroundPosition = 'center';
-        fotoChat.style.width = '50px';
-        fotoChat.style.height = '50px';
-        fotoChat.style.borderRadius = '50%';
 
-        // Função para carregar as mensagens
         function loadMessages() {
-            const chatMessages = document.getElementById('chatMessages');
+            const chatMessages = document.getElementById("chatMessages");
             const usuarioId = localStorage.getItem("usuarioId");
             const chatRef = collection(db, "chats", usuarioId, "messages");
             const q = query(chatRef, orderBy("timestamp"));
 
             onSnapshot(q, (querySnapshot) => {
-                chatMessages.innerHTML = ""; // Limpa as mensagens ao recarregar
+                chatMessages.innerHTML = "";
                 querySnapshot.forEach((doc) => {
-                    const messageData = doc.data();
-                    const messageElement = document.createElement('div');
-                    messageElement.classList.add('message');
-                    messageElement.innerHTML = `<p><strong>${messageData.sender}:</strong> ${messageData.text}</p>`;
+                    const data = doc.data();
+                    const messageElement = document.createElement("div");
+                    const timeElement = document.createElement("div");
+                    
+                    messageElement.textContent = `${data.sender}: ${data.text}`;
+                    messageElement.className = data.sender === usuarioNome ? "message message--self" : "message message--other";
+
+                    const timestamp = data.timestamp ? data.timestamp.toDate() : new Date();
+                    const hours = timestamp.getHours().toString().padStart(2, '0');
+                    const minutes = timestamp.getMinutes().toString().padStart(2, '0');
+                    timeElement.textContent = `${hours}:${minutes}`;
+                    timeElement.style.fontSize = "0.8rem";
+                    timeElement.style.marginTop = "5px";
+                    timeElement.style.color = "var(--cinza)";
+
+                    messageElement.appendChild(timeElement);
                     chatMessages.appendChild(messageElement);
                 });
+                chatMessages.scrollTop = chatMessages.scrollHeight;
             });
         }
 
-        // Enviar mensagem
-        document.getElementById('chatForm').addEventListener('submit', function(event) {
+        document.getElementById("chatForm").addEventListener("submit", async (event) => {
             event.preventDefault();
-
-            const messageInput = document.getElementById('messageInput');
+            const messageInput = document.getElementById("messageInput");
             const messageText = messageInput.value.trim();
 
-            if (messageText === '') {
-                alert('Por favor, digite uma mensagem!');
-                return;
-            }
+            if (messageText === "") return;
 
             const usuarioId = localStorage.getItem("usuarioId");
-            const newMessage = {
-                sender: usuarioNome, 
-                text: messageText,
-                timestamp: new Date(),
-                files: []  // Para arquivos, você pode adicionar mais tarde
-            };
+            const newMessage = { sender: usuarioNome, text: messageText, timestamp: new Date() };
 
-            addDoc(collection(db, "chats", usuarioId, "messages"), newMessage)
-                .then(() => {
-                    messageInput.value = '';  // Limpar campo de texto
-                })
-                .catch((error) => {
-                    console.error("Erro ao enviar mensagem: ", error);
-                });
+            await addDoc(collection(db, "chats", usuarioId, "messages"), newMessage);
+            messageInput.value = "";
         });
 
-        // Carregar as mensagens quando a página for carregada
         window.onload = loadMessages;
     </script>
 </body>
