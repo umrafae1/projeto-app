@@ -1,4 +1,17 @@
         /* Estilos do formulário */
+        :root {
+            --branco: #FFFF;
+            --gelo: #f1f1f1;
+            --cinza: #acabab;
+            --preto: #2a2a2a;
+            --azul: #106584;
+            --azul_2:#033f57;
+
+        }
+
+        @import url('https://fonts.googleapis.com/css2?family=Archivo+Black&family=Bebas+Neue&display=swap');
+
+
         * {
             box-sizing: border-box;
             margin: 0;
@@ -6,16 +19,33 @@
         }
 
         body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
+            height: 100vh;
+            font-family: "Bebas Neue", sans-serif;
+            background-color: #f0f4f8;
             color: #333;
+            display:flex;
+            align-items: center;
+        }
+
+        .top-nav{
+            display: flex;
+            gap: 15px;
+
+        }
+
+        .top-nav a{
+            font-size: 30px;
+            color: var(--preto);
+            
         }
 
         .container {
+            height: 100vh;
+            width: 100%;
             max-width: 500px;
             margin: 50px auto;
             padding: 20px;
-            background-color: #fff;
+            background-color: var(--branco);
             border-radius: 5px;
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
         }
@@ -23,6 +53,7 @@
         h1 {
             text-align: center;
             margin-bottom: 20px;
+            font-size:25px;
         }
 
         form {
@@ -47,7 +78,7 @@
         input[type="submit"] {
             margin-top: 20px;
             padding: 10px;
-            background-color: #2196f3;
+            background-color: var(--azul);
             color: white;
             border: none;
             border-radius: 5px;
@@ -55,7 +86,7 @@
         }
 
         input[type="submit"]:hover {
-            background-color: #1976d2;
+            background-color: var(--azul2);
         }
 
         #mensagem {

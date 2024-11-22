@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cadastro de Administrador</title>
     <link rel="stylesheet" href="css/cadastro.css">
+    <link rel="stylesheet" href="css/remix-icons/remixicon.css" />
     <script type="module">
         // Importa as funções do Firebase
         import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js";
@@ -108,7 +109,14 @@ const firebaseConfig = {
 </head>
 <body>
     <div class="container">
-        <h1>Cadastro de Administrador</h1>
+        <div class="top-nav">
+            <a onclick="window.location.href = 'login.html'">
+                <i class="ri-arrow-left-s-line"></i>
+            </a>
+            <h1>Cadastro de Administrador</h1>
+            
+        </div>
+        
         <form id="cadastroAdmGrupoForm" enctype="multipart/form-data">
             <label for="Nome">Nome</label>
             <input type="text" name="Nome" id="Nome" placeholder="Digite seu nome" required>

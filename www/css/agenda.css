@@ -20,15 +20,21 @@ body {
 .top-nave {
     display: flex;
     align-items: center;
-    justify-content: center;
     background: var(--azul);
     color: var(--branco);
     height: 70px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
+.top-nave a{
+    font-size: 30px;
+    color: var(--preto);
+    margin-left: 2%;
+}
+
 .top-nave h2 {
     font-size: 24px;
+    margin-left: 30%;
 }
 
 /* Container principal */
