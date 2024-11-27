@@ -1,7 +1,36 @@
-   /* Lista de Usuário */
+/* Barra superior */
+.top-nave {
+    display: flex;
+    align-items: center;
+    background: var(--branco);
+    color: var(--preto);
+    height: 70px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.top-nave a{
+    font-size: 30px;
+    color: var(--preto);
+    margin-left: 2%;
+}
+
+.top-nave h2 {
+    font-size: 24px;
+    margin-left: 20%;
+}
+
+.page-content{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+
+}   
+
+/* Lista de Usuário */
    .botoes_lu{
     width: 100%;
-    height: 80%;
+    height: 30%;
     display: flex;
     align-items: center;
     justify-content: center;
