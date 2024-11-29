@@ -2,5 +2,6 @@
     "githubPullRequests.ignoredPullRequestBranches": [
         "main"
     ],
-    "liveServer.settings.port": 5503
+    "liveServer.settings.port": 5503,
+    "java.configuration.updateBuildConfiguration": "interactive"
 }
