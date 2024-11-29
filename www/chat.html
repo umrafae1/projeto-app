@@ -8,6 +8,37 @@
     <title>Chat</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/remixicon/fonts/remixicon.css">
     <link rel="stylesheet" href="css/chat.css">
+    <style>
+        /* Ajustes CSS para exibir mensagens de baixo para cima */
+        .chat__messages {
+            display: flex;
+            flex-direction: column-reverse; /* Faz as mensagens se alinharem de baixo para cima */
+            overflow-y: auto; /* Permite a rolagem */
+            height: calc(100vh - 150px); /* Ajuste conforme o layout */
+            padding: 10px;
+            margin-bottom: 50px; /* Se necessário, ajuste conforme o layout */
+        }
+
+        .message {
+            margin-bottom: 10px;
+        }
+
+        .message--self {
+            background-color: #2196f3;
+            color: white;
+            align-self: flex-end;
+            border-radius: 10px;
+            padding: 10px;
+        }
+
+        .message--other {
+            background-color: #f1f1f1;
+            color: #333;
+            align-self: flex-start;
+            border-radius: 10px;
+            padding: 10px;
+        }
+    </style>
 </head>
 <body>
     <div id="app">
@@ -61,19 +92,31 @@
 
         function loadMessages() {
             const chatMessages = document.getElementById("chatMessages");
-            const usuarioId = localStorage.getItem("usuarioId");
-            const chatRef = collection(db, "chats", usuarioId, "messages");
+            const usuarioEmail = localStorage.getItem("usuarioEmail");
+            const userData = JSON.parse(localStorage.getItem("userData"));
+            const email = userData.Email;
+
+            // O nome da sub-coleção será baseado nos emails concatenados
+            const chatRef = collection(db, "chats", email + usuarioEmail, "messages");
             const q = query(chatRef, orderBy("timestamp"));
 
             onSnapshot(q, (querySnapshot) => {
-                chatMessages.innerHTML = "";
+                chatMessages.innerHTML = "";  // Limpa as mensagens ao atualizar
+
                 querySnapshot.forEach((doc) => {
                     const data = doc.data();
                     const messageElement = document.createElement("div");
                     const timeElement = document.createElement("div");
                     
-                    messageElement.textContent = `${data.sender}: ${data.text}`;
-                    messageElement.className = data.sender === usuarioNome ? "message message--self" : "message message--other";
+                    // Verifica quem é o remetente e aplica a classe apropriada
+                    if (data.sender === email) {
+                        messageElement.className = "message message--self"; // Remetente (próprio usuário)
+                    } else {
+                        messageElement.className = "message message--other"; // Destinatário (outro usuário)
+                    }
+
+                    // Exibe apenas o texto da mensagem, sem o nome do remetente/destinatário
+                    messageElement.textContent = `${data.text}`;
 
                     const timestamp = data.timestamp ? data.timestamp.toDate() : new Date();
                     const hours = timestamp.getHours().toString().padStart(2, '0');
@@ -86,7 +129,8 @@
                     messageElement.appendChild(timeElement);
                     chatMessages.appendChild(messageElement);
                 });
-                chatMessages.scrollTop = chatMessages.scrollHeight;
+
+                chatMessages.scrollTop = chatMessages.scrollHeight; // Garantir que a rolagem vá até o fim
             });
         }
 
@@ -97,10 +141,24 @@
 
             if (messageText === "") return;
 
-            const usuarioId = localStorage.getItem("usuarioId");
-            const newMessage = { sender: usuarioNome, text: messageText, timestamp: new Date() };
+            const userData = JSON.parse(localStorage.getItem("userData"));
+            const email = userData.Email;
+            const usuarioEmail = localStorage.getItem("usuarioEmail");
+            const nome = userData.Nome;
 
-            await addDoc(collection(db, "chats", usuarioId, "messages"), newMessage);
+            // O nome da sub-coleção será baseado nos emails concatenados
+            const chatId = email + usuarioEmail;
+            const newMessage = { 
+                sender: email, 
+                remetente: nome, 
+                recipient: usuarioEmail, 
+                destinatario: usuarioNome, 
+                text: messageText, 
+                timestamp: new Date() 
+            };
+
+            // Adiciona a nova mensagem na sub-coleção correta
+            await addDoc(collection(db, "chats", chatId, "messages"), newMessage);
             messageInput.value = "";
         });
 
