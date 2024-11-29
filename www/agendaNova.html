@@ -71,7 +71,6 @@
 
         function salvarData(dia, mes, ano) {
             localStorage.setItem('dataSelecionada', JSON.stringify({ dia, mes, ano }));
-            alert(`Data salva: ${dia}/${mes}/${ano}`);
             window.location.href = 'add_agenda.html';
         }
 

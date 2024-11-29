@@ -65,7 +65,6 @@
                 try {
                     const adminDocRef = doc(db, "admins", validAdminEmail);
 
-
                     await setDoc(adminDocRef, {
                         email: adminEmail,
                         chat: "Ativo",
@@ -80,8 +79,10 @@
                         data: new Date().toISOString(),
                     });
 
-                    alert("Aviso postado com sucesso!");
                     document.querySelector('.texto-aviso').value = '';
+
+                    window.location.href = 'telaaviso.html';
+
                 } catch (error) {
                     console.error('Erro ao postar aviso:', error);
                     alert('Erro ao postar aviso. Tente novamente.');
@@ -94,4 +95,3 @@
 </body>
 
 </html>
-

@@ -161,3 +161,11 @@
         width: 90%;
     }
 }
+/* Estilo para garantir que os iframes sejam responsivos */
+.message-item iframe {
+    width: 100%;   /* O iframe ocupará 100% da largura do contêiner */
+    height: 200px; /* Altura fixa ou ajustável conforme necessário */
+    max-width: 100%; /* Garante que o iframe não ultrapasse o limite da tela */
+    aspect-ratio: 16 / 9; /* Proporção 16:9 */
+    margin: 10px 0; /* Espaçamento acima e abaixo do vídeo */
+}

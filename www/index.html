@@ -20,7 +20,7 @@
     <link rel="stylesheet" href="css/materialdesignicons.min.css" />
     <!--Ícones Remix Icon-->
     <link rel="stylesheet" href="css/remix-icons/remixicon.css" />
-    <script src="firebase-init.js"></script>
+    <script type="module" src="js/firebase-init.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-auth.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-database.js"></script>
@@ -65,28 +65,32 @@
           <div class="page-content">
             <div class="block no-margin-top">
               <!-- Swiper -->
-              <div class="swiper mySwiper">
-                <div class="swiper-wrapper">
+              <!-- Swiper -->
+<div class="swiper mySwiper">
+  <div class="swiper-wrapper">
+    <!-- Primeiro slide: Imagem local (logo.png) -->
+    <div class="foto-1 swiper-slide">
+      <img src="img/CorpInfo.png" alt="Logo">
+    </div>
 
-                  <div class="foto-1 swiper-slide">
-                    
-                  </div>
+    <!-- Segundo slide: Imagem que está no userData.Logo -->
+    <div class="foto-2 swiper-slide">
+      <img id="userLogo" alt="Logo do Usuário">
+    </div>
 
-                  <div class="foto-2 swiper-slide">
-                    
-                  </div>
+    <!-- Terceiro slide: Imagem local (foto1.jpeg) -->
+    <div class="foto-3 swiper-slide">
+      <img src="img/foto1.jpeg" alt="Foto 1">
+    </div>
 
-                  <div class="foto-3 swiper-slide">
-                    
-                  </div>
+    <!-- Quarto slide: Pode ser mais uma imagem, se necessário -->
+    <div class="foto-4 swiper-slide">
+      <img src="img/senaibahia_logo.jpg" alt="Propaganda">
+    </div>
+  </div>
+  <div class="swiper-pagination"></div>
+</div>
 
-                  <div class="foto-4 swiper-slide">
-                    
-                  </div>
-
-                </div>
-                <div class="swiper-pagination"></div>
-              </div>
 
               <h2>Opções</h2>
 
@@ -131,13 +135,12 @@
       </div>
     </div>
     <script src="https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.15.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.15.0/firebase-auth.js"></script>
     <!-- Path to Framework7 Library Bundle JS-->
     <script type="text/javascript" src="lib/framework7-bundle.min.js"></script>
     <!-- jQuery -->
     <script type="text/javascript" src="lib/jquery-3.7.0.min.js"></script>
     <!-- Roteamento do app-->
     <script type="text/javascript" src="js/routes.js"></script>
-    <script src="cordova.js"></script>
   </body>
 </html>

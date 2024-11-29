@@ -75,10 +75,9 @@ body {
     flex-grow: 1;
     padding: 10px 20px;
     display: flex;
-    flex-direction: column-reverse;
+    flex-direction: column-reverse; /* Faz as mensagens aparecerem de baixo para cima */
     overflow-y: auto;
-    height: calc(100vh - 150px);
-    margin-bottom: 50px;
+    height: calc(100vh - 150px); /* Ajuste conforme o layout */
 }
 
 .message {
@@ -95,14 +94,14 @@ body {
     background-color: var(--azul);
     color: #121212;
     border-radius: 10px 10px 0 10px;
-    align-self: flex-end;
+    align-self: flex-end; /* Alinha a mensagem do remetente à direita */
 }
 
 .message--other {
     background-color: #333;
     color: #f2f2f2;
     border-radius: 0 10px 10px 10px;
-    align-self: flex-start;
+    align-self: flex-start; /* Alinha a mensagem do destinatário à esquerda */
 }
 
 .chat__form {
@@ -137,4 +136,33 @@ body {
 
 .icone {
     font-size: 20px;
+}
+
+/* Ajustes da barra de rolagem */
+.chat__messages::-webkit-scrollbar {
+    width: 8px;
+}
+
+.chat__messages::-webkit-scrollbar-thumb {
+    background-color: var(--azul);
+    border-radius: 10px;
+}
+
+/* Estilos para a miniatura do vídeo */
+.video-preview {
+    display: inline-block;
+    position: relative;
+    max-width: 300px;
+    margin-bottom: 10px;
+}
+
+.video-thumbnail {
+    width: 100%;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+
+.video-thumbnail:hover {
+    transform: scale(1.05);
 }

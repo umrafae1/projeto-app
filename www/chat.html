@@ -42,7 +42,7 @@
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js";
         import { getFirestore, collection, addDoc, query, orderBy, onSnapshot } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore.js";
-
+    
         const firebaseConfig = {
             apiKey: "AIzaSyBk3kzqpBKEyrwHdnC_RgHmd4PDUJOqoEU",
             authDomain: "copinfo-5a0f5.firebaseapp.com",
@@ -51,45 +51,67 @@
             messagingSenderId: "543026869888",
             appId: "1:543026869888:web:f2ef1ce629b2bf49615865",
         };
-
+    
         const app = initializeApp(firebaseConfig);
         const db = getFirestore(app);
-
+    
         const usuarioNome = localStorage.getItem("usuarioNome");
         const usuarioFoto = localStorage.getItem("usuarioFoto");
-
+    
         document.getElementById("nomeChat").textContent = usuarioNome;
         const fotoChat = document.getElementById("fotoChat");
         fotoChat.style.backgroundImage = `url('${usuarioFoto}')`;
-
+    
+        // Função para processar links de vídeo
+        function processMessageText(messageText) {
+            // Regex para detectar links de YouTube
+            const youtubeRegex = /https:\/\/(www\.)?youtube\.com\/watch\?v=([a-zA-Z0-9_-]{11})/;
+            const match = messageText.match(youtubeRegex);
+    
+            if (match) {
+                const videoId = match[2];
+                const thumbnailUrl = `https://img.youtube.com/vi/${videoId}/mqdefault.jpg`; // Miniatura de qualidade média
+                return `
+                    <div class="video-preview">
+                        <a href="https://www.youtube.com/watch?v=${videoId}" target="_blank">
+                            <img src="${thumbnailUrl}" alt="Vídeo do YouTube" class="video-thumbnail" />
+                        </a>
+                    </div>
+                `;
+            }
+            return messageText; // Se não for link de vídeo, retorna o texto normal
+        }
+    
         function loadMessages() {
             const chatMessages = document.getElementById("chatMessages");
             const usuarioEmail = localStorage.getItem("usuarioEmail");
             const userData = JSON.parse(localStorage.getItem("userData"));
             const email = userData.Email;
-
+    
             // O nome da sub-coleção será baseado nos emails concatenados
             const chatRef = collection(db, "chats", email + usuarioEmail, "messages");
             const q = query(chatRef, orderBy("timestamp"));
-
+    
             onSnapshot(q, (querySnapshot) => {
-                chatMessages.innerHTML = "";  // Limpa as mensagens ao atualizar
-
+                chatMessages.innerHTML = ""; // Limpa as mensagens ao atualizar
+    
                 querySnapshot.forEach((doc) => {
                     const data = doc.data();
                     const messageElement = document.createElement("div");
                     const timeElement = document.createElement("div");
                     
+                    // Processa o texto da mensagem, verificando links de vídeo
+                    const processedMessage = processMessageText(data.text);
+    
                     // Verifica quem é o remetente e aplica a classe apropriada
                     if (data.sender === email) {
                         messageElement.className = "message message--self"; // Remetente (próprio usuário)
                     } else {
                         messageElement.className = "message message--other"; // Destinatário (outro usuário)
                     }
-
-                    // Exibe apenas o texto da mensagem, sem o nome do remetente/destinatário
-                    messageElement.textContent = `${data.text}`;
-
+    
+                    messageElement.innerHTML = processedMessage; // Insere a mensagem processada
+    
                     const timestamp = data.timestamp ? data.timestamp.toDate() : new Date();
                     const hours = timestamp.getHours().toString().padStart(2, '0');
                     const minutes = timestamp.getMinutes().toString().padStart(2, '0');
@@ -97,27 +119,27 @@
                     timeElement.style.fontSize = "0.8rem";
                     timeElement.style.marginTop = "5px";
                     timeElement.style.color = "var(--cinza)";
-
+    
                     messageElement.appendChild(timeElement);
                     chatMessages.appendChild(messageElement);
                 });
-
+    
                 chatMessages.scrollTop = chatMessages.scrollHeight; // Garantir que a rolagem vá até o fim
             });
         }
-
+    
         document.getElementById("chatForm").addEventListener("submit", async (event) => {
             event.preventDefault();
             const messageInput = document.getElementById("messageInput");
             const messageText = messageInput.value.trim();
-
+    
             if (messageText === "") return;
-
+    
             const userData = JSON.parse(localStorage.getItem("userData"));
             const email = userData.Email;
             const usuarioEmail = localStorage.getItem("usuarioEmail");
             const nome = userData.Nome;
-
+    
             // O nome da sub-coleção será baseado nos emails concatenados
             const chatId = email + usuarioEmail;
             const newMessage = { 
@@ -128,12 +150,12 @@
                 text: messageText, 
                 timestamp: new Date() 
             };
-
+    
             // Adiciona a nova mensagem na sub-coleção correta
             await addDoc(collection(db, "chats", chatId, "messages"), newMessage);
             messageInput.value = "";
         });
-
+    
         window.onload = loadMessages;
     </script>
 </body>
