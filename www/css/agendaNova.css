@@ -15,9 +15,30 @@ body {
     margin: 0;
     padding: 0;
 }
+  /* Barra superior */
+  .top-nave {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    background: var(--branco);
+    color: var(--preto);
+    height: 70px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .top-nave a{
+    font-size: 30px;
+    color: var(--preto);
+    margin-left: 2%;
+  }
+  
+  .top-nave h2 {
+    font-size: 24px;
+    margin-left: 15%;
+  }
 
 .corpo {
-    max-width: 800px;
+    width: 100%;
     margin: 20px auto;
     padding: 20px;
     background: #fff;

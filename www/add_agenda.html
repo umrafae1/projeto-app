@@ -14,10 +14,12 @@
 <body>
 
   <div class="container">
-    <span class="voltar" onclick="window.history.back()">
-      <i class="ri-arrow-left-line"></i>
-    </span>
-    <h2>Cadastro Evento</h2>
+    <div class="top-nave">
+      <a onclick="window.location.href = 'opcoes.html'">
+          <i class="ri-arrow-left-s-line"></i>
+      </a>
+      <h2> Adicionar a Agenda</h2>
+   </div>
     <form id="cadastroEventoForm">
       <label for="evento">Evento:</label>
       <input type="text" id="evento" name="evento" required>

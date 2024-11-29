@@ -5,11 +5,20 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Cadastro Funcionários</title>
   <link rel="stylesheet" href="css/addfuncionario.css">
+  <link rel="stylesheet" href="css/materialdesignicons.min.css">
+  <link rel="stylesheet" href="css/remix-icons/remixicon.css" />
 </head>
 <body>
 
   <div class="container">
-    <h2>Cadastro Funcionários</h2>
+
+    <div class="top-nave">
+      <a onclick="window.location.href = 'lista_user.html'">
+          <i class="ri-arrow-left-s-line"></i>
+      </a>
+      <h2>Cadastro Funcionários</h2>
+    </div>
+    
     <form id="cadastroFuncionarioForm">
       <label for="nome">Nome</label>
       <input type="text" id="nome" name="nome" required>
