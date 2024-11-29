@@ -32,8 +32,8 @@
 
       // Função de login
       window.logar = async function () {
-        const email = document.getElementById("login").value;
-        const senha = document.getElementById("senha").value;
+        const email = document.getElementById("login").value.trim();
+        const senha = document.getElementById("senha").value.trim();
         const userType = document.querySelector('input[name="userType"]:checked').value;
         const emailAlterado = email.replace(/[.#$[\]/]/g, "");
         localStorage.setItem("emailMudado", emailAlterado);
