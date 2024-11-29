@@ -69,15 +69,16 @@ body {
     background: url(../img/wallpaper.png);
     background-size: cover;
     background-position: center;
-
 }
 
 .chat__messages {
     flex-grow: 1;
     padding: 10px 20px;
     display: flex;
-    flex-direction: column;
+    flex-direction: column-reverse;
     overflow-y: auto;
+    height: calc(100vh - 150px);
+    margin-bottom: 50px;
 }
 
 .message {

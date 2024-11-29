@@ -9,35 +9,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/remixicon/fonts/remixicon.css">
     <link rel="stylesheet" href="css/chat.css">
     <style>
-        /* Ajustes CSS para exibir mensagens de baixo para cima */
-        .chat__messages {
-            display: flex;
-            flex-direction: column-reverse; /* Faz as mensagens se alinharem de baixo para cima */
-            overflow-y: auto; /* Permite a rolagem */
-            height: calc(100vh - 150px); /* Ajuste conforme o layout */
-            padding: 10px;
-            margin-bottom: 50px; /* Se necessário, ajuste conforme o layout */
-        }
 
-        .message {
-            margin-bottom: 10px;
-        }
-
-        .message--self {
-            background-color: #2196f3;
-            color: white;
-            align-self: flex-end;
-            border-radius: 10px;
-            padding: 10px;
-        }
-
-        .message--other {
-            background-color: #f1f1f1;
-            color: #333;
-            align-self: flex-start;
-            border-radius: 10px;
-            padding: 10px;
-        }
     </style>
 </head>
 <body>
