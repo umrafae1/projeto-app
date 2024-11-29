@@ -2,141 +2,160 @@
 <html lang="pt-BR">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="theme-color" content="#106584">
-    <title>Agenda</title>
-    <link rel="stylesheet" href="css/agenda.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/2.5.0/remixicon.css">
-    <style>
-        
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Agenda</title>
+  <link rel="stylesheet" href="css/agenda.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/2.5.0/remixicon.css">
 </head>
 
 <body>
-    <div id="app">
-        <div class="top-nave">
-            <a onclick="window.location.href = 'index.html'">
-                <i class="ri-arrow-left-s-line"></i>
-            </a>
-            <h2>Agenda</h2>
-        </div>
-        <div class="corpo">
-            <div class="cabecalho">
-                <button id="anterior">
-                    <i class="ri-arrow-left-line"></i>
-                </button>
-                <h3 id="nomeMes">Mês Atual</h3>
-                <button id="proximo">
-                    <i class="ri-arrow-right-line"></i>
-                </button>
-            </div>
-            <ul class="dias" id="listaDias"></ul>
-        </div>
+  <div id="app">
+    <div class="top-nave">
+      <a onclick="window.location.href = 'index.html'">
+        <i class="ri-arrow-left-s-line"></i>
+      </a>
+      <h2>Agenda</h2>
     </div>
-    <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js";
-        import { getFirestore, collection, query, where, getDocs } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore.js";
+    <div class="corpo">
+      <div class="cabecalho">
+        <button id="anterior">
+          <i class="ri-arrow-left-line"></i>
+        </button>
+        <h3 id="nomeMes">Mês Atual</h3>
+        <button id="proximo">
+          <i class="ri-arrow-right-line"></i>
+        </button>
+      </div>
+      <ul class="dias" id="listaDias"></ul>
+    </div>
+  </div>
 
-        const firebaseConfig = {
-            apiKey: "AIzaSyBk3kzqpBKEyrwHdnC_RgHmd4PDUJOqoEU",
-            authDomain: "copinfo-5a0f5.firebaseapp.com",
-            projectId: "copinfo-5a0f5",
-            storageBucket: "copinfo-5a0f5.appspot.com",
-            messagingSenderId: "543026869888",
-            appId: "1:543026869888:web:f2ef1ce629b2bf49615865",
-            measurementId: "G-9JHXYXYKGT"
-        };
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js";
+    import { getFirestore, collection, query, getDocs, where } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore.js";
 
-        const app = initializeApp(firebaseConfig);
-        const db = getFirestore(app);
+    const firebaseConfig = {
+      apiKey: "AIzaSyBk3kzqpBKEyrwHdnC_RgHmd4PDUJOqoEU",
+      authDomain: "copinfo-5a0f5.firebaseapp.com",
+      projectId: "copinfo-5a0f5",
+      storageBucket: "copinfo-5a0f5.appspot.com",
+      messagingSenderId: "543026869888",
+      appId: "1:543026869888:web:f2ef1ce629b2bf49615865",
+      measurementId: "G-9JHXYXYKGT"
+    };
 
-        function iniciarCalendario() {
-            const dataAtual = new Date();
-            let mesAtual = dataAtual.getMonth();
-            let anoAtual = dataAtual.getFullYear();
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
 
-            const meses = [
-                "Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho",
-                "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"
-            ];
+    async function carregarEventos(mesAtual, anoAtual) {
+      const listaDiasElemento = document.querySelector('#listaDias');
+      listaDiasElemento.innerHTML = '';
 
-            const nomeMesElemento = document.querySelector('#nomeMes');
-            const listaDiasElemento = document.querySelector('#listaDias');
+      // Obter o email armazenado
+      const emailMudado = localStorage.getItem('emailMudado');
+      const sanitizedEmail = emailMudado.replace(/[\.#$\[\]\/]/g, '_');
 
-            function atualizarMes() {
-                nomeMesElemento.textContent = `${meses[mesAtual]} ${anoAtual}`;
-                criarDias();
-            }
+      // Obter ID do colaborador do localStorage
+      const userData = JSON.parse(localStorage.getItem('userData'));
+      const userId = userData.Cadastro;
 
-            async function criarDias() {
-                listaDiasElemento.innerHTML = '';
-                const ultimoDiaDoMes = new Date(anoAtual, mesAtual + 1, 0).getDate();
+      // Datas de início e fim do mês
+      const dataInicio = new Date(anoAtual, mesAtual, 1);
+      const dataFim = new Date(anoAtual, mesAtual + 1, 0);
 
-                // Consultar eventos no Firestore
-                const eventosQuery = query(
-                    collection(db, "admins"),
-                    where("data", ">", new Date(anoAtual, mesAtual, 1)),
-                    where("data", "<", new Date(anoAtual, mesAtual + 1, 0))
-                );
-                const eventosSnapshot = await getDocs(eventosQuery);
-                const eventos = eventosSnapshot.docs.map(doc => doc.data());
+      // Consultar eventos no Firestore
+      const eventosRef = collection(db, "admins", sanitizedEmail, "eventos");
+      const eventosQuery = query(
+        eventosRef,
+        where("data", ">=", dataInicio.toISOString().split("T")[0]),
+        where("data", "<=", dataFim.toISOString().split("T")[0])
+      );
 
-                for (let dia = 1; dia <= ultimoDiaDoMes; dia++) {
-                    const diaElemento = document.createElement('li');
-                    diaElemento.classList.add('dia');
-                    let descricao = "Expediente";
+      const eventosSnapshot = await getDocs(eventosQuery);
+      const eventos = eventosSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
 
-                    // Verificar se há evento para o dia
-                    const eventoDoDia = eventos.filter(evento => new Date(evento.data.seconds * 1000).getDate() === dia);
+      const ultimoDiaDoMes = dataFim.getDate();
 
-                    if (eventoDoDia.length > 0) {
-                        descricao = eventoDoDia[0].descricao;
-                    }
+      for (let dia = 1; dia <= ultimoDiaDoMes; dia++) {
+        const diaElemento = document.createElement('li');
+        diaElemento.classList.add('dia');
+        const dataDia = new Date(anoAtual, mesAtual, dia);
 
-                    diaElemento.innerHTML = `
-                        <div class="data">${dia}</div>
-                        <div class="descricao">${descricao}</div>
-                        <button class="botao-expandir">Detalhes</button>
-                        <div class="expanded">
-                            <p>${eventoDoDia.length > 0 ? eventoDoDia[0].detalhes : "Sem detalhes."}</p>
-                        </div>
-                    `;
+        // Filtrar eventos para o dia atual
+        const eventosDia = eventos.filter(evento => {
+          return (
+            evento.data === dataDia.toISOString().split("T")[0] &&
+            (evento.codigoColaborador === userId || evento.destinatario === 'todosFuncionarios')
+          );
+        });
 
-                    diaElemento.querySelector('.botao-expandir').addEventListener('click', function () {
-                        const expanded = diaElemento.querySelector('.expanded');
-                        expanded.classList.toggle('show');
-                    });
+        // Conteúdo do dia
+        let descricao = "Sem eventos";
+        let detalhes = "Sem Eventos";
 
-                    listaDiasElemento.appendChild(diaElemento);
-                }
-            }
-
-            document.querySelector('#anterior').addEventListener('click', function () {
-                if (mesAtual > 0) {
-                    mesAtual--;
-                } else {
-                    mesAtual = 11;
-                    anoAtual--;
-                }
-                atualizarMes();
-            });
-
-            document.querySelector('#proximo').addEventListener('click', function () {
-                if (mesAtual < 11) {
-                    mesAtual++;
-                } else {
-                    mesAtual = 0;
-                    anoAtual++;
-                }
-                atualizarMes();
-            });
-
-            atualizarMes();
+        if (eventosDia.length > 0) {
+          descricao = eventosDia[0].evento;
+          detalhes = eventosDia.map(e => `${e.horarioInicio} - ${e.horarioFim}: ${e.local}`).join("<br>");
         }
 
-        iniciarCalendario();
-    </script>
+        diaElemento.innerHTML = `
+          <div class="data">${dia}</div>
+          <div class="descricao">${descricao}</div>
+          <button class="botao-expandir">Detalhes</button>
+          <div class="expanded">${detalhes}</div>
+        `;
+
+        diaElemento.querySelector('.botao-expandir').addEventListener('click', function () {
+          diaElemento.querySelector('.expanded').classList.toggle('show');
+        });
+
+        listaDiasElemento.appendChild(diaElemento);
+      }
+    }
+
+    function iniciarCalendario() {
+      const dataAtual = new Date();
+      let mesAtual = dataAtual.getMonth();
+      let anoAtual = dataAtual.getFullYear();
+
+      const meses = [
+        "Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho",
+        "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"
+      ];
+
+      const nomeMesElemento = document.querySelector('#nomeMes');
+
+      function atualizarMes() {
+        nomeMesElemento.textContent = `${meses[mesAtual]} ${anoAtual}`;
+        carregarEventos(mesAtual, anoAtual);
+      }
+
+      document.querySelector('#anterior').addEventListener('click', function () {
+        if (mesAtual > 0) {
+          mesAtual--;
+        } else {
+          mesAtual = 11;
+          anoAtual--;
+        }
+        atualizarMes();
+      });
+
+      document.querySelector('#proximo').addEventListener('click', function () {
+        if (mesAtual < 11) {
+          mesAtual++;
+        } else {
+          mesAtual = 0;
+          anoAtual++;
+        }
+        atualizarMes();
+      });
+
+      atualizarMes();
+    }
+
+    iniciarCalendario();
+  </script>
 </body>
 
 </html>
