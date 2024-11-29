@@ -52,7 +52,6 @@
             localStorage.setItem("emailAdmin", email)
             // Lógica para Admin
             const userId = userCredential.user.uid;
-            console.log("Buscando admin com UID:", userId); // Debugging
             userDoc = await getDoc(doc(db, emailAlterado, userId));
             localStorage.setItem('acessouIndex', true)
           } else {
@@ -61,7 +60,6 @@
             const adminEmailAlterado = adminEmail.replace(/[.#$[\]/]/g, "");
             const userId = userCredential.user.uid;
             localStorage.setItem("emailAdmin", adminEmail)
-            console.log("Buscando funcionário com UID:", userId); 
             userDoc = await getDoc(doc(db, adminEmailAlterado, userId));
             
             localStorage.setItem("emailMudado", adminEmailAlterado);
@@ -75,7 +73,6 @@
           if (userDoc && userDoc.exists()) {
             const userData = userDoc.data();
             localStorage.setItem("userData", JSON.stringify(userData));
-            alert("Login bem-sucedido");
             localStorage.setItem('acessouIndex', true)
             window.location.href = "index.html";
           } else {
@@ -83,6 +80,15 @@
           }
         } catch (error) {
           console.error("Erro no login:", error);
-          alert("Erro no login: " + error.message);
+          showToast();
         }
       };
+
+              // Função para exibir o Toast
+              function showToast() {
+                var toast = document.getElementById("toast");
+                toast.className = "toast show"; 
+                setTimeout(function() { 
+                    toast.className = toast.className.replace("show", "");
+                }, 1000);
+            }
