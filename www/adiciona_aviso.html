@@ -6,9 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, viewport-fit=cover">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="theme-color" content="#2196f3">
-    <title>My App</title>
+    <title>Adicionar Avisos</title>
 
-    <link rel="stylesheet" href="css/remix-icons/remixicon.css" />
     <link rel="stylesheet" href="css/materialdesignicons.min.css">
     <link rel="stylesheet" href="css/adicionar_aviso.css">
     <link rel="stylesheet" href="css/index.css">
@@ -19,12 +18,25 @@
         <div class="view view-main">
             <div data-name="lista_user" class="page">
                 <div class="top-nav-add-aviso">
-                    <h1 class="tittle-logo"><a onclick="window.location.href = 'opcoes.html'"><i class="ri-arrow-left-s-line"></i></a></h1>
+                    <h1 class="tittle-logo">
+                        <a onclick="window.location.href = 'opcoes.html'">
+                            <i class="mdi mdi-arrow-left"></i>
+                        </a>
+                    </h1>
                     <h2 class="top-name-add-aviso">Adicionar Avisos</h2>
                 </div>
 
                 <div class="page-content-aviso">
                     <textarea class="texto-aviso" placeholder="Digite aqui..." rows="4"></textarea>
+
+                    <div class="anexar-arquivo-wrapper">
+                        <label for="anexar-arquivo">
+                            <i class="mdi mdi-paperclip"></i> Anexar Arquivos
+                        </label>
+                        <input type="file" id="anexar-arquivo" class="anexar-arquivo" multiple style="display: none;" />
+                    </div>
+
+                    <div class="pre-visualizacao"></div>
 
                     <button class="enviar-aviso">Postar</button>
                 </div>
@@ -34,8 +46,9 @@
 
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-app.js";
-        import { getAnalytics } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-analytics.js";
         import { getFirestore, doc, setDoc, collection, addDoc } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-firestore.js";
+        import { getStorage, ref, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-storage.js";
+        import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-auth.js";
 
         const firebaseConfig = {
             apiKey: "AIzaSyBk3kzqpBKEyrwHdnC_RgHmd4PDUJOqoEU",
@@ -45,50 +58,115 @@
             storageBucket: "copinfo-5a0f5.appspot.com",
             messagingSenderId: "543026869888",
             appId: "1:543026869888:web:f2ef1ce629b2bf49615865",
-            measurementId: "G-9JHXYXYKGT"
         };
 
         const app = initializeApp(firebaseConfig);
-        const analytics = getAnalytics(app);
         const db = getFirestore(app);
+        const storage = getStorage(app);
+        const auth = getAuth();
 
-        document.querySelector('.enviar-aviso').addEventListener('click', async function() {
+        let uid; // Armazena o UID do usuário
+
+        // Verifica se o usuário está autenticado
+        onAuthStateChanged(auth, (user) => {
+            if (user) {
+                uid = user.uid; // Armazena o UID
+                console.log("Usuário autenticado:", uid);
+            } else {
+                alert("Por favor, efetue o login.");
+                window.location.href = "login.html";
+            }
+        });
+
+        const preVisualizacaoContainer = document.querySelector('.pre-visualizacao');
+        const fileInput = document.querySelector('.anexar-arquivo');
+
+        // Previsualização dos arquivos anexados
+        fileInput.addEventListener('change', () => {
+            preVisualizacaoContainer.innerHTML = '';
+
+            Array.from(fileInput.files).forEach((file, index) => {
+                const previewItem = document.createElement('div');
+                previewItem.classList.add('pre-visualizacao-item');
+                previewItem.textContent = file.name;
+
+                const removeButton = document.createElement('button');
+                removeButton.classList.add('remove');
+                removeButton.textContent = '×';
+                removeButton.onclick = () => {
+                    const dt = new DataTransfer();
+                    Array.from(fileInput.files).forEach((f, i) => {
+                        if (i !== index) dt.items.add(f);
+                    });
+                    fileInput.files = dt.files;
+                    previewItem.remove();
+                };
+
+                previewItem.appendChild(removeButton);
+                preVisualizacaoContainer.appendChild(previewItem);
+            });
+        });
+
+        // Lógica para postar aviso
+        document.querySelector('.enviar-aviso').addEventListener('click', async () => {
             const avisoTexto = document.querySelector('.texto-aviso').value;
+            const arquivos = fileInput.files;
 
             if (avisoTexto.trim() !== '') {
                 const userData = JSON.parse(localStorage.getItem("userData"));
                 const adminEmail = userData.Email;
-
-                // Substituir os pontos (.) no email por sublinhados (_) para criar um nome válido para a coleção
                 const validAdminEmail = adminEmail.replace(/\./g, "_");
 
                 try {
+                    // Documento do administrador
                     const adminDocRef = doc(db, "admins", validAdminEmail);
+                    await setDoc(adminDocRef, { email: adminEmail, chat: "Ativo" });
 
-                    await setDoc(adminDocRef, {
-                        email: adminEmail,
-                        chat: "Ativo",
-                    });
-
-                    // Subcoleção "tela de aviso"
+                    // Documento do aviso
                     const avisosRef = collection(adminDocRef, "tela de aviso");
-
-                    // Adiciona o aviso na subcoleção
-                    await addDoc(avisosRef, {
+                    const avisoDoc = await addDoc(avisosRef, {
                         texto: avisoTexto,
                         data: new Date().toISOString(),
                     });
 
+                    // Upload dos arquivos e obtenção dos links
+                    let avisoComAnexos = avisoTexto;
+                    const anexos = [];
+
+                    for (const file of arquivos) {
+                        const sanitizedFileName = file.name.replace(/\s+/g, "_").replace(/[^\w.-]/g, "");
+                        const fileRef = ref(storage, `avisos/${avisoDoc.id}/${sanitizedFileName}`);
+
+                        // Fazendo o upload do arquivo
+                        await uploadBytes(fileRef, file);
+
+                        // Obtendo a URL de download do arquivo
+                        const fileURL = await getDownloadURL(fileRef);
+                        anexos.push({
+                            nome: sanitizedFileName,
+                            url: fileURL,
+                        });
+
+                        // Adiciona o link do anexo ao texto do aviso
+                        avisoComAnexos += `\n\nn ${fileURL}`;
+                    }
+
+                    // Atualiza o documento do aviso com os anexos
+                    await setDoc(doc(avisosRef, avisoDoc.id), {
+                        texto: avisoComAnexos,
+                        data: new Date().toISOString(),
+                        anexos: anexos,
+                    }, { merge: true });
+
+                    alert("Aviso postado com sucesso!");
                     document.querySelector('.texto-aviso').value = '';
-
-                    window.location.href = 'telaaviso.html';
-
+                    preVisualizacaoContainer.innerHTML = '';
                 } catch (error) {
-                    console.error('Erro ao postar aviso:', error);
-                    alert('Erro ao postar aviso. Tente novamente.');
+                    console.error("Erro ao postar aviso:", error);
+                    alert("Erro ao postar aviso. Tente novamente.");
                 }
             } else {
-                alert('Por favor, digite um aviso!');
+                alert("Por favor, digite um aviso!");
             }
         });
     </script>

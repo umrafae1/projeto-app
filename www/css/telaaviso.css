@@ -4,16 +4,15 @@
     --cinza: #acabab;
     --preto: #2a2a2a;
     --azul: #106584;
-    --azul_2:#033f57;
-
+    --azul_2: #033f57;
 }
- 
- /* Estilo básico */
- body {
+
+/* Estilo básico */
+body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
-    background-color: #f4f4f4;
+    background-color: var(--gelo);
     overflow-x: hidden;
 }
 
@@ -23,18 +22,16 @@
     height: 80px;
     display: flex;
     align-items: center;
-    
     background-color: var(--azul);
     color: white;
     padding: 0 15px;
     box-sizing: border-box;
 }
 
-.top-nav a{
+.top-nav a {
     font-size: 30px;
-    color: var(--preto);
+    color: white;
     margin-left: 2%;
-    
 }
 
 .top-name {
@@ -67,7 +64,7 @@
 }
 
 .message-item {
-    background-color: #fff;
+    background-color: white;
     padding: 15px;
     margin-bottom: 10px;
     border-radius: 8px;
@@ -161,6 +158,7 @@
         width: 90%;
     }
 }
+
 /* Estilo para garantir que os iframes sejam responsivos */
 .message-item iframe {
     width: 100%;   /* O iframe ocupará 100% da largura do contêiner */
@@ -168,4 +166,25 @@
     max-width: 100%; /* Garante que o iframe não ultrapasse o limite da tela */
     aspect-ratio: 16 / 9; /* Proporção 16:9 */
     margin: 10px 0; /* Espaçamento acima e abaixo do vídeo */
+}
+
+/* Estilo das imagens anexadas */
+.message-item img.thumbnail {
+    width: 100%;
+    max-width: 150px;
+    height: auto;
+    border-radius: 8px;
+    margin: 10px 0;
+    object-fit: cover; /* Garante que a imagem ocupe o espaço sem distorcer */
+}
+
+/* Estilo dos links para arquivos não-imagem */
+.message-item a {
+    color: var(--azul);
+    text-decoration: none;
+    font-size: 14px;
+}
+
+.message-item a:hover {
+    text-decoration: underline;
 }

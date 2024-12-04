@@ -1,5 +1,6 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-app.js";
 import { getFirestore, collection, query, orderBy, doc, deleteDoc, onSnapshot } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-firestore.js";
+import { getStorage, ref, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-storage.js";
 
 const firebaseConfig = {
     apiKey: "AIzaSyBk3kzqpBKEyrwHdnC_RgHmd4PDUJOqoEU",
@@ -14,6 +15,7 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
+const storage = getStorage(app);
 
 let currentDocId = null;  // Variável global para armazenar o ID do documento a ser excluído
 let validAdminEmail = null; // Variável para armazenar o e-mail do administrador válido
@@ -50,8 +52,21 @@ function carregarAvisos() {
                 // Substitui as quebras de linha (\n) por <br> para exibir corretamente
                 let formattedText = aviso.texto.replace(/\n/g, '<br>');
 
-                // Verificar e substituir links do YouTube por <iframe>
+                // Verificar e substituir links do YouTube por iframes
                 formattedText = insertYouTubeVideos(formattedText);
+
+                // Exibir arquivos anexados
+                if (aviso.anexos && aviso.anexos.length > 0) {
+                    aviso.anexos.forEach(arquivo => {
+                        if (arquivo.nome.match(/\.(jpg|jpeg|png|gif)$/i)) {
+                            // Para imagens, exibir como miniatura
+                            formattedText += `<br><img src="${arquivo.url}" alt="${arquivo.nome}" class="thumbnail" />`;
+                        } else {
+                            // Para outros tipos de arquivo, criar um link
+                            formattedText += `<br><a href="${arquivo.url}" target="_blank">Abrir arquivo: ${arquivo.nome}</a>`;
+                        }
+                    });
+                }
 
                 messageItem.innerHTML = `
                     <p>${formattedText}</p>
