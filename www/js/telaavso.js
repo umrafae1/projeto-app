@@ -63,7 +63,7 @@ function carregarAvisos() {
                             formattedText += `<br><img src="${arquivo.url}" alt="${arquivo.nome}" class="thumbnail" />`;
                         } else {
                             // Para outros tipos de arquivo, criar um link
-                            formattedText += `<br><a href="${arquivo.url}" target="_blank">Abrir arquivo: ${arquivo.nome}</a>`;
+                            formattedText += `<br><a href="${arquivo.url}" alt="${arquivo.nome}" target="_blank">Abrir arquivo: ${arquivo.nome}</a>`;
                         }
                     });
                 }

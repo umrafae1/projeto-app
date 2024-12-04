@@ -66,3 +66,45 @@ textarea::placeholder {
 #fileInput {
     display: none;
 }
+/* Estilo da notificação */
+.notification {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background-color: #2196F3;
+    color: white;
+    border-radius: 8px;
+    padding: 10px 15px;
+    display: flex;
+    align-items: center;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    width: 300px;
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+}
+
+.notification.show {
+    opacity: 1;
+}
+
+.notification-icon {
+    margin-right: 10px;
+    font-size: 24px;
+}
+
+.notification-message {
+    flex: 1;
+}
+
+.notification-close {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+/* Estilo da notificação de erro */
+.notification-error {
+    background-color: #f44336; /* Cor de erro */
+}
