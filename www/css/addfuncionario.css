@@ -1,107 +1,107 @@
 :root {
-    --branco: #FFFF;
-    --gelo: #f1f1f1;
-    --cinza: #acabab;
-    --preto: #2a2a2a;
-    --azul: #106584;
-  }
+  --branco: #FFFF;
+  --gelo: #f1f1f1;
+  --cinza: #acabab;
+  --preto: #2a2a2a;
+  --azul: #106584;
+}
 
-  @import url('https://fonts.googleapis.com/css2?family=Archivo+Black&family=Bebas+Neue&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Archivo+Black&family=Bebas+Neue&display=swap');
 
-  body {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    background-color: #f0f4f8;
-    font-family: "Bebas Neue", sans-serif;
-  }
-
-  /* Barra superior */
-.top-nave {
+body {
   display: flex;
+  justify-content: center;
   align-items: center;
-  background: var(--branco);
-  color: var(--preto);
-  width: 100%;
-  height: 70px;
-  
+  height: 100vh;
+  background-color: #f0f4f8;
+  font-family: "Bebas Neue", sans-serif;
+}
+
+/* Barra superior */
+.top-nave {
+display: flex;
+align-items: center;
+background: var(--branco);
+color: var(--preto);
+width: 100%;
+height: 70px;
+
 }
 
 .top-nave a{
-  font-size: 30px;
-  color: var(--preto);
-  margin-left: 2%;
+font-size: 25px;
+color: var(--preto);
+margin-left: 2%;
 }
 
 .top-nave h2 {
-  font-size: 21px;
-  margin-left: 10%;
+font-size: 21px;
+margin-left: 10%;
 }
 
-  .container {
-    background: white;
-    border-radius: 8px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    padding: 20px;
-    width: 100%;
-    text-align: center;
-    height: auto;
-  }
+.container {
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  width: 100%;
+  text-align: center;
+  height: auto;
+}
 
-  h2 {
-    margin-bottom: 20px;
-    font-size: 24px;
-    color: var(--preto);
-  }
+h2 {
+  margin-bottom: 20px;
+  font-size: 24px;
+  color: var(--preto);
+}
 
-  label {
-    font-size: 16px;
-    margin-bottom: 8px;
-    text-align: left;
-    display: block;
-    width: 100%;
-  }
+label {
+  font-size: 16px;
+  margin-bottom: 8px;
+  text-align: left;
+  display: block;
+  width: 100%;
+}
 
-  input[type="text"],
-  input[type="password"],
-  input[type="email"],
-  input[type="date"] {
-    width: 90%;
-    height: 26px;
-    border-radius: 10px;
-    margin: 10px 0;
-    padding: 10px 20px;
-    background-color: var(--gelo);
-    border: 1px solid var(--cinza);
-    font-size: 16px;
-  }
+input[type="text"],
+input[type="password"],
+input[type="email"],
+input[type="date"] {
+  width: 88%;
+  height: 16px;
+  border-radius: 3px;
+  margin: 10px 0;
+  padding: 10px 20px;
+  background-color: var(--gelo);
+  border: 1px solid var(--cinza);
+  font-size: 16px;
+}
 
-  .file-input {
-    margin: 10px 0;
-  }
+.file-input {
+  margin: 10px 0;
+}
 
-  .file-input input {
-    padding: 5px;
-    font-size: 16px;
-  }
+.file-input input {
+  padding: 5px;
+  font-size: 16px;
+}
 
-  button {
-    background-color: var(--azul);
-    color: white;
-    border: none;
-    border-radius: 4px;
-    padding: 10px;
-    cursor: pointer;
-    width: 100%;
-    font-size: 16px;
-    margin-top: 10px;
-  }
+button {
+  background-color: var(--azul);
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 10px;
+  cursor: pointer;
+  width: 100%;
+  font-size: 16px;
+  margin-top: 10px;
+}
 
-  button:hover {
-    background-color: #1976d2;
-  }
+button:hover {
+  background-color: #1976d2;
+}
 
-  button:active {
-    transform: translateY(2px);
-  }
+button:active {
+  transform: translateY(2px);
+}

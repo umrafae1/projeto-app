@@ -1,9 +1,20 @@
-:root {
-    --azul: #106584;
+:root{
+    --branco: #FFFF;
+    --gelo: #f1f1f1;
+    --cinza: #acabab;
+    --preto: #2a2a2a;
+    --azul:#106584;
+    --azul_2:#033f57;
+
 }
 
+
+@import url('https://fonts.googleapis.com/css2?family=Archivo+Black&family=Bebas+Neue&display=swap');
+
+
+
 body {
-    font-family: Arial, sans-serif;
+    font-family: "Bebas Neue", sans-serif;
     background-image: url('img/OIP.jpeg');
     background-repeat: no-repeat;
     background-size: cover;
@@ -27,14 +38,14 @@ body {
   }
   
   .top-nave a{
-    font-size: 30px;
+    font-size: 25px;
     color: var(--preto);
     margin-left: 2%;
   }
   
   .top-nave h2 {
-    font-size: 24px;
-    margin-left: 15%;
+    font-size: 20px;
+    margin-left: 18%;
   }
 
 .corpo {

@@ -1,14 +1,36 @@
-.top-nav-add-aviso {
+:root{
+    --branco: #FFFF;
+    --gelo: #f1f1f1;
+    --cinza: #acabab;
+    --preto: #2a2a2a;
+    --azul:#106584;
+    --azul_2:#033f57;
+
+}
+
+
+@import url('https://fonts.googleapis.com/css2?family=Archivo+Black&family=Bebas+Neue&display=swap');
+
+body{
+    font-family: "Bebas Neue", sans-serif;
+}
+
+.top-nav {
     width: 100%;
     height: 80px;
     display: flex;
     align-items: center;
 }
 
-.top-name-add-aviso {
+
+.top-nav a{
+    font-size: 30px;
     color: var(--preto);
-    margin-left: 60px;
-    font-size: 25px;
+}
+
+.top-nav h2 {
+    font-size: 20px;
+    margin-right: 27%;
 }
 
 .page-content-aviso {
@@ -78,7 +100,7 @@ textarea::placeholder {
     display: flex;
     align-items: center;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    width: 300px;
+    width: 290px;
     opacity: 0;
     transition: opacity 0.3s ease-in-out;
 }

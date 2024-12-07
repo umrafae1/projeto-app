@@ -1,3 +1,20 @@
+:root{
+    --branco: #FFFF;
+    --gelo: #f1f1f1;
+    --cinza: #acabab;
+    --preto: #2a2a2a;
+    --azul:#106584;
+    --azul_2:#033f57;
+
+}
+
+
+@import url('https://fonts.googleapis.com/css2?family=Archivo+Black&family=Bebas+Neue&display=swap');
+
+body{
+    font-family: "Bebas Neue", sans-serif;
+}
+
 /* Barra superior */
 .top-nave {
     display: flex;
@@ -9,13 +26,13 @@
 }
 
 .top-nave a{
-    font-size: 30px;
+    font-size: 25px;
     color: var(--preto);
     margin-left: 2%;
 }
 
 .top-nave h2 {
-    font-size: 24px;
+    font-size: 20px;
     margin-left: 20%;
 }
 
@@ -41,19 +58,6 @@
     font-size: 20px;
 }
 
-.btn-volta{
-    width: 40px;
-    height: 40px;
-    background: var(--branco);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-right: 5%;
-    border-radius: 50px;
-    border: 1px solid var(--gelo);
-    font-size: 20px;
-    color: var(--preto);
-}
 
 .btn_lu{
     width: 80%;
@@ -63,7 +67,7 @@
     font-weight: bold;
     border: none;
     margin: 15px 5;
-    border-radius: 10px;
+    border-radius: 5px;
     cursor: pointer;
     margin-top: 20px;
 }
@@ -76,7 +80,7 @@
     font-weight: bold;
     border: none;
     margin: 15px 5;
-    border-radius: 10px;
+    border-radius: 5px;
     cursor: pointer;
     margin-top: 50px;
 }
@@ -91,13 +95,4 @@
     font-weight: bold;
     cursor: pointer;
     color: #f1f1f1;
-}
-
-:root{
-    --branco: #FFFF;
-    --gelo: #f1f1f1;
-    --cinza: #acabab;
-    --preto: #2a2a2a;
-    --azul: #106584;
-    --azul_2: #033f57;
 }
