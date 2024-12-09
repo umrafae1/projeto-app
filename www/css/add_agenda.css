@@ -1,5 +1,22 @@
+:root{
+  --branco: #FFFF;
+  --gelo: #f1f1f1;
+  --cinza: #acabab;
+  --preto: #2a2a2a;
+  --azul:#106584;
+  --azul_2:#033f57;
+
+}
+
+
+@import url('https://fonts.googleapis.com/css2?family=Archivo+Black&family=Bebas+Neue&display=swap');
+
+body{
+  
+}
+
 body {
-    font-family: Arial, sans-serif;
+    font-family: "Bebas Neue", sans-serif;
     margin: 0;
     padding: 0;
     background-color: #f4f4f4;
@@ -37,11 +54,11 @@ body {
 
   h2 {
     text-align: center;
-    font-size: 28px;
+    font-size: 24px;
     margin-bottom: 20px;
   }
   label {
-    font-size: 16px;
+    font-size: 15px;
     margin-bottom: 5px;
     display: block;
     color: #333;
@@ -60,15 +77,33 @@ body {
   }
   input[type="submit"],
   input[type="button"] {
-    background-color: #007bff;
+    background-color: var(--azul);
     color: white;
     border: none;
     cursor: pointer;
+    margin-top: 3%;
   }
   input[type="submit"]:hover,
   input[type="button"]:hover {
-    background-color: #0056b3;
+    background-color: var(--azul_2);
   }
+
+  .destinatario{
+    display: flex;
+    flex-direction: column;
+    
+  }
+
+  .destinatario label{
+    font-size: 20px;
+  }
+
+  .destinatario input{
+    margin-right: 50%;
+    position: relative;
+    top: 36px;
+  }
+
   .aviso {
     background-color: #4caf50;
     color: white;
@@ -80,6 +115,7 @@ body {
   }
   #codigoColaboradorContainer {
     display: none;
+    margin-top: 5%;
   }
   .voltar {
     position: absolute;
@@ -87,10 +123,10 @@ body {
     left: 20px;
     font-size: 24px;
     cursor: pointer;
-    color: #007bff;
+    color: var(--azul);
   }
   .voltar:hover {
-    color: #0056b3;
+    color: var(--azul_2);
   }
   @media (max-width: 768px) {
     .container {

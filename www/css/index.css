@@ -168,12 +168,13 @@ form input[type='text']{
     color: #b3afaf;
 }
 
-.icone-busca{
+#icone-busca{
     position: absolute;
-    top: 0px;
-    right: 5%;
-    font-size: 27px;
-    padding: 13px;
+    top: 13px;
+    right: 12%;
+    font-size: 25px;
+    color: #033f57;
+
 }
 
 .page-content{

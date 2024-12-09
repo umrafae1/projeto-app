@@ -1,11 +1,15 @@
-:root {
+:root{
     --branco: #FFFF;
     --gelo: #f1f1f1;
     --cinza: #acabab;
     --preto: #2a2a2a;
-    --azul: #106584;
-    --azul_2: #033f57;
+    --azul:#106584;
+    --azul_2:#033f57;
+
 }
+
+
+@import url('https://fonts.googleapis.com/css2?family=Archivo+Black&family=Bebas+Neue&display=swap');
 
 * {
     margin: 0;
@@ -14,7 +18,7 @@
 }
 
 body {
-    font-family: Arial, sans-serif;
+    font-family: "Bebas Neue", sans-serif;
     background: var(--branco);
 }
 

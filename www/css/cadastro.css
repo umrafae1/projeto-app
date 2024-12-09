@@ -29,6 +29,7 @@
 
         .top-nav{
             display: flex;
+            align-items: baseline;
             gap: 15px;
 
         }
@@ -37,6 +38,10 @@
             font-size: 30px;
             color: var(--preto);
             
+        }
+
+        .top-nav h1{
+            font-size: 20px;
         }
 
         .container {
@@ -93,4 +98,3 @@
             margin-top: 20px;
             text-align: center;
         }
-        
